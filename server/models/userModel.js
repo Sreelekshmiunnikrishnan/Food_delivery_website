@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -17,7 +18,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['customer', 'restaurantOwner', 'deliveryPerson','admin'],
+    enum: ['customer', 'restaurantOwner', 'deliveryPerson'],
     default: 'customer'
   },
   address: {
@@ -26,10 +27,14 @@ const userSchema = new Schema({
   phoneNumber: {
     type: String,
   },
+  profilepic :{
+    type : String,
+    default :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrCLHZeA--7ckaEIUPD-Z0XASJ5BxYQYLsdA&s",
+  },
   orders: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Order'
+    type: [{ type: mongoose.Types.ObjectId,ref: "Order"}] ,
+    
   }]
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchema);
+export const User = mongoose.model("User",userSchema);
