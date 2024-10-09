@@ -2,16 +2,16 @@ import e from "express";
 
 const router = e.Router();
 
-import { register,login } from "../controllers/usercontrollers.js";
-
+import { register,login, checkUser,updateProfile,getProfile,deleteProfile,logout } from "../controllers/usercontrollers.js";
+import {authUser} from '../middlewares/authUser.js';
+import { getAllRestaurants, getRestaurant } from "../controllers/restaurantController.js";
 router.post("/signup",register)
 router.post("/login",login)
-//router.put("/profile-update",updateProfile)
-//router.get("/profile",getProfile)
-//router.delete("/profile-delete",deleteProfile)
-//router.post("/logout",logout)
-//router.get("/check-user",(req,res,next)=>{})
-    
-
-
+router.put("/profile-update",authUser,updateProfile)
+router.get("/profile",authUser,getProfile)
+router.delete("/profile-delete",authUser,deleteProfile)
+router.post("/logout",authUser,logout)
+router.get("/check-user",authUser,checkUser)
+//router.get("getAllRestaurants",authUser,getAllRestaurants)
+//router.get('/getRestaurant/:id',authUser,getRestaurant);
 export {router as userRouter};

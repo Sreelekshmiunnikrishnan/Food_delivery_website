@@ -1,15 +1,20 @@
 import e from "express";
 
-import { authenticate, deleteProfile, getProfile, logout, register, signin, updateProfile } from "../controllers/adminControllers.js";
+import {adminSignin, getAllUser,getUserProfile, getAdminProfile, logout, checkAdmin ,blockUser, register} from "../controllers/adminControllers.js";
+import { authAdmin } from "../middlewares/authAdmin.js";
+import { getAllRestaurants, getRestaurant } from "../controllers/restaurantController.js";
 const router = e.Router();
 
 router.post("/signup",register)
-router.post("/login",signin)
-router.put("/profile-update",authenticate,updateProfile)
-router.get("/profile",authenticate,getProfile)
-router.delete("/profile-delete",authenticate,deleteProfile)
-router.post("/logout",logout)
-//router.get("/check-admin",(req,res,next)=>{})
+router.post("/login",adminSignin)
+router.get("/getusers",authAdmin, getAllUser)
+router.get("/user-profile/:id",authAdmin, getUserProfile)
+router.put("/block-user/:id",authAdmin,blockUser)
+router.get("getAllRestaurants",getAllRestaurants)
+router.get('/getRestaurant/:id',getRestaurant);
+router.get("/admin-profile",authAdmin,getAdminProfile)
+router.post("/logout",authAdmin,logout)
+router.get("/check-admin",checkAdmin)
     
 
 

@@ -1,22 +1,28 @@
 import express from "express";
-
+import { Restaurant } from "../models/restaurantModel.js";
 import e from "express";
 const router = e.Router();
 
-const Restaurant = require('../models/Restaurant'); // Import the Restaurant model
+
 
 // Create a new restaurant
-export const create = async (req, res) => {
+export const create = async (req, res,next) => {
   try {
-    const { name, owner, address, phoneNumber, cuisineType, menuItems } = req.body;
+    const { name,owner,ownerEmail, address, phoneNumber, cuisineType,rating} = req.body;
+    console.log(req.body);
+    
+    if(!name || !address || !phoneNumber || !owner){
+      return res.status(400).json({ error: 'All fields are required' });
+    }
     const newRestaurant = new Restaurant({
       name,
       owner,
+      ownerEmail,
       address,
       phoneNumber,
       cuisineType,
-      menuItems
-    });
+      rating
+      });
     const savedRestaurant = await newRestaurant.save();
     res.status(201).json(savedRestaurant);
   } catch (error) {
@@ -25,9 +31,9 @@ export const create = async (req, res) => {
 };
 
 // Get all restaurants
-export const getAllRestaurants = async (req, res) => {
+export const getAllRestaurants = async (req, res,next) => {
   try {
-    const restaurants = await Restaurant.find().populate('owner').populate('menuItems');
+    const restaurants = await Restaurant.find().populate('owner');
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -35,9 +41,10 @@ export const getAllRestaurants = async (req, res) => {
 };
 
 // Get a restaurant by ID
-export const getRestaurant = async (req, res) => {
+export const getRestaurant = async (req, res,next) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id).populate('owner').populate('menuItems');
+    const {id} =req.params;
+    const restaurant = await Restaurant.findById(id).populate('owner');
     if (!restaurant) {
       return res.status(404).json({ message: 'Restaurant not found' });
     }
@@ -48,12 +55,12 @@ export const getRestaurant = async (req, res) => {
 };
 
 // Update a restaurant by ID
-export const updateRestaurant = async (req, res) => {
+export const updateRestaurant = async (req, res,next) => {
   try {
-    const { name, owner, address, phoneNumber, cuisineType, menuItems, rating } = req.body;
+    const { name, owner,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating } = req.body;
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
-      { name, owner, address, phoneNumber, cuisineType, menuItems, rating },
+      { name, owner,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating },
       { new: true, runValidators: true }
     );
     if (!updatedRestaurant) {
@@ -66,7 +73,7 @@ export const updateRestaurant = async (req, res) => {
 };
 
 // Delete a restaurant by ID
-export const deleteRestaurant = async (req, res) => {
+export const deleteRestaurant = async (req, res,next) => {
   try {
     const deletedRestaurant = await Restaurant.findByIdAndDelete(req.params.id);
     if (!deletedRestaurant) {

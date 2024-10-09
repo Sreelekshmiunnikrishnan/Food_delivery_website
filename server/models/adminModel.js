@@ -1,5 +1,5 @@
-import { Mongoose } from "mongoose";
-const Schema = Mongoose.Schema;
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const adminSchema = new Schema({
   name: {
@@ -17,7 +17,7 @@ const adminSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'admin'
+   default: 'admin'
   },
   address: {
     type: String,
@@ -25,14 +25,17 @@ const adminSchema = new Schema({
   phoneNumber: {
     type: String,
   },
-  user : [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
+  profilepic :{
+    type : String,
+    default :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrCLHZeA--7ckaEIUPD-Z0XASJ5BxYQYLsdA&s",
+  },
+  /*user : [{
+    type: [{ type: mongoose.Types.ObjectId,ref: "User"}] ,
+    
   }],
   restaurant: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Restaurant'
-  }]
+    type: mongoose.Types.ObjectId,ref: "Restaurant"
+  }]*/
 }, { timestamps: true });
 
 export const Admin = mongoose.model("Admin",adminSchema);

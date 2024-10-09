@@ -1,11 +1,16 @@
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
+
 const restaurantSchema = new Schema({
     name: {
       type: String,
       required: true
     },
+    ownerEmail: {
+      type:String,
+     },
     owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true
     },
     address: {
@@ -14,20 +19,21 @@ const restaurantSchema = new Schema({
     },
     phoneNumber: {
       type: String,
+      required:true,
     },
     cuisineType: {
       type: String,
-      required: true
+      required: true,
+      default : "continental",
     },
     rating: {
       type: Number,
       default: 0
     },
     menuItems: [{
-      type: Schema.Types.ObjectId,
-      ref: 'MenuItem'
+     type: mongoose.Types.ObjectId,ref: "MenuItem"
     }]
   }, { timestamps: true });
   
-  module.exports = mongoose.model('Restaurant', restaurantSchema);
+  export const Restaurant = mongoose.model('Restaurant', restaurantSchema);
   

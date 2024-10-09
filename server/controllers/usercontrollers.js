@@ -48,7 +48,7 @@ import {generateToken} from '../utilities/token.js';
       if(savedUser){
        const token = await generateToken(savedUser._id)
        res.cookie("token",token);
-     return res.status(201).json({ message: 'User created successfully' ,savedUser,token});
+     return res.status(201).json({ message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});
       }
       return res.status(400).json({ error: 'Registration unsucessful' });
@@ -74,8 +74,8 @@ export const login = async (req, res,next) => {
       }
   
       const token = await generateToken(user._id);
-    res.cookie(token);
-    return res.status(200).json({ message: "Login sucessful",token });
+    res.cookie("token",token);
+    return res.status(200).json({ message: "Login sucessful"});
 
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message || "Internal server error"});
@@ -113,21 +113,36 @@ export const login = async (req, res,next) => {
     }
   };
 
-  export const logout = (req, res) => {
-    
-    res.json({ message: 'Logout successful' });
-  };
+  export const logout = (req, res,next) => {
+    try {
+      res.clearCookie('token');
+      res.json({ message: 'Logout successful' });
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error', error });
+    }
+       
+};
 
   export const deleteProfile =  async (req, res,next) => {
     try {
       // Find and delete the user by ID
-      const user = await User.findByIdAndDelete(req.user.id);
-  
+      //const user = await User.findByIdAndDelete(req.user.id);
+      // Temporarily freezing User
+      const user = await User.updateOne({_id:req.user.id}, { $set: {status:'Inactive'} });
+     
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      res.json({ message: 'User profile deleted successfully' });
+      res.json({ message: 'User profile deleted successfully',user });
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting profile', error });
+    }
+  };
+  export const checkUser =  async (req, res,next) => {
+    try {
+     
+       res.json({ message: 'User authorized' });
     } catch (error) {
       res.status(500).json({ message: 'Error deleting profile', error });
     }
