@@ -26,7 +26,7 @@ const userSchema = new Schema({
   phoneNumber: {
     type: String,
   },
-  profilepic :{
+  profilePic :{
     type : String,
     default :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrCLHZeA--7ckaEIUPD-Z0XASJ5BxYQYLsdA&s",
   },

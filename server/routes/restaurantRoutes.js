@@ -9,7 +9,7 @@ const router = e.Router();
 
 
 // Create a new restaurant
-router.post('/create',authRestOwner,upload.single('image') ,create);
+router.post('/create',authRestOwner,create);
 
 // Get all restaurants
 router.get('/getAllRestaurants',authUser, getAllRestaurants);

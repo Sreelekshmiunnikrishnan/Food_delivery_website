@@ -1,22 +1,31 @@
 import express from "express";
 
 import e from "express";
+import { MenuItem } from "../models/menuModel.js";
+import { Restaurant } from "../models/restaurantModel.js";
 const router = e.Router();
 
 export const createMenu = async (req, res,next) => {
   try {
-    const { restaurant, name, description, price, imageUrl, available } = req.body;
+    const ownerId = req.user.id;
     
-    if(!name||!restaurant||!price ){
-        return res.status(400).json({ error: 'All fields are required' });
-      }
+    const { restaurantName,restaurantId, name, description, price,available,image} = req.body;
+    if(!name || !price || !restaurantName){
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    //const restaurantId = await Restaurant.findOne({restaurantName});
+   // const imageUrl = req.file.u;
+   // console.log(imageUrl);
+    
     const newMenuItem = new MenuItem({
-      restaurant,
-      name,
+      restaurantName,
+      ownerId,
+      restaurantId,
+       name,
       description,
       price,
-      imageUrl,
-      available
+      image,
+      available,
     });
     
     const savedMenuItem = await newMenuItem.save();

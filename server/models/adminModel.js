@@ -27,7 +27,7 @@ const adminSchema = new Schema({
   },
   profilepic :{
     type : String,
-    default :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrCLHZeA--7ckaEIUPD-Z0XASJ5BxYQYLsdA&s",
+    default :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKJQp8ndvEkIa-u1rMgJxVc7BBsR11uSLHGA&s",
   },
   /*user : [{
     type: [{ type: mongoose.Types.ObjectId,ref: "User"}] ,

@@ -9,10 +9,11 @@ const restaurantSchema = new Schema({
     ownerEmail: {
       type:String,
      },
-    owner: {
-      type: String,
+    ownerId: [{
+      type: Schema.Types.ObjectId,
+      ref:"Restaurant",
       required: true
-    },
+    }],
     address: {
       type: String,
       required: true

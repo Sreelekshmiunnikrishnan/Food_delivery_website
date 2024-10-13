@@ -31,6 +31,7 @@ export const createowner = async(req, res,next) => {
       });
 
       const savedOwner =  await newOwner.save();
+      await sendRegistrationEmail(email);
       if(savedOwner){
        const token = await generateToken(savedOwner._id)
        res.cookie("token",token);
@@ -62,7 +63,7 @@ export const ownerLogin = async (req, res,next) => {
       const token = await generateToken(ownerExists._id,'restaurantOwner');
       res.cookie("token",token);
       
-      res.json({ token, message: 'Owner Login successful' });
+      res.json({ message: 'Owner Login successful' });
 
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message || "Internal server error"});

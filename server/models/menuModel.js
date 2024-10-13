@@ -1,13 +1,25 @@
+
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
+
 const menuItemSchema = new Schema({
-    restaurant: {
+    restaurantId: {
       type: Schema.Types.ObjectId,
       ref: 'Restaurant',
-      required: true
+      required:true,
     },
     name: {
       type: String,
       required: true
     },
+    restaurantName:{
+      type: String,
+      required:true,
+    },
+    ownerId:{
+      type: Schema.Types.ObjectId,
+     ref: 'Owner',
+  },
     description: {
       type: String,
     },
@@ -15,7 +27,7 @@ const menuItemSchema = new Schema({
       type: Number,
       required: true
     },
-    imageUrl: {
+    image: {
       type: String,
     },
     available: {
@@ -24,5 +36,5 @@ const menuItemSchema = new Schema({
     }
   }, { timestamps: true });
   
-  module.exports = mongoose.model('MenuItem', menuItemSchema);
+  export const MenuItem = mongoose.model('MenuItem', menuItemSchema);
   

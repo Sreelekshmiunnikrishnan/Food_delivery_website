@@ -3,6 +3,7 @@ import  multer,{ diskStorage }  from 'multer';
 const storage = diskStorage({
    
     filename: function (req, file, cb) {
+     console.log('===File',file);
      
       cb(null, file.originalname);
     },

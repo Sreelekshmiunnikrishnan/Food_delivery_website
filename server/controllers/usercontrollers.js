@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import {generateToken} from '../utilities/token.js';
-
+import { cloudinaryInstance } from "../config/cloudinaryConfig.js";
+import { handleImageUpload } from "../utilities/cloudinary.js";
+import { sendRegistrationEmail } from "../utilities/nodemailer.js";
 
 /*export const authenticate = (req, res, next) => {
     const token = req.headers['authorization'];
@@ -21,7 +23,19 @@ import {generateToken} from '../utilities/token.js';
 
   export const register = async(req, res,next) => {
     try {
+      //let imageUrl;
+      
       const { name, email, password,role,address, phoneNumber,profilePic} = req.body;
+      
+      //if(req.file){
+       // const timestamp = Math.round(new Date() /1000);
+       // const signature = cloudinaryInstance.utils.api_sign_request(timestamp,process.env.CLOUD_API_SECRET);
+       //const cloudinaryRes= await cloudinaryInstance.uploader.upload(req.file.path);
+       // imageUrl=cloudinaryRes.url;
+      //imageUrl = await handleImageUpload(req.file.path);
+        
+     //}
+     //console.log('===imageurl',imageUrl);
       if(!name||!email ||!password ||!address||!phoneNumber){
         return res.status(400).json({ error: 'All fields are required' });
       }
@@ -33,7 +47,7 @@ import {generateToken} from '../utilities/token.js';
       const salt = await bcrypt.genSalt(10);
 
       const hashedPassword = await bcrypt.hash(password,salt);
-  
+    
       const newUser = new User({
         name,
         email,
@@ -41,12 +55,13 @@ import {generateToken} from '../utilities/token.js';
         role,
         address,
         phoneNumber,
-        
+        profilePic,
       });
-
+ 
       const savedUser =  await newUser.save();
+      await sendRegistrationEmail(email);
       if(savedUser){
-       const token = await generateToken(savedUser._id)
+       const token = await generateToken(savedUser._id);
        res.cookie("token",token);
      return res.status(201).json({ message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});

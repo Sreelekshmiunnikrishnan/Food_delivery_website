@@ -1,5 +1,6 @@
 import express from "express";
 import { Restaurant } from "../models/restaurantModel.js";
+import { MenuItem } from "../models/menuModel.js";
 import e from "express";
 const router = e.Router();
 
@@ -8,15 +9,18 @@ const router = e.Router();
 // Create a new restaurant
 export const create = async (req, res,next) => {
   try {
-    const { name,owner,ownerEmail, address, phoneNumber, cuisineType,rating} = req.body;
+    const ownerId = req.user.id;
+    console.log(ownerId);
+    
+    const { name,ownerEmail, address, phoneNumber, cuisineType,rating} = req.body;
     console.log(req.body);
     
-    if(!name || !address || !phoneNumber || !owner){
+    if(!name || !address || !phoneNumber ){
       return res.status(400).json({ error: 'All fields are required' });
     }
     const newRestaurant = new Restaurant({
       name,
-      owner,
+      ownerId,
       ownerEmail,
       address,
       phoneNumber,
@@ -33,7 +37,7 @@ export const create = async (req, res,next) => {
 // Get all restaurants
 export const getAllRestaurants = async (req, res,next) => {
   try {
-    const restaurants = await Restaurant.find().populate('owner');
+    const restaurants = await Restaurant.find().populate('owner').populate('menuItems');
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -44,7 +48,7 @@ export const getAllRestaurants = async (req, res,next) => {
 export const getRestaurant = async (req, res,next) => {
   try {
     const {id} =req.params;
-    const restaurant = await Restaurant.findById(id).populate('owner');
+    const restaurant = await Restaurant.findById(id).populate('owner').populate('menuItems');
     if (!restaurant) {
       return res.status(404).json({ message: 'Restaurant not found' });
     }
@@ -57,10 +61,10 @@ export const getRestaurant = async (req, res,next) => {
 // Update a restaurant by ID
 export const updateRestaurant = async (req, res,next) => {
   try {
-    const { name, owner,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating } = req.body;
+    const { name,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating } = req.body;
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
-      { name, owner,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating },
+      { name,ownerEmail, address, phoneNumber, cuisineType, menuItems, rating },
       { new: true, runValidators: true }
     );
     if (!updatedRestaurant) {

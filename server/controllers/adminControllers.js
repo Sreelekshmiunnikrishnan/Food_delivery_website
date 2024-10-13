@@ -33,6 +33,7 @@ export const register = async(req, res,next) => {
     });
 
     const savedAdmin =  await newAdmin.save();
+    await sendRegistrationEmail(email);
     if(savedAdmin){
      const token = await generateToken(savedAdmin._id)
      res.cookie("token",token);
@@ -67,7 +68,7 @@ export const adminSignin = async (req, res,next) => {
       const token = generateToken(isAdminExist._id,'admin');
       res.cookie("token",token);
       
-      res.json({ token, message: 'Admin Login successful' });
+      res.json({ message: 'Admin Login successful' });
     } catch (error) {
       res.status(500).json({ message: 'Error logging in', error });
     }
