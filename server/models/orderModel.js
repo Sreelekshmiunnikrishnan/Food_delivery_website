@@ -48,7 +48,7 @@ const orderSchema = new Schema({
       required: true
     },
     orderDate: { type: Date, default: Date.now },
-    deliveryTime: {
+    delivery: {
       type: Date,
     }
   }, { timestamps: true });

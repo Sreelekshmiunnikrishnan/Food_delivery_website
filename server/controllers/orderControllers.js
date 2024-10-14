@@ -1,27 +1,33 @@
 import express from 'express';
 import { Cart } from '../models/cartModel.js';
 const router = express.Router();
-import {Order} from '../models/orderModel.js';
+import { Order } from '../models/orderModel.js';
 import { sendDynamicEmail } from '../utilities/nodemailer.js';
+import { User } from '../models/userModel.js';
+import { MenuItem } from '../models/menuModel.js';
 // Create a new order
-export const createOrder =  async (req, res) => {
+export const createOrder = async (req, res) => {
   try {
-       const {user} = req;
-       
-        const cart = await Cart.findOne({userId:user.id}).populate('menus.menuId');
-        if(!cart){
-            return res.json({message : 'cart is empty'});
-        }
-     const totalPrice = cart.totalPrices;
-    const items = cart.menus;
-    
-      const { quantity, deliveryAddress, paymentMethod,deliveryTime } = req.body;
-      const orderTime = Order.orderDate;
-     if(!quantity || !deliveryAddress || !paymentMethod ) {
-      return res.status(400).json({message : 'All fields required'});
+    const { user } = req;
+
+    const cart = await Cart.findOne({ userId: user.id }).populate('menus.menuId');
+ 
+    if (!cart) {
+      return res.json({ message: 'cart is empty' });
     }
+   
+    const totalPrice = cart.totalPrices;
+    const items = cart.menus;
+    console.log(items);
+    
+    const { quantity, deliveryAddress, paymentMethod, deliveryTime } = req.body;
+    const orderTime = Order.orderDate;
+    if (!quantity || !deliveryAddress || !paymentMethod) {
+      return res.status(400).json({ message: 'All fields required' });
+    }
+
     const newOrder = new Order({
-      customer:user.id,
+      customer: cart.userId,
       items,
       quantity,
       totalPrice,
@@ -32,7 +38,11 @@ export const createOrder =  async (req, res) => {
     });
 
     const savedOrder = await newOrder.save();
-    await sendDynamicEmail(customer,savedOrder)
+    const newuser = await User.findById(user.id);
+    if (!newuser.email) {
+      return res.status(400).json({ message: 'User email not found' });
+    }
+    await sendDynamicEmail(user.id,newuser, savedOrder)
     res.status(201).json(savedOrder);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,13 +50,13 @@ export const createOrder =  async (req, res) => {
 };
 
 // Get all orders
-export const getOrders = async (req, res,next) => {
+export const getOrders = async (req, res, next) => {
   try {
     const orders = await Order.find()
       .populate('customer'); // Populate customer details
-     // .populate('items') // Populate restaurant details
-      // Populate menu item details
-     
+    // .populate('items') // Populate restaurant details
+    // Populate menu item details
+
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -54,24 +64,24 @@ export const getOrders = async (req, res,next) => {
 };
 
 // Get an order by ID
-export const getOrder =  async (req, res,next) => {
+export const getOrder = async (req, res, next) => {
   try {
-    const {user} = req;
-    const cart = await Cart.findOne({userId:user.id}).populate('menus.menuId');
-    if(!cart){
-        return res.json({message : 'cart is empty'});
+    const { user } = req;
+    const cart = await Cart.findOne({ userId: user.id }).populate('menus.menuId');
+    if (!cart) {
+      return res.json({ message: 'cart is empty' });
     }
-    res.json({ message :"order details fetched", data :cart});
+    res.json({ message: "order details fetched", data: cart });
     const order = await Order.findById(user.id)
       .populate('customer', 'name email')
       .populate('restaurant', 'name')
       .populate('items.menuItem', 'name price');
-     // .populate('deliveryPerson', 'name');
-    
+    // .populate('deliveryPerson', 'name');
+
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
-    
+
     res.status(200).json(order);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -79,13 +89,13 @@ export const getOrder =  async (req, res,next) => {
 };
 
 // Update an order (e.g., status or delivery details)
-export const updateOrder =  async (req, res,next) => {
+export const updateOrder = async (req, res, next) => {
   try {
     const { status, quantity, deliveryTime } = req.body;
 
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
-      { status,quantity, deliveryTime },
+      { status, quantity, deliveryTime },
       { new: true, runValidators: true }
     );
 
@@ -100,7 +110,7 @@ export const updateOrder =  async (req, res,next) => {
 };
 
 // Delete an order by ID
-export const deleteOrder = async (req, res,next) => {
+export const deleteOrder = async (req, res, next) => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);
 

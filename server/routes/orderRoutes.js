@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/createorder",authUser,createOrder)
 router.get("/getorders",authUser,getOrders)
 router.put("/updateorder/:id",authUser,updateOrder)
-router.get("/getorder/:id",authUser,getOrder)
+router.get("/getorder",authUser,getOrder)
 router.delete("/deleteorder",authUser,deleteOrder)
 
 export { router as orderRouter}

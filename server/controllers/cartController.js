@@ -41,6 +41,7 @@ export const addToCart = async(req,res) =>{
 
         cart.menus.push({
             menuId,
+            menuName:menu.name,
             price : menu.price,
         });
 

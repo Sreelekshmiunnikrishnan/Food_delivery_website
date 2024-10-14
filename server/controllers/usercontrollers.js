@@ -59,7 +59,7 @@ import { sendRegistrationEmail } from "../utilities/nodemailer.js";
       });
  
       const savedUser =  await newUser.save();
-      await sendRegistrationEmail(email);
+      await sendRegistrationEmail(email,name);
       if(savedUser){
        const token = await generateToken(savedUser._id);
        res.cookie("token",token);

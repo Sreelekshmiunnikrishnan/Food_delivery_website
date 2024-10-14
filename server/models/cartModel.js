@@ -10,6 +10,10 @@ const cartSchema = new Schema({
             type:Schema.Types.ObjectId,ref: "MenuItem",
         required:true,
         },
+        menuName:{
+          type:String,
+          required:true,
+        },
         price:{
             type:Number,
             required: true,
