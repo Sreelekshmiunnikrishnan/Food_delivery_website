@@ -63,7 +63,7 @@ import { sendRegistrationEmail } from "../utilities/nodemailer.js";
       if(savedUser){
        const token = await generateToken(savedUser._id);
        res.cookie("token",token);
-     return res.status(201).json({ message: 'User created successfully' ,savedUser});
+     return res.status(201).json({success: true, message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});
       }
       return res.status(400).json({ error: 'Registration unsucessful' });
@@ -88,9 +88,9 @@ export const login = async (req, res,next) => {
         return res.status(400).json({ message: 'Password doesnt match' });
       }
   
-      const token = await generateToken(user._id);
+      const token =  generateToken(user._id);
     res.cookie("token",token);
-    return res.status(200).json({ message: "Login sucessful"});
+    return res.status(200).json({success: true, message: "Login sucessful"});
 
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message || "Internal server error"});
@@ -103,7 +103,7 @@ export const login = async (req, res,next) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-      res.json(user);
+      res.json({success: true, message: "user profile fetched",user});
     } catch (error) {
       res.status(500).json({ message: 'Error fetching profile', error });
     }
@@ -111,10 +111,10 @@ export const login = async (req, res,next) => {
 
   export const updateProfile = async (req, res,next) => {
     try {
-      const { name, address, phoneNumber } = req.body;
+      const { name, email,address,role, phoneNumber } = req.body;
       const user = await User.findByIdAndUpdate(
         req.user.id,
-        { name, address, phoneNumber },
+        { name,email,role, address, phoneNumber },
         { new: true, runValidators: true }
       ).select('-password');
   
@@ -122,7 +122,7 @@ export const login = async (req, res,next) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      res.json({ message: 'Profile updated successfully', user });
+      res.json({ success: true, message: 'Profile updated successfully', user });
     } catch (error) {
       res.status(500).json({ message: 'Error updating profile', error });
     }
@@ -130,11 +130,13 @@ export const login = async (req, res,next) => {
 
   export const logout = (req, res,next) => {
     try {
-      res.clearCookie('token');
-      res.json({ message: 'Logout successful' });
-    } catch (error) {
-      res.status(500).json({ message: 'Internal server error', error });
-    }
+
+      res.clearCookie('token')
+      res.json({ success: true, message: "user logged out" });
+  } catch (error) {
+      console.log(error);
+      res.status(error.statusCode || 500).json(error.message || 'Internal server error')
+  }
        
 };
 
@@ -149,18 +151,20 @@ export const login = async (req, res,next) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      res.json({ message: 'User profile deleted successfully',user });
+      res.json({success: true, message: 'User profile deleted successfully',user });
     } catch (error) {
       res.status(500).json({ message: 'Error deleting profile', error });
     }
   };
   export const checkUser =  async (req, res,next) => {
     try {
-     
-       res.json({ message: 'User authorized' });
-    } catch (error) {
-      res.status(500).json({ message: 'Error deleting profile', error });
-    }
+
+      res.json({ success: true, message: "autherized user" });
+  } catch (error) {
+      console.log(error);
+      res.status(error.statusCode || 500).json(error.message || 'Internal server error')
+  }
+
   };
   
   

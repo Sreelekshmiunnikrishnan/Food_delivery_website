@@ -37,7 +37,7 @@ export const create = async (req, res,next) => {
 // Get all restaurants
 export const getAllRestaurants = async (req, res,next) => {
   try {
-    const restaurants = await Restaurant.find().populate('owner').populate('menuItems');
+    const restaurants = await Restaurant.find();
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -88,5 +88,44 @@ export const deleteRestaurant = async (req, res,next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+/**
+ * Search for restaurants based on query parameters.
+ * @param {Object} searchParams - The parameters to search for (name, cuisineType, rating, etc.).
+ * @returns {Promise<Array>} - Returns an array of matching restaurants.
+ */
+export const searchRestaurants = async (searchParams) => {
+  try {
+    // Create a dynamic query object based on the searchParams passed in
+    const query = {};
+
+    if (searchParams.name) {
+      // Using regular expression to search by name (case-insensitive)
+      query.name = { $regex: searchParams.name, $options: 'i' };
+    }
+
+    if (searchParams.cuisineType) {
+      query.cuisineType = searchParams.cuisineType;
+    }
+
+    if (searchParams.rating) {
+      query.rating = { $gte: searchParams.rating }; // Search for restaurants with a rating greater than or equal to the given value
+    }
+
+    if (searchParams.ownerEmail) {
+      query.ownerEmail = searchParams.ownerEmail;
+    }
+
+    // Fetch restaurants based on the query object
+    const restaurants = await Restaurant.find(query).populate('menuItems');
+    return restaurants;
+  } catch (error) {
+    console.error('Error searching for restaurants:', error);
+    throw error;
+  }
+};
+
+
+
 
 

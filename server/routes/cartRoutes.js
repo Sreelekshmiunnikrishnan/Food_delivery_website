@@ -3,7 +3,7 @@ import { addToCart, getFromCart, removeFromCart } from '../controllers/cartContr
 import {authUser} from '../middlewares/authUser.js';
 const router = e.Router();
 
-router.post('/add-to-cart/:id',authUser,addToCart);
+router.post('/add-to-cart',authUser,addToCart);
 router.get('/getcart',authUser,getFromCart);
 router.delete('/delete',authUser,removeFromCart);
 

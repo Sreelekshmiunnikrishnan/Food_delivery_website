@@ -22,7 +22,7 @@ export const addToCart = async(req,res) =>{
     try {
         
         const userId = req.user.id;
-        const  menuId  = req.params.id;
+        const  {menuId} = req.body;
 
         const menu= await MenuItem.findById(menuId);
         if(!menu){

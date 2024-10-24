@@ -9,6 +9,7 @@ import { MenuRouter } from "./menuRoutes.js";
 import { ownerRouter } from "./ownerRoutes.js";
 import { cartRouter } from "./cartRoutes.js";
 import { orderRouter } from "./orderRoutes.js";
+import { reviewRouter } from "./reviewRoutes.js";
 
 
 router.use("/user",userRouter);
@@ -18,4 +19,5 @@ router.use("/menu",MenuRouter);
 router.use("/owner",ownerRouter);
 router.use("/order",orderRouter);
 router.use("/cart",cartRouter);
+router.use("/review",reviewRouter);
 export {router as apiRouter};

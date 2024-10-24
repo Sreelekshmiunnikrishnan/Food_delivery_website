@@ -1,12 +1,14 @@
+import  mongoose  from "mongoose";
+const Schema = mongoose.Schema;
 const reviewSchema = new Schema({
-    customer: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    restaurant: {
+    menuId: {
       type: Schema.Types.ObjectId,
-      ref: 'Restaurant',
+      ref: 'MenuItem',
       required: true
     },
     rating: {
@@ -20,5 +22,5 @@ const reviewSchema = new Schema({
     }
   }, { timestamps: true });
   
-  module.exports = mongoose.model('Review', reviewSchema);
+  export const Review = mongoose.model('Review', reviewSchema);
   

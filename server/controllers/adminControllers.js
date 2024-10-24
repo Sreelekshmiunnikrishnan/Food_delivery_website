@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { Admin } from "../models/adminModel.js";
 import { generateToken } from "../utilities/token.js";
 import { User } from "../models/userModel.js";
+import {sendRegistrationEmail} from "../utilities/nodemailer.js";
 const router = express.Router();
 
 export const register = async(req, res,next) => {
