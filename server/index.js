@@ -11,7 +11,7 @@ connectDB();
 
 app.use(express.json());
 app.use(cors({
-  origin:["http://localhost:5173",'https://fooddeliveryclient-kw4hu6epr-sreelekshmi-unnikrishnans-projects.vercel'],
+  origin:["http://localhost:5173",'https://fooddeliveryclient-q9ikzm0fn-sreelekshmi-unnikrishnans-projects.vercel'],
   methods: ['GET','POST','PUT','DELETE'],
   credentials:true
 }));
