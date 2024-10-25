@@ -30,7 +30,11 @@ export const Restaurants = () => {
     fetchRestaurants();
   }, []);
     if(isLoading) {
-    <Spinner />
+      return (
+        <div className="flex justify-center items-center pt-10">
+          <Spinner />
+        </div>
+      );
     }
   
     return (

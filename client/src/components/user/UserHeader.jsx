@@ -37,22 +37,22 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    path :"/profile"
+    path :"user/profile"
   },
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
-    path :"/profile-update"
+    path :"user/profile-update"
   },
   {
     label: "Deactivate Profile",
     icon: ArrowUpOnSquareIcon,
-    path :"/profile-delete"
+    path :"user/profile-delete"
   },
   {
     label: "Sign Out",
     icon: PowerIcon,
-    path :"/logout"
+    path :"user/logout"
   },
 ];
  

@@ -20,6 +20,7 @@ import { UserProfile } from "../pages/user/UserProfile";
 import { Order} from "../pages/user/Order";
 import { MenuItems } from "../pages/user/MenuItems";
 import { UserLayout } from "../layout/UserLayout";
+import { Logout } from "../pages/user/Logout";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
             {
               path: "profile-update",
               element:<EditProfile />
+            }, 
+            {
+              path: "logout",
+              element:<Logout />
             }, 
         ],
     }, 
