@@ -38,9 +38,9 @@ export const MenuItems = () => {
           } */
         
           return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center pt-15">
        {menus.map((menu) => (
-        <div key={menu._id} className="card card-compact bg-base-100 w-96 shadow-xl m-4">
+        <div key={menu._id} className="card card-compact bg-base-100 w-96 shadow-xl m-4 p-8">
           <figure>
             <img src={menu.image} alt="menu" />
           </figure>
@@ -48,7 +48,7 @@ export const MenuItems = () => {
             <h2 className="card-title">Item name :{menu.name}</h2>
             <p> Item Price :{menu.price}</p>
             <div className="card-actions justify-end">
-              <Link to={`/user/menudetails/${menu._id}`}>
+              <Link to={`/menudetails/${menu._id}`}>
                 <button className="btn btn-primary" >More Details</button>
               </Link>
             </div>

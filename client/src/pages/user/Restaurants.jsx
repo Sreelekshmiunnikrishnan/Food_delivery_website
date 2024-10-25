@@ -38,8 +38,8 @@ export const Restaurants = () => {
     }else{
    */
     return (
-    <div> 
-    <Card className = "h-full w-full overflow-scroll">
+    <div className='pt-15'> 
+    <Card className = "h-full w-full p-8 overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>

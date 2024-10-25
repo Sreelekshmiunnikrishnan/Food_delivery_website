@@ -227,8 +227,8 @@ const navListItems = [
  
 function NavList() {
   return (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenu />
+    <ul className="mt-2 mb-4 flex flex-col justify-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center ">
+     {/*  <NavListMenu /> */}
       {navListItems.map(({ label, icon,path }, key) => (
         <Typography
           key={label}
@@ -271,9 +271,9 @@ export const UserHeader = () => {
             className="border border-gray-900 p-1.0 mr-4"
             src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
           />
-        <div className="hidden lg:block">
+         <div className="hidden lg:block">
           <NavList />
-        </div>
+        </div> 
         <IconButton
           size="sm"
           color="blue-gray"

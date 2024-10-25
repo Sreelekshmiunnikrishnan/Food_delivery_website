@@ -62,12 +62,13 @@ export const removeFromCart = async(req,res) =>{
         const {menuId} = req.body;
         let cart = await Cart.findOne({userId});
         if(!cart){
-            res.json({ message :"Cart not found"});
-            cart.menus = cart.menus.filter((item) => item.menuId.equals(menuId));
-            cart.calculateTotalPrice();
-            await cart.save();
-            res.status(200).json({ message:"Item removed from cart",cart});
+            return res.status(404).json({ message: "Cart not found" });
+           
         }
+        cart.menus = cart.menus.filter((item) => item.menuId.equals(menuId));
+        cart.calculateTotalPrice();
+        await cart.save();
+        res.status(200).json({ message:"Item removed from cart",cart});
     } catch (error) {
         console.log(error);
         res.json(error.statusCode || 500).json( error.message || "Internal server error")

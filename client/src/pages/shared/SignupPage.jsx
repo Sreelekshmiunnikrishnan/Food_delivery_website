@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 import { Input, Button, Card, Typography } from "@material-tailwind/react";
 export const SignupPage = () => {
@@ -26,10 +26,11 @@ export const SignupPage = () => {
       });
       console.log(response, '======response');
      toast.success("Signup success");
-    
+    alert("Signup success")
       navigate("/");
     } catch (error) {
       toast.error("Signup failed. Please try again.");
+      alert("Signup failed. Please try again.")
       console.error(error);
     }
    

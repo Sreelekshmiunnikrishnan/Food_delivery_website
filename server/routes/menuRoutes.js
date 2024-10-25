@@ -5,8 +5,8 @@ import {authUser} from "../middlewares/authUser.js";
 import { upload} from  "../middlewares/multer.js";
 const router = e.Router();
 router.post("/create",authRestOwner, upload.single('image'),createMenu)
-router.get("/getmenuitems",authUser,getMenuItems)
-router.get("/getmenu/:id",authUser, getMenu)
+router.get("/getmenuitems",getMenuItems)
+router.get("/getmenu/:id",getMenu)
 router.put("/updatemenu/:id",authRestOwner, upload.single('image'), updateMenu)
 router.delete("/deletemenu/:id",authRestOwner,deleteMenu)
 

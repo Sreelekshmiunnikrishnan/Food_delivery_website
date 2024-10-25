@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';  // Import useParams to get ID from URL
 import { axiosInstance } from '../../config/axiosInstance'; // Import your Axios instance
-import toast from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify'; // Import toast
 
 import { useSelector } from 'react-redux';
 import { Spinner } from '@material-tailwind/react';
@@ -12,9 +12,11 @@ export const MenuDetails = () => {
   const [loading, setLoading] = useState(true);   // Initialize as null, not an array
   const [error, setError] = useState(null);  // State for error handling
   const navigate = useNavigate();
-  
+  const userAuthorized = useSelector((state)=>state.user.userAuthorized)
+
   const fetchMenu = async () => {
     try {
+      if(userAuthorized){
       const response = await axiosInstance({
         method: "GET",
         url: `/menu/getmenu/${id}`  // Use the ID from useParams in the URL
@@ -22,6 +24,10 @@ export const MenuDetails = () => {
 
       setMenu(response.data);  // Set the fetched menu data to state
       console.log("response ===", response.data);
+    }else{
+    toast.error("Login your account to add item to cart")
+      navigate("/login");
+    }
     } catch (error) {
       console.error('Error fetching menu:', error);
       setError('Could not fetch menu details');  // Handle the error
@@ -46,7 +52,7 @@ export const MenuDetails = () => {
     
     } catch (error) {
       console.log(error); 
-      alert("error adding product to cart");
+      alert("Item already in  cart");
       toast.error(error?.response?.data?.message ||  'error adding product to cart') ;
     }
   };

@@ -2,42 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { Card, Typography, Spinner } from "@material-tailwind/react";
 
 export const EditProfile = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState([]);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-let uname,uemail,uaddress,uphoneNumber,urole;
+
   const fetchProfile = async () => {
     try {
-      const response = await axiosInstance({
-        method: "GET",
-        url: "/user/profile"
-      });
+      const response = await axiosInstance.get("/user/profile");
       setProfile(response.data);
-      setIsLoading(false); // Stop the loading spinner
-      // Set form default values
-      setValue("uname", response.data.name);
-      setValue("uemail", response.data.email);
-      setValue("urole", response.data.role);
-      setValue("uaddress", response.data.address);
-      setValue("uphoneNumber", response.data.phoneNumber);
+      setIsLoading(false);
+      setValue("name", response.data.name);
+      setValue("email", response.data.email);
+      setValue("role", response.data.role);
+      setValue("address", response.data.address);
+      setValue("phoneNumber", response.data.phoneNumber);
     } catch (error) {
-      console.log(error);
-      setIsLoading(false); // Stop the loading spinner
+      console.error(error);
+      setIsLoading(false);
     }
   };
 
   const onSubmit = async (data) => {
     try {
-      const response = await axiosInstance({
-        method: "POST",
-        url: "/user/profile-update",
-        data
-      });
+      await axiosInstance.post("/user/profile-update", data);
       toast.success("Profile updated successfully");
       navigate("/");
     } catch (error) {
@@ -50,17 +42,17 @@ let uname,uemail,uaddress,uphoneNumber,urole;
     fetchProfile();
   }, []);
 
-  if (isLoading) {
+ if (isLoading) {
     return (
       <div className="flex justify-center items-center pt-10">
         <Spinner />
       </div>
     );
-  }
-
+  } 
+  
   return (
-    <div className="flex justify-center items-center pt-10 bg-gray-100">
-      <Card className="w-300 p-6">
+    <div className="flex justify-center items-center  bg-gray-100">
+      <Card className="w-300 p-4">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
           Edit Profile
         </Typography>
@@ -73,7 +65,7 @@ let uname,uemail,uaddress,uphoneNumber,urole;
                 type="text"
                 {...register("name", { required: "Name is required" })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-                placeholder={uname}
+                
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
@@ -90,15 +82,15 @@ let uname,uemail,uaddress,uphoneNumber,urole;
                   }
                 })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-                placeholder={uemails}
+                
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
 
             <div className="w-full max-w-sm min-w-[200px]">
-              <label htmlFor="role">Choose your role:</label>
+              <label htmlFor="role" className="block mb-2 text-sm text-slate-600">Choose your role:</label>
               <select 
-                className="border border-blue rounded-md" 
+                className="w-full bg-transparent text-slate-700 text-sm border border-blue-gray-300 rounded-md px-3 py-2" 
                 id="role" 
                 {...register("role", { required: "Role is required" })}
               >
@@ -131,12 +123,18 @@ let uname,uemail,uaddress,uphoneNumber,urole;
                   }
                 })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
+                
               />
               {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
             </div>
           </div>
           <div className="flex justify-center">
-            <button className="btn btn-primary">Edit</button>
+            <button 
+              type="submit"
+              className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
+            >
+              Update Profile
+            </button>
           </div>
         </form>
       </Card>

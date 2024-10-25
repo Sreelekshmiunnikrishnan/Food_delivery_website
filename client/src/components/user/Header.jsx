@@ -31,6 +31,8 @@ export const Header = () => {
         { name: "Home", path: "/" },
         { name: "About", path: "/about" },
         { name: "Contact Us", path: "/contact" },
+        { name: "Restaurants", path: "/restaurant" },
+        { name: "Menu", path: "/menu" },
 
       ].map((item) => (
         <Typography

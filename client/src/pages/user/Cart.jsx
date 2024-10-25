@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/UseFetch";
 import { CartCards } from "../../components/user/Card";
-import toast from 'react-hot-toast';
-
+import { toast } from 'react-toastify';
 import { axiosInstance } from "../../config/axiosInstance";
 
 export const Cart = () => {
     const [cartData, isLoading, error] = useFetch("/cart/getcart");
+    if(!cartData){
+   toast.error("cart can't be fetched");
+    }
+    
 
-    console.log("cartData====", cartData);
-
-   /*  const handleRemoveItem = async (menuId) => {
+     const handleRemoveItem = async (menuId) => {
         try {
             const response = await axiosInstance({
                 method: "DELETE",
                 url: "/cart/delete",
                 data: { menuId : menuId },
             });
-            toast.success("item removed from cart");
+            setItems((prevItems) => prevItems.filter(item => item._id !== menuId));
+            toast.success("Item removed from cart");
         } catch (error) {
             console.log(error);
             toast.error(error?.response?.data?.message || "error while removing product");
-        } */
-    //};
+        } 
+    };
 
     return (
         <div>

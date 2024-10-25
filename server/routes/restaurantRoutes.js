@@ -12,7 +12,7 @@ const router = e.Router();
 router.post('/create',authRestOwner,create);
 
 // Get all restaurants
-router.get('/getAllRestaurants',authUser, getAllRestaurants);
+router.get('/getAllRestaurants', getAllRestaurants);
 
 // Get a restaurant by ID
 router.get('/getRestaurant/:id',authUser, getRestaurant);

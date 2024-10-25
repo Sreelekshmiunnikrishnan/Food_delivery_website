@@ -61,7 +61,7 @@ import { sendRegistrationEmail } from "../utilities/nodemailer.js";
       const savedUser =  await newUser.save();
       await sendRegistrationEmail(email,name);
       if(savedUser){
-       const token = await generateToken(savedUser._id);
+       const token =  generateToken(savedUser._id);
        res.cookie("token",token);
      return res.status(201).json({success: true, message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});
@@ -86,6 +86,11 @@ export const login = async (req, res,next) => {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(400).json({ message: 'Password doesnt match' });
+      }
+      if (user.status === 'Inactive' && user.isBlocked === true) {
+        user.status = 'Active';
+        user.isBlocked = false;
+        await user.save();
       }
   
       const token =  generateToken(user._id);
@@ -145,7 +150,7 @@ export const login = async (req, res,next) => {
       // Find and delete the user by ID
       //const user = await User.findByIdAndDelete(req.user.id);
       // Temporarily freezing User
-      const user = await User.updateOne({_id:req.user.id}, { $set: {status:'Inactive'} });
+      const user = await User.updateOne({_id:req.user.id}, { $set: {status:'Inactive',isBlocked : true} });
      
       if (!user) {
         return res.status(404).json({ message: 'User not found' });

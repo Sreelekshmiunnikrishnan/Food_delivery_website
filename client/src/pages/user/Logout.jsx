@@ -13,7 +13,7 @@ export const Logout = () => {
                 method: "POST",
                 url: "/user/logout"
             });
-
+         if(response){
             // Show a success toast message
             toast.success("Logout Successful");
 
@@ -21,6 +21,8 @@ export const Logout = () => {
             setTimeout(() => {
                 navigate('/login');
             }, 2000); // Wait for 2 seconds to let the toast display
+         }
+           
 
         } catch (error) {
             console.log(error);
