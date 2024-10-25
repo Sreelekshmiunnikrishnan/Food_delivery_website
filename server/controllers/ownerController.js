@@ -1,5 +1,5 @@
 import express from "express";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import {sendRegistrationEmail} from '../utilities/nodemailer.js';
 import {generateToken} from '../utilities/token.js';
