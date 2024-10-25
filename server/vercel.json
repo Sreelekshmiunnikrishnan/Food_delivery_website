@@ -6,9 +6,7 @@
         "use": "@vercel/node"
       }
     ],
-    "scripts": {
-        "build": "npm rebuild bcrypt --build-from-source"
-      },
+   
     "routes": [
       {
         "src": "/(.*)",
