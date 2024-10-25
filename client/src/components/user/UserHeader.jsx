@@ -209,13 +209,13 @@ const navListItems = [
   {
     label: "Restaurants",
     icon: BuildingOfficeIcon,
-     path: "/user/restaurant" ,
+     path: "/restaurant" ,
     
     },
     {
       label: "Menu",
       icon:CakeIcon,
-       path: "/user/menu" ,
+       path: "/menu" ,
       
       },
   {

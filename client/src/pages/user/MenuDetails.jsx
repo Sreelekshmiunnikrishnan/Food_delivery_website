@@ -12,8 +12,7 @@ export const MenuDetails = () => {
   const [loading, setLoading] = useState(true);   // Initialize as null, not an array
   const [error, setError] = useState(null);  // State for error handling
   const navigate = useNavigate();
-  const userAuthorized = useSelector((state)=>state.user.userAuthorized);
-
+  
   const fetchMenu = async () => {
     try {
       const response = await axiosInstance({
@@ -35,8 +34,7 @@ export const MenuDetails = () => {
   const addToCart = async() =>{
     try {
      
-      if(userAuthorized){
-      const response = await axiosInstance({
+     const response = await axiosInstance({
         method: "POST",
         url: "/cart/add-to-cart" ,
          data: {menuId:id} // Use the ID from useParams in the URL
@@ -45,9 +43,7 @@ export const MenuDetails = () => {
       alert("Item successfully added to cart");
       toast.success("Item added to cart successfully");
       navigate("/user/profile");
-    }else{
-      navigate("/login");
-    }
+    
     } catch (error) {
       console.log(error); 
       alert("error adding product to cart");

@@ -54,26 +54,20 @@ export const router = createBrowserRouter([
       },
 
       
-     /*  {
+       {
         path: "restaurant",
         element: <Restaurants />,
         
       },
       {
-        path: "menuitems",
-        element: <MenuItems />,
-        
+        path: "menu",
+        element: <MenuItems />
       },
+      
       {
-        path: "restauarant-details/:id",
-        element: <RestaurantDetails />,
-        
-      },
-      {
-        path: "menu-details/:id",
-        element: <MenuDetails />,
-        
-      }, */
+        path: "menudetails/:id",
+        element:<MenuDetails />
+      }, 
       {
         path: "user",
         element : <ProtectRoute  />,
@@ -86,22 +80,22 @@ export const router = createBrowserRouter([
                 path: "cart",
                 element: <Cart />,
             },
-            {
+            /* {
                 path: "restaurant",
                 element: <Restaurants />,
-            },
+            }, */
             {
                 path: "order",
                 element: <Order />
             },
-            {
+           /*  {
               path: "menu",
               element: <MenuItems />
             },
              {
               path: "menudetails/:id",
               element:<MenuDetails />
-            }, 
+            },  */
             {
               path: "profile-update",
               element:<EditProfile />

@@ -29,13 +29,13 @@ export const MenuItems = () => {
     },[]); 
     
       
-        if(isLoading) {
+       /*  if(isLoading) {
           return (
             <div className="flex justify-center items-center pt-10">
               <Spinner />
             </div>
           );
-          }
+          } */
         
           return (
     <div className="flex flex-wrap justify-center">

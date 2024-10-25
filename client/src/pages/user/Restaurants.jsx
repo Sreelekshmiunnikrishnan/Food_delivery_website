@@ -29,14 +29,14 @@ export const Restaurants = () => {
   useEffect(() => {
     fetchRestaurants();
   }, []);
-    if(isLoading) {
+    /* if(isLoading) {
       return (
         <div className="flex justify-center items-center pt-10">
           <Spinner />
         </div>
       );
-    }
-  
+    }else{
+   */
     return (
     <div> 
     <Card className = "h-full w-full overflow-scroll">
@@ -90,5 +90,6 @@ export const Restaurants = () => {
        </div>
   );
 }
+
   
 
