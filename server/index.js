@@ -8,9 +8,6 @@ const app = express()
 const port = 3000
 connectDB();
 
-app.get('/', (req, res,next) => {
-  res.send('Hello World!')
-})
 
 app.use(express.json());
 app.use(cors({
@@ -19,6 +16,10 @@ app.use(cors({
   credentials:true
 }));
 app.use(cookieParser());
+app.get('/', (req, res,next) => {
+  res.send('Hello World!')
+})
+
 
 app.use('/api',apiRouter);
 
