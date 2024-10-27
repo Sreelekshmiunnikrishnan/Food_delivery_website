@@ -81,22 +81,12 @@ export const router = createBrowserRouter([
                 path: "cart",
                 element: <Cart />,
             },
-            /* {
-                path: "restaurant",
-                element: <Restaurants />,
-            }, */
+           
             {
                 path: "order",
                 element: <Order />
             },
-           /*  {
-              path: "menu",
-              element: <MenuItems />
-            },
-             {
-              path: "menudetails/:id",
-              element:<MenuDetails />
-            },  */
+         
             {
               path: "profile-update",
               element:<EditProfile />
