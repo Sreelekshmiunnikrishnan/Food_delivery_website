@@ -4,9 +4,7 @@ import { Header } from "../components/user/Header";
 import { Footer } from "../components/user/Footer";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Header } from "../components/user/Header";
-import { Footer } from "../components/user/Footer";
-import { Outlet } from "react-router-dom";
+
 import { Outlet } from "react-router-dom";
 import { axiosInstance } from '../config/axiosInstance';
 import {AdminHeader} from "../components/admin/AdminHeader";

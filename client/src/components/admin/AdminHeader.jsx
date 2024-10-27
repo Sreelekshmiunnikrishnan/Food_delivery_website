@@ -232,7 +232,7 @@ function NavList() {
   );
 }
  
-export const UserHeader = () => {
+export const AdminHeader = () => {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
  
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
