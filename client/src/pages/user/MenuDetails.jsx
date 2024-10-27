@@ -48,7 +48,7 @@ export const MenuDetails = () => {
       console.log("response ===", response.data);
       alert("Item successfully added to cart");
       toast.success("Item added to cart successfully");
-      navigate("/user/profile");
+      navigate("/user/cart");
     
     } catch (error) {
       console.log(error); 

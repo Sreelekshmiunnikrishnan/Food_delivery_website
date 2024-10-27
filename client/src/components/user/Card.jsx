@@ -79,7 +79,7 @@ export const CartCards = ({ item, handleRemove ,totalPrices}) => {
             <p>{item?.menuId?.name} </p>
             <p>{item?.menuId?.price}</p>
           </div>
-          
+         
           <button className="btn btn-secondary" onClick={()=>handleRemove(item?._id)}>Remove</button>
         </div>
        </div>

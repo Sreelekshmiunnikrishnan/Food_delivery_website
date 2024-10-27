@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose, { trusted } from 'mongoose';
+import mongoose from 'mongoose';
 import { connectDB } from './config/db.js';
 import { apiRouter } from './routes/index.js';
 import cookieParser from 'cookie-parser';
