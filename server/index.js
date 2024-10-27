@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mongoose, { trusted } from 'mongoose';
 import { connectDB } from './config/db.js';
 import { apiRouter } from './routes/index.js';
 import cookieParser from 'cookie-parser';
@@ -8,20 +8,20 @@ const app = express()
 const port = 3000
 connectDB();
 
-
 app.use(express.json());
 app.use(cors({
   origin:["http://localhost:5173",'https://food-delivery-website-client.vercel.app'],
   methods: ['GET','POST','PUT','DELETE'],
-  credentials:true,
-  allowedHeaders:['Content-type'],
+ credentials:true,
+ 
 }));
+
+
+
 app.use(cookieParser());
 app.get('/', (req, res,next) => {
-  res.send('Hello World!')
- 
-})
-
+  res.send('Hello World!');
+ })
 
 app.use('/api',apiRouter);
 

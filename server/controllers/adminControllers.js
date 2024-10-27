@@ -36,8 +36,12 @@ export const register = async(req, res,next) => {
     const savedAdmin =  await newAdmin.save();
     await sendRegistrationEmail(email);
     if(savedAdmin){
-     const token = await generateToken(savedAdmin._id)
-     res.cookie("token",token);
+     const token =  generateToken(savedAdmin._id)
+     res.cookie("token",token,{
+      sameSite:"None",
+      secure:true,
+      httpOnly:true,
+     });
    return res.status(201).json({ message: 'Admin created successfully' ,savedAdmin});
     // res.status(200).json({message: 'User created successfully',savedUser});
     }
@@ -67,7 +71,11 @@ export const adminSignin = async (req, res,next) => {
         return res.status(400).json({ message: 'Password doesnt match' });
       }
       const token = generateToken(isAdminExist._id,'admin');
-      res.cookie("token",token);
+      res.cookie("token",token,{
+        sameSite:"None",
+        secure:true,
+        httpOnly:true,
+       });
       
       res.json({ message: 'Admin Login successful' });
     } catch (error) {
@@ -117,7 +125,11 @@ export const adminSignin = async (req, res,next) => {
   export const logout = (req, res) => {
     
     try {
-      res.clearCookie('token');
+      res.clearCookie('token',{
+        sameSite:"None",
+        secure:true,
+        httpOnly:true,
+       });
       res.json({ message: 'Logout successful' });
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error });
