@@ -1,7 +1,7 @@
 
 
 import { createBrowserRouter } from "react-router-dom";
-
+import { AdminProfile} from "../pages/admin/AdminProfile";
 import { ErrorPage } from "../pages/user/ErrorPage";
 import { About } from "../pages/shared/About";
 import { RestaurantDetails } from "../pages/user/RestaurantDetails";
