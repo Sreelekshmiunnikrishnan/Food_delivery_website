@@ -140,7 +140,30 @@ export const router = createBrowserRouter([
         element: <LoginPage role="admin"/>,
        
       },
-    
+      {
+      path : "admin",
+      element: <ProtectRoute />,
+      errorElement:<ErrorPage />,
+
+      children:[
+        {
+          path: "admin-profile",
+          element: <AdminProfile />,
+      },
+      {
+          path: "users",
+          element: <UserProfile />,
+      },
+      /* {
+          path: "restaurant",
+          element: <Restaurants />,
+      }, */
+      {
+          path: "Restaurant owners",
+          element: <OwnerProfile />
+      },
+    ]
+      }
     ],
   },
   ]);

@@ -32,9 +32,9 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    path :"/profile"
+    path :"/admin-profile"
   },
-  {
+  /* {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
     path :"/profile-update"
@@ -43,7 +43,7 @@ const profileMenuItems = [
     label: "Deactivate Profile",
     icon: Cog6ToothIcon,
     path :"/profile-delete"
-  },
+  }, */
   {
     label: "Sign Out",
     icon: PowerIcon,
@@ -80,9 +80,10 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon,path }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
+            <Link to={path} key={label} onClick={closeMenu}>
             <MenuItem
               key={label}
               onClick={closeMenu}
@@ -104,7 +105,7 @@ function ProfileMenu() {
               >
                 {label}
               </Typography>
-            </MenuItem>
+            </MenuItem></Link>
           );
         })}
       </MenuList>
@@ -199,12 +200,12 @@ const navListItems = [
   {
     label: "Users",
     icon: CubeTransparentIcon,
-     path: "/user" 
+     path: "/admin/user" 
   },
   {
     label: "Restaurant owners",
     icon: CodeBracketSquareIcon,
-    path : "/owner"
+    path : "/admin/owner"
   },
 ];
  
@@ -212,11 +213,11 @@ function NavList() {
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
+      {navListItems.map(({ label, icon,path}, key) => (
         <Typography
-          key={label}
-          as="a"
-          href="#"
+        key={label}
+        as={Link} // Use Link component from react-router-dom
+        to={path}
           variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
