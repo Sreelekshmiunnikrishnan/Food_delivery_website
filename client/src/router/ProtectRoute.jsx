@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 export const ProtectRoute = () => {
 
     const userAuthorized = useSelector((state)=>state.user.userAuthorized)
-   // const adminAuthorized = useSelector((state)=>state.admin.adminAuthorized)
+    const adminAuthorized = useSelector((state)=>state.admin.adminAuthorized)
     console.log('userAutherized======',userAuthorized);
     
     const navigate = useNavigate();
@@ -16,5 +16,5 @@ export const ProtectRoute = () => {
         }
     // }, []);
 
-    return userAuthorized && <Outlet />;
+    return userAuthorized,adminAuthorized && <Outlet />;
 };
