@@ -1,7 +1,7 @@
 
 
 import { createBrowserRouter } from "react-router-dom";
-
+import { AdminProfile} from "../pages/admin/AdminProfile";
 import { ErrorPage } from "../pages/user/ErrorPage";
 import { About } from "../pages/shared/About";
 import { RestaurantDetails } from "../pages/user/RestaurantDetails";
@@ -81,22 +81,12 @@ export const router = createBrowserRouter([
                 path: "cart",
                 element: <Cart />,
             },
-            /* {
-                path: "restaurant",
-                element: <Restaurants />,
-            }, */
+           
             {
                 path: "order",
                 element: <Order />
             },
-           /*  {
-              path: "menu",
-              element: <MenuItems />
-            },
-             {
-              path: "menudetails/:id",
-              element:<MenuDetails />
-            },  */
+         
             {
               path: "profile-update",
               element:<EditProfile />
@@ -140,30 +130,7 @@ export const router = createBrowserRouter([
         element: <LoginPage role="admin"/>,
        
       },
-      {
-      path : "admin",
-      element: <ProtectRoute />,
-      errorElement:<ErrorPage />,
-
-      children:[
-        {
-          path: "admin-profile",
-          element: <AdminProfile />,
-      },
-      {
-          path: "users",
-          element: <UserProfile />,
-      },
-      /* {
-          path: "restaurant",
-          element: <Restaurants />,
-      }, */
-      {
-          path: "Restaurant owners",
-          element: <OwnerProfile />
-      },
-    ]
-      }
+    
     ],
   },
   ]);
