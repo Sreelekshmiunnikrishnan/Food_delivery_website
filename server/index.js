@@ -10,15 +10,15 @@ connectDB();
 
 app.use(express.json());
 app.use(cors({
-  origin:["http://localhost:5173","https://food-delivery-website-client.vercel.app"],
+  origin: 'https://foodorderwebsitedelicazy.netlify.app',
   credentials:true,
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
    allowedHeaders: ['Content-Type', 'Authorization']
 }));
  
-app.options('*', (req, res) => {
+/* app.options('*', (req, res) => {
     res.sendStatus(200);
-});
+}); */
 
 
 
