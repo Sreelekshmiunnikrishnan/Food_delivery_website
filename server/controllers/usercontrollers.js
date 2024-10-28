@@ -106,7 +106,7 @@ export const login = async (req, res,next) => {
         secure:true,
         httpOnly:true,
         path:"/",
-        domain:"https://foodorderwebsitedelicazy.netlify.app"
+        domain:"foodorderwebsitedelicazy.netlify.app"
        });
     return res.status(200).json({success: true, message: "Login sucessful"});
 
