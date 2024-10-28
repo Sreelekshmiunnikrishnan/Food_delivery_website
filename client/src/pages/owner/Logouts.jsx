@@ -4,14 +4,14 @@ import { toast, ToastContainer } from 'react-toastify'; // Import toast
 import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
 import { axiosInstance } from '../../config/axiosInstance';
 
-export const Logout = () => {
+export const Logouts = () => {
     const navigate = useNavigate();
 
     const log = async () => {
         try {
             const response = await axiosInstance({
                 method: "POST",
-                url: "/user/logout"
+                url: "/owner/logout"
             });
          if(response){
             // Show a success toast message
@@ -19,7 +19,7 @@ export const Logout = () => {
 
             // Redirect to login page
             setTimeout(() => {
-                navigate('/');
+                navigate('/login');
             }, 2000); // Wait for 2 seconds to let the toast display
          }
            
@@ -41,5 +41,6 @@ export const Logout = () => {
         </div>
     );
 };
+
 
 

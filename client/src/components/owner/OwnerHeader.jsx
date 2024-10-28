@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   MobileNav,
@@ -11,38 +12,40 @@ import {
   Avatar,
   Card,
   IconButton,
+  Collapse,
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
+  ShoppingCartIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
+  ArrowUpOnSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
-  InboxArrowDownIcon,
+  BuildingOfficeIcon,
   LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  CodeBracketSquareIcon
 } from "@heroicons/react/24/solid";
 import { DarkMode } from "../shared/DarkMode";
- 
 // profile menu component
 const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    path :"/profile"
+    path :"/owner/owner-profile"
   },
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
-    path :"/profile-update"
+    path :"/owner/profile-update"
   },
   {
     label: "Deactivate Profile",
     icon: Cog6ToothIcon,
-    path :"/profile-delete"
+    path :"owner/profile-delete"
   },
   {
     label: "Sign Out",
@@ -80,9 +83,10 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon,path }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
+            <Link to={path} key={label} onClick={closeMenu}> {/* Use Link here */}
             <MenuItem
               key={label}
               onClick={closeMenu}
@@ -104,7 +108,7 @@ function ProfileMenu() {
               >
                 {label}
               </Typography>
-            </MenuItem>
+            </MenuItem></Link>
           );
         })}
       </MenuList>
@@ -194,29 +198,30 @@ const navListItems = [
   {
     label: "Home",
     icon: UserCircleIcon,
-    path:"/"
+    path:"/owner/owner-profile"
   },
   {
-    label: "Restaurants",
+    label: " create Restaurant",
     icon: CubeTransparentIcon,
-     path: "/restaurant" 
+     path: "/owner/createrestaurant" 
   },
   {
-    label: "Menu items",
+    label: "Create Menuitems",
     icon: CodeBracketSquareIcon,
-    path : "/menu"
+    path : "/owner/createmenu"
   },
 ];
  
 function NavList() {
+ 
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
+     {/*  <NavListMenu /> */}
+      {navListItems.map(({ label, icon,path }, key) => (
         <Typography
-          key={label}
-          as="a"
-          href="#"
+        key={label}
+        as={Link} // Use Link component from react-router-dom
+        to={path}
           variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
@@ -231,7 +236,7 @@ function NavList() {
   );
 }
  
-export const UserHeader = () => {
+export const OwnerHeader = () => {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
  
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -242,6 +247,7 @@ export const UserHeader = () => {
       () => window.innerWidth >= 960 && setIsNavOpen(false),
     );
   }, []);
+ 
  
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] ">
@@ -270,14 +276,14 @@ export const UserHeader = () => {
         <DarkMode />
         <ProfileMenu />
       </div>
-      <MobileNav open={isNavOpen} className="overflow-scroll">
+      <Collapse open={isNavOpen} className="overflow-scroll">
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
     {/* Content Section */}
     <div className="mx-auto max-w-screen-lg py-12">
         
-        
+        <h1>owner profile</h1>
     </div>
     </div>
   );

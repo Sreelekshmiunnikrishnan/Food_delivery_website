@@ -9,31 +9,36 @@ import { Outlet } from "react-router-dom";
 import { axiosInstance } from '../config/axiosInstance';
 import {AdminHeader} from "../components/admin/AdminHeader";
 import { clearAdmin, saveAdmin } from '../redux/features/adminSlice';
+import { login, logout } from '../redux/features/authSlice';
 
 export const AdminLayout = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const adminAuthorized = useSelector((state)=>state.admin.adminAuthorized)
+  const userAuthorized = useSelector((state) => state.auth.userAuthorized);
 
   const checkAdmin = async () => {
     try {
         const response = await axiosInstance({ method: "GET", url: "/admin/check-admin" });
         console.log(response, "====response");
-        dispatch(saveAdmin(response?.data?.data));
+        dispatch(login(response?.data?.data));
     } catch (error) {
         console.log(error, "===error");
-        dispatch(clearAdmin());
+        dispatch(logout());
     }
 };
 
 useEffect(() => {
     checkAdmin();
-}, [location.pathname]);
+}, []);
+
+if (userAuthorized === undefined) {
+  return <div>Loading...</div>;
+}
   return (
     <div className="pt-3 ">
-           {adminAuthorized ? <AdminHeader /> : <Header />}
+           {userAuthorized ? <AdminHeader /> : <Header />}
             
             <div className="min-h-110">
                 <Outlet />

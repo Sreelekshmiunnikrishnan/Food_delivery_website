@@ -22,115 +22,98 @@ import { MenuItems } from "../pages/user/MenuItems";
 import { UserLayout } from "../layout/UserLayout";
 import { Logout } from "../pages/user/Logout";
 import { DeleteProfile } from "../pages/user/DeleteProfile";
+import {OwnerProfile} from "../pages/owner/OwnerProfile";
+import { CreateRestaurant} from "../pages/owner/CreateRestaurant";
+import { EditRestaurant} from "../pages/owner/EditRestaurant";
+import { CreateMenu} from "../pages/owner/CreateMenu";
+import { EditMenu} from "../pages/owner/EditMenu";
+import { EditProfiles } from "../pages/owner/EditProfiles";
+import { DeleteProfiles } from "../pages/owner/DeleteProfiles";
+import { Logouts } from "../pages/owner/Logouts";
+/* import { EditProfile} from "../pages/owner/EditProfile";
+import {DeleteProfile} from "../pages/owner/DeleteProfile";
+import {Logout} from "../pages/owner/Logout"; */
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element:<UserLayout />,
-      errorElement: <ErrorPage />,
-      children:[
-        {
-          path: "signup",
-          element: <SignupPage />,
-         
-        },
-        {
-          path: "login",
-          element: <LoginPage />,
-         
-        },
-        {
-        path: "",
-        element: <Home />,
-       
-      },
-      {
-        path: "about",
-        element: <About />,
-        
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-        
-      },
-
-      
-       {
-        path: "restaurant",
-        element: <Restaurants />,
-        
-      },
-      {
-        path: "menu",
-        element: <MenuItems />
-      },
-      
-      {
-        path: "menudetails/:id",
-        element:<MenuDetails />
-      }, 
+  {
+    path: "/",
+    element: <UserLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "signup", element: <SignupPage /> },
+      { path: "login", element: <LoginPage /> },
+      { path: "", element: <Home /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
+      { path: "restaurant", element: <Restaurants /> },
+      { path: "menu", element: <MenuItems /> },
+      { path: "menudetails/:id", element: <MenuDetails /> },
       {
         path: "user",
-        element : <ProtectRoute  />,
+        element: <ProtectRoute role="user" />,
         children: [
-            {
-                path: "profile",
-                element: <UserProfile />,
-            },
-            {
-                path: "cart",
-                element: <Cart />,
-            },
-           
-            {
-                path: "order",
-                element: <Order />
-            },
-         
-            {
-              path: "profile-update",
-              element:<EditProfile />
-            }, 
-            {
-              path: "profile-delete",
-              element:<DeleteProfile />
-            }, 
-            {
-              path: "logout",
-              element:<Logout />
-            }, 
+          { path: "profile", element: <UserProfile /> },
+          { path: "profile-update", element: <EditProfile /> },
+          { path: "profile-delete", element: <DeleteProfile /> },
+          { path: "cart", element: <Cart /> },
+          { path: "order", element: <Order /> },
+          { path: "restaurant", element: <Restaurants /> },
+         { path: "menu", element: <MenuItems /> },
+         { path: "menudetails/:id", element: <MenuDetails /> },
+          {path:"logout",element:< Logout/>}
         ],
-    }, 
+      },
     ],
   },
-      {
-        path : "owner",
-        element :<OwnerLayout />,
-        errorElement:<ErrorPage />,
-      
-      children : [
-        
-        {
-          path: "login",
-          element: <LoginPage role="restaurantOwner"/>,
-         
-        },
-      
-      ],
-    },
-    {
-      path : "admin",
-      element :<AdminLayout />,
-      errorElement:<ErrorPage />,
-    
-    children : [
-      
+  {
+    path: "owner",
+    element: <OwnerLayout />,
+    errorElement: <ErrorPage />,
+    children: [
       {
         path: "login",
-        element: <LoginPage role="admin"/>,
-       
+        element: <LoginPage role="restaurantOwner" />,
       },
-    
+      {
+        path: "owner-profile",
+        element: <OwnerProfile />,
+      },
+      {
+        path: "profile-update",
+        element: <EditProfiles />,
+      },
+      {
+        path: "profile-delete",
+        element:<DeleteProfiles />,
+      },
+      {
+        path: "logout",
+        element:<Logouts />,
+      },
+      {
+        path: "createrestaurant",
+        element: <CreateRestaurant />,
+      },
+      {
+        path: "createmenu",
+        element: <CreateMenu />
+      },
+      // Other owner routes
     ],
   },
-  ]);
+  {
+    path: "admin",
+    element: <AdminLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage role="admin" />,
+      },
+     /*  {
+        path: "dashboard",
+        element: <ProtectRoute role="admin"><AdminDashboard /></ProtectRoute>,
+      }, */
+      // Other admin routes
+    ],
+  },
+]);

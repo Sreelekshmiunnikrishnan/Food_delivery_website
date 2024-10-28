@@ -12,7 +12,7 @@ router.put("/profile-update",authRestOwner,updateOwnerProfile)
 router.get("/owner-profile",authRestOwner,getOwnerProfile)
 router.delete("/profile-delete",authRestOwner,deleteownerProfile)
 router.post("/logout",authRestOwner,ownerlogout)
-router.get("/check-user",authRestOwner,checkOwner)
+router.get("/check-owner",authRestOwner,checkOwner)
 router.get("getAllRestaurants",authRestOwner,getAllRestaurants)
 router.get('/getRestaurant/:id',authRestOwner,getRestaurant);
 export {router as ownerRouter};

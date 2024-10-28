@@ -63,7 +63,7 @@ export const MenuCard = ((menu) => {
   );
 })
 
-export const CartCards = ({ item, handleRemove ,totalPrices}) => {
+export const CartCards = ({ item, handleRemove }) => {
 
 
   return (
@@ -84,7 +84,7 @@ export const CartCards = ({ item, handleRemove ,totalPrices}) => {
         </div>
        </div>
        <div>
-       <p>Total price : {totalPrices} </p>
+      
        </div>
      </div>
      

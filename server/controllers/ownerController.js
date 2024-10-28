@@ -64,7 +64,7 @@ export const ownerLogin = async (req, res,next) => {
         return res.status(400).json({ message: 'Password doesnt match' });
       }
   
-      const token = await generateToken(ownerExists._id,'restaurantOwner');
+      const token =  generateToken(ownerExists._id,'restaurantOwner');
       res.cookie("token",token,{
         sameSite:"None",
         secure:true,
@@ -142,9 +142,9 @@ export const ownerLogin = async (req, res,next) => {
   export const checkOwner =  async (req, res,next) => {
     try {
      
-       res.json({ message: 'User authorized' });
+      res.json({ success: true, message: "autherized user" });
     } catch (error) {
-      res.status(500).json({ message: 'Error deleting profile', error });
+      res.status(error.statusCode || 500).json(error.message || 'Internal server error')
     }
   };
   

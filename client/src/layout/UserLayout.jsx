@@ -9,33 +9,34 @@ import { useDispatch,useSelector } from "react-redux";
 import { UserHeader } from "../components/user/UserHeader";
 import { saveUser,clearUser} from "../redux/features/userSlice"
 import {ProtectRoute } from "../router/ProtectRoute";
-export const UserLayout = () => {
+import { login, logout } from "../redux/features/authSlice";
+export const UserLayout = ({role}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const userAuthorized = useSelector((state)=>state.user.userAuthorized)
+    const userAuthorized = useSelector((state) => state.auth.userAuthorized);
 
         const checkUser = async () => {
             try {
-
-               
 
                 const response = await axiosInstance({ method: "GET", url: "/user/check-user", credentials: 'include' 
                
                  });
                 console.log(response, "====response");
-                dispatch(saveUser(response?.data?.data));
+                dispatch(login(response?.data?.data));
             } catch (error) {
                 console.log(error, "===error");
-                dispatch(clearUser());
+                dispatch(logout());
             }
         };
     
         useEffect(() => {
             checkUser();
-        }, [location.pathname]);
+        }, []);
     
-
+        if (userAuthorized === undefined) {
+            return <div>Loading...</div>;
+        }
     return (
         <div className="pt-3 ">
              {userAuthorized ? <UserHeader /> : <Header />}

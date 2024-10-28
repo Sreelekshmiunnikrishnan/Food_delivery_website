@@ -4,13 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { toast } from 'react-toastify';
-
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/authSlice";
 import { axiosInstance } from "../../config/axiosInstance";
 
 export const LoginPage = ({ role = "user" }) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const user = {
     role: "user",
     login_api: "/user/login",
@@ -49,7 +50,8 @@ export const LoginPage = ({ role = "user" }) => {
       console.log(response, "====response");
       toast.success("Log-in success");
       alert("Log-in success");
-      navigate(user.profile_route);
+      dispatch(login({ role: role }));
+      navigate(user.profile_route,{ replace: true });
     } catch (error) {
       toast.error("Log-in failed");
       alert("Login failed")
