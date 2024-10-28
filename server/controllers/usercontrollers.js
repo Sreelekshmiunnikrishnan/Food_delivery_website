@@ -99,7 +99,9 @@ export const login = async (req, res,next) => {
       } */
   
       const token =  generateToken(user._id);
-      res.cookie("token",token,{
+
+       res.cookie("token",token,token,{
+
         sameSite:"None",
         secure:true,
         httpOnly:true,
