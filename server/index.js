@@ -16,6 +16,9 @@ app.use(cors({
    allowedHeaders: ['Content-Type', 'Authorization']
 }));
  
+app.options('*', (req, res) => {
+    res.sendStatus(200);
+});
 
 
 
