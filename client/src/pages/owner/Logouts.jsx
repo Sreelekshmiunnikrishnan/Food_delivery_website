@@ -16,7 +16,7 @@ export const Logouts = () => {
          if(response){
             // Show a success toast message
             toast.success("Logout Successful");
-
+      alert("logout success");
             // Redirect to login page
             setTimeout(() => {
                 navigate('/login');

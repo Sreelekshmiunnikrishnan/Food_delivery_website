@@ -37,12 +37,12 @@ export const EditProfile = () => {
       data  });
       if(response){
         alert("Profile updated successfully");
-      toast.success("Profile updated successfully");
+      //toast.success("Profile updated successfully");
       }
       navigate("/");
     } catch (error) {
       alert("Update failed. Please try again.")
-      toast.error("Update failed. Please try again.");
+      //toast.error("Update failed. Please try again.");
       console.error(error);
     }
   };

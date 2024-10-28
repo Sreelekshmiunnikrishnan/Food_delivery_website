@@ -25,7 +25,8 @@ export const MenuDetails = () => {
       setMenu(response.data);  // Set the fetched menu data to state
       console.log("response ===", response.data);
     }else{
-    toast.error("Login your account to add item to cart")
+    //toast.error("Login your account to add item to cart")
+    alert("Login your account to add item to cart")
       navigate("/login");
     }
     } catch (error) {

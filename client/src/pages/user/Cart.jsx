@@ -41,13 +41,15 @@ export const Cart = () => {
             });
             if(response){
                 navigate("/user/cart");
-                toast.success("Item removed from cart");
+                //toast.success("Item removed from cart");
+                alert("Item removed from cart")
             }
            
             
         } catch (error) {
             console.log(error);
             toast.error(error?.response?.data?.message || "error while removing product");
+           
         } 
     };
 
