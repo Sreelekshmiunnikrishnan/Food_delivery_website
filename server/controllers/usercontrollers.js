@@ -7,19 +7,7 @@ import { cloudinaryInstance } from "../config/cloudinaryConfig.js";
 import { handleImageUpload } from "../utilities/cloudinary.js";
 import { sendRegistrationEmail } from "../utilities/nodemailer.js";
 
-/*export const authenticate = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-      return res.status(403).json({ message: 'Token is required' });
-    }
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = decoded;
-      next();
-    } catch (error) {
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-  };*/
+
 
   export const register = async(req, res,next) => {
     try {
@@ -62,12 +50,7 @@ import { sendRegistrationEmail } from "../utilities/nodemailer.js";
       await sendRegistrationEmail(email,name);
       if(savedUser){
        const token =  generateToken(savedUser._id);
-       res.cookie("token",token,{
-        sameSite:"None",
-        secure:true,
-        httpOnly:true,
-       }
-        );
+       res.cookie("token",token);
      return res.status(201).json({success: true, message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});
       }
