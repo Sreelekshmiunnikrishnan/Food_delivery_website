@@ -17,7 +17,7 @@ export const UserLayout = () => {
 
         const checkUser = async () => {
             try {
-                const response = await axiosInstance({ method: "GET", url: "/user/check-user"
+                const response = await axiosInstance({ method: "GET", url: "/user/check-user",withCredentials:true
                  });
                 console.log(response, "====response");
                 dispatch(saveUser(response?.data?.data));
