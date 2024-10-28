@@ -83,14 +83,7 @@ export const login = async (req, res,next) => {
   
       const token =  generateToken(user._id);
 
-       res.cookie("token",token,{
-
-        sameSite:"None",
-        secure:true,
-        httpOnly:true,
-        path:"/",
-        domain:"foodorderwebsitedelicazy.netlify.app"
-       });
+       res.cookie("token",token);
     return res.status(200).json({success: true, message: "Login sucessful"});
 
     } catch (error) {
