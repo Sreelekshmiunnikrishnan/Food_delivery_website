@@ -92,11 +92,11 @@ export const login = async (req, res,next) => {
       if (!isMatch) {
         return res.status(400).json({ message: 'Password doesnt match' });
       }
-      if (user.status === 'Inactive' && user.isBlocked === true) {
+     /*  if (user.status === 'Inactive' && user.isBlocked === true) {
         user.status = 'Active';
         user.isBlocked = false;
         await user.save();
-      }
+      } */
   
       const token =  generateToken(user._id);
     res.cookie("token",token,{
