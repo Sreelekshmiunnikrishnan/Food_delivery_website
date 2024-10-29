@@ -12,7 +12,7 @@ export const Cart = () => {
     if(!cartData){
    toast.error("cart can't be fetched");
     }
-    /* const makePayment = async() =>{
+    const makePayment = async() =>{
         try {
             const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
             const session = await axiosInstance({
@@ -22,13 +22,13 @@ export const Cart = () => {
                  });
                  console.log(session);
                  const result = stripe.redirectToCheckout({
-                    sessionId : session.data.id,
+                    sessionId : session?.data?.sessionId,
                  })
         } catch (error) {
             console.log(error);
             
-        }
-    } */
+        } 
+    } 
 
      const handleRemoveItem = async (menuId) => {
         try {
@@ -67,7 +67,7 @@ export const Cart = () => {
     <div className="w-6/12 flex bg-gray-100 flex-col items-center gap-5">
         <h2>Price summary...</h2>
         <h2>Total Price: {cartData?.totalPrices?.toLocaleString('en-US', { style: 'currency', currency: 'INR' })}</h2>
-        <button className="btn btn-secondary flex items-center justify-center w-1/3 px-4" disabled={!cartData?.menus?.length}>
+        <button className="btn btn-secondary flex items-center justify-center w-1/3 px-4" disabled={!cartData?.menus?.length} onClick={makePayment}>
             Checkout
         </button>
     </div>

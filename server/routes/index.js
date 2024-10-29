@@ -21,5 +21,5 @@ router.use("/owner",ownerRouter);
 router.use("/order",orderRouter);
 router.use("/cart",cartRouter);
 router.use("/review",reviewRouter);
-//router.use("/payment",paymentRouter);
+router.use("/payment",paymentRouter);
 export {router as apiRouter};

@@ -1,285 +1,104 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
-  Button,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Card,
   IconButton,
 } from "@material-tailwind/react";
-import {
-  CubeTransparentIcon,
-  UserCircleIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
-  ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
-  PowerIcon,
-  RocketLaunchIcon,
-  Bars2Icon,
-} from "@heroicons/react/24/solid";
-import { DarkMode } from "../shared/DarkMode";
- 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-    path :"/admin-profile"
-  },
-  /* {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-    path :"/profile-update"
-  },
-  {
-    label: "Deactivate Profile",
-    icon: Cog6ToothIcon,
-    path :"/profile-delete"
-  }, */
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-    path :"/logout"
-  },
-];
- 
-function ProfileMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
-  const closeMenu = () => setIsMenuOpen(false);
- 
-  return (
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-      <MenuHandler>
-        <Button
-          variant="text"
-          color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-        >
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrCLHZeA--7ckaEIUPD-Z0XASJ5BxYQYLsdA&s"
-          />
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
-          />
-        </Button>
-      </MenuHandler>
-      <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon,path }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <Link to={path} key={label} onClick={closeMenu}>
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem></Link>
-          );
-        })}
-      </MenuList>
-    </Menu>
-  );
-}
- 
-// nav list menu
-const navListMenuItems = [
-  {
-    title: "@material-tailwind/html",
-    description:
-      "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
-  },
-  {
-    title: "@material-tailwind/react",
-    description:
-      "Learn how to use @material-tailwind/react, packed with rich components for React.",
-  },
-  {
-    title: "Material Tailwind PRO",
-    description:
-      "A complete set of UI Elements for building faster websites in less time.",
-  },
-];
- 
-function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
-  const renderItems = navListMenuItems.map(({ title, description }) => (
-    <a href="#" key={title}>
-      <MenuItem>
-        <Typography variant="h6" color="blue-gray" className="mb-1">
-          {title}
-        </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
-          {description}
-        </Typography>
-      </MenuItem>
-    </a>
-  ));
- 
-  return (
-    <React.Fragment>
-      <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
-            <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
-              <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-              Pages{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
-            </MenuItem>
-          </Typography>
-        </MenuHandler>
-        <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-          <Card
-            color="blue"
-            shadow={false}
-            variant="gradient"
-            className="col-span-3 grid h-full w-full place-items-center rounded-md"
-          >
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-          </Card>
-          <ul className="col-span-4 flex w-full flex-col gap-1">
-            {renderItems}
-          </ul>
-        </MenuList>
-      </Menu>
-      <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden gap-40">
-        <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500 " />{" "}
-        Pages{" "}
-      </MenuItem>
-      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-        {renderItems}
-      </ul>
-    </React.Fragment>
-  );
-}
- 
-// nav list component
-const navListItems = [
-  {
-    label: "Home",
-    icon: UserCircleIcon,
-    path:"/"
-  },
-  {
-    label: "Users",
-    icon: CubeTransparentIcon,
-     path: "/admin/user" 
-  },
-  {
-    label: "Restaurant owners",
-    icon: CodeBracketSquareIcon,
-    path : "/admin/owner"
-  },
-];
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
  
 function NavList() {
   return (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenu />
-      {navListItems.map(({ label, icon,path}, key) => (
-        <Typography
-        key={label}
-        as={Link} // Use Link component from react-router-dom
-        to={path}
-          variant="small"
-          color="gray"
-          className="font-medium text-blue-gray-500"
-        >
-          <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            <span className="text-gray-900"> {label}</span>
-          </MenuItem>
-        </Typography>
-      ))}
+    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+          Pages
+        </a>
+      </Typography>
+      <Typography
+      label ="Home"
+        as={Link}
+        to='/admin/admin-profile'
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+          Blocks
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+          Docs
+        </a>
+      </Typography>
     </ul>
   );
 }
  
-export const AdminHeader = () => {
-  const [isNavOpen, setIsNavOpen] = React.useState(false);
+export const AdminHeader = ()=> {
+  const [openNav, setOpenNav] = React.useState(false);
  
-  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const handleWindowResize = () =>
+    window.innerWidth >= 960 && setOpenNav(false);
  
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
-    );
+    window.addEventListener("resize", handleWindowResize);
+ 
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
   }, []);
  
   return (
-    <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] ">
-    <Navbar className="sticky top-0 z-10  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
-      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-      <Avatar
-            variant="circular"
-            size="lg"
-            alt="Logo"
-            className="border border-gray-900 p-1.0 mr-4"
-            src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
-          />
+    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+      <div className="flex items-center justify-between text-blue-gray-900">
+        {/* <Typography
+          as="a"
+          href="#"
+          variant="h6"
+          className="mr-4 cursor-pointer py-1.5"
+        >
+          Material Tailwind
+        </Typography> */}
         <div className="hidden lg:block">
           <NavList />
         </div>
         <IconButton
-          size="sm"
-          color="blue-gray"
           variant="text"
-          onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 lg:hidden"
+          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          ripple={false}
+          onClick={() => setOpenNav(!openNav)}
         >
-          <Bars2Icon className="h-6 w-6" />
+          {openNav ? (
+            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+          ) : (
+            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+          )}
         </IconButton>
- 
-        <DarkMode />
-        <ProfileMenu />
       </div>
-      <MobileNav open={isNavOpen} className="overflow-scroll">
+      <Collapse open={openNav}>
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
-    {/* Content Section */}
-    <div className="mx-auto max-w-screen-lg py-12">
-        
-        
-    </div>
-    </div>
   );
 }

@@ -1,7 +1,7 @@
 
 
 import { createBrowserRouter } from "react-router-dom";
-import { AdminProfile} from "../pages/admin/AdminProfile";
+
 import { ErrorPage } from "../pages/user/ErrorPage";
 import { About } from "../pages/shared/About";
 import { RestaurantDetails } from "../pages/user/RestaurantDetails";
@@ -30,9 +30,8 @@ import { EditMenu} from "../pages/owner/EditMenu";
 import { EditProfiles } from "../pages/owner/EditProfiles";
 import { DeleteProfiles } from "../pages/owner/DeleteProfiles";
 import { Logouts } from "../pages/owner/Logouts";
-/* import { EditProfile} from "../pages/owner/EditProfile";
-import {DeleteProfile} from "../pages/owner/DeleteProfile";
-import {Logout} from "../pages/owner/Logout"; */
+import { AdminProfile } from "../pages/admin/AdminProfile";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -59,7 +58,9 @@ export const router = createBrowserRouter([
           { path: "restaurant", element: <Restaurants /> },
          { path: "menu", element: <MenuItems /> },
          { path: "menudetails/:id", element: <MenuDetails /> },
-          {path:"logout",element:< Logout/>}
+          {path:"logout",element:< Logout/>},
+          {path:"payment/success",element:<h2>Payment sucess</h2>},
+          {path:"payment/cancel",element:<h2>Paymentcancelled</h2>}
         ],
       },
     ],
@@ -109,10 +110,10 @@ export const router = createBrowserRouter([
         path: "login",
         element: <LoginPage role="admin" />,
       },
-     /*  {
-        path: "dashboard",
-        element: <ProtectRoute role="admin"><AdminDashboard /></ProtectRoute>,
-      }, */
+       {
+        path: "admin-profile",
+        element:<AdminProfile />
+      }, 
       // Other admin routes
     ],
   },

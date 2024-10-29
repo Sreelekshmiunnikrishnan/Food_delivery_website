@@ -51,7 +51,7 @@ export const Header = () => {
   );
 
   return (
-    <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] ">
+    <div className= "max-w-full">
       <Navbar className="sticky top-0 z-10  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Avatar
@@ -62,7 +62,7 @@ export const Header = () => {
             src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
           />
 
-          <div className="flex items-center gap-80">
+          <div className="flex items-center justify-between w-full lg:gap-80">
             <div className="mr-4 hidden lg:block">{navList}
 
             </div>
@@ -107,7 +107,7 @@ export const Header = () => {
           </div>
         </div>
 
-        <Collapse open={openNav}>
+        <Collapse open={openNav} className="lg-hidden">
           {navList}
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" onClick={() => navigate('/login')}>
