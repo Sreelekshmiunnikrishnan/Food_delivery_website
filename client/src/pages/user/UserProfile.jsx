@@ -33,10 +33,11 @@ export const UserProfile = () => {
     
      <div className="flex items-center justify-center  bg-gray-100">
       
-      {/* <Card className="w-full max-w-md sm:w-96 mt-4  bg-white shadow-lg rounded-lg">
+       {/* <Card className="w-full max-w-md sm:w-96 mt-4  bg-white shadow-lg rounded-lg">
   <CardBody className="relative h-48 sm:h-80 p-4">
     <h2 className="text-xl font-bold text-blue mb-2">
       Welcome {profile.user.name}!!
+      
     </h2>
     <p className="text-md text-pink mb-1">
       <span className="font-semibold">Email Address:</span> {profile.user.email}
@@ -48,7 +49,7 @@ export const UserProfile = () => {
       <span className="font-semibold">Phone Number:</span> {profile.user.phoneNumber}
     </p>
   </CardBody>
-</Card>  */}
+</Card>   */}
       <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
         <CardHeader color="blue-gray" className="relative h-48 sm:h-60">
           <img

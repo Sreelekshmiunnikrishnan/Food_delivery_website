@@ -24,11 +24,30 @@ export const Cart = () => {
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
+                 if(result){
+                    handlePaymentSuccess();
+                 }
         } catch (error) {
             console.log(error);
             
         } 
     } 
+
+    const handlePaymentSuccess = async () => {
+        try {
+      
+          // Add items to order history
+          const response = await axiosInstance({
+            url: "/order/createorder",  // Endpoint to add items to order history
+            method: "POST",
+            data:  cartData ,
+          });
+      
+          console.log("Order placed successfully!");
+        } catch (error) {
+          console.log("Error adding order:", error);
+        }
+      };
 
      const handleRemoveItem = async (menuId) => {
         try {

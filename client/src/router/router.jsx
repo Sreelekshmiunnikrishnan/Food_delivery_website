@@ -59,8 +59,8 @@ export const router = createBrowserRouter([
          { path: "menu", element: <MenuItems /> },
          { path: "menudetails/:id", element: <MenuDetails /> },
           {path:"logout",element:< Logout/>},
-          {path:"payment/success",element:<h2>Payment sucess</h2>},
-          {path:"payment/cancel",element:<h2>Paymentcancelled</h2>}
+          {path:"payment/success",element:<Order />},
+          {path:"payment/cancel",element:<UserProfile />}
         ],
       },
     ],

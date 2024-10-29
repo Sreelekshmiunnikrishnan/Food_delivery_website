@@ -13,6 +13,10 @@ const orderSchema = new Schema({
         ref: 'MenuItem',
         required: true,
       },
+      menuName:{
+        type:String,
+        required:true,
+      },
       price:{
         type:Number,
         required: true,
@@ -38,7 +42,7 @@ const orderSchema = new Schema({
      // ref: 'User',
      // required: false
   //  },
-    deliveryAddress: {
+     deliveryAddress: {
       type: String,
       required: true
     },
@@ -47,10 +51,10 @@ const orderSchema = new Schema({
       enum: ['card', 'cash', 'online'],
       required: true
     },
-    orderDate: { type: Date, default: Date.now },
+   /* orderDate: { type: Date, default: Date.now },
     delivery: {
       type: Date,
-    }
+    } */
   }, { timestamps: true });
   
   export const Order = mongoose.model('Order', orderSchema);

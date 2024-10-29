@@ -8,9 +8,9 @@ import { MenuItem } from '../models/menuModel.js';
 // Create a new order
 export const createOrder = async (req, res) => {
   try {
-    const { user } = req;
-
-    const cart = await Cart.findOne({ userId: user.id }).populate('menus.menuId');
+    const userId  = req.user;
+    const userDetails = await User.findById(userId);
+    const cart = await Cart.findOne({ userId: userId }).populate('menus.menuId');
  
     if (!cart) {
       return res.json({ message: 'cart is empty' });
@@ -20,29 +20,29 @@ export const createOrder = async (req, res) => {
     const items = cart.menus;
     console.log(items);
     
-    const { quantity, deliveryAddress, paymentMethod, deliveryTime } = req.body;
+    //const { quantity, deliveryAddress, paymentMethod } = req.body;
     const orderTime = Order.orderDate;
     if (!quantity || !deliveryAddress || !paymentMethod) {
       return res.status(400).json({ message: 'All fields required' });
     }
 
     const newOrder = new Order({
-      customer: cart.userId,
-      items,
-      quantity,
-      totalPrice,
-      deliveryAddress,
-      paymentMethod,
-      orderTime,
-      deliveryTime,
+      customer: userId,
+      items:data.menus,
+      quantity:1,
+      totalPrice:data.totalPrices,
+      deliveryAddress:userDetails.address,
+      paymentMethod:'cash',
+      
     });
 
     const savedOrder = await newOrder.save();
-    const newuser = await User.findById(user.id);
+    const newCart = await Cart.findByIdAndDelete(userId);
+    const newuser = await User.findById(userId);
     if (!newuser.email) {
       return res.status(400).json({ message: 'User email not found' });
     }
-    await sendDynamicEmail(user.id,newuser, savedOrder)
+    await sendDynamicEmail(userId,newuser, savedOrder)
     res.status(201).json(savedOrder);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -67,22 +67,13 @@ export const getOrders = async (req, res, next) => {
 export const getOrder = async (req, res, next) => {
   try {
     const { user } = req;
-    const cart = await Cart.findOne({ userId: user.id }).populate('menus.menuId');
+    const cart = await Order.findOne({ userId: user.id }).populate('items');
     if (!cart) {
-      return res.json({ message: 'cart is empty' });
+      return res.json({ message: 'No orders' });
     }
-    res.json({ message: "order details fetched", data: cart });
-    const order = await Order.findById(user.id)
-      .populate('customer', 'name email')
-      .populate('restaurant', 'name')
-      .populate('items.menuItem', 'name price');
-    // .populate('deliveryPerson', 'name');
-
-    if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
-    }
-
-    res.status(200).json(order);
+    res.json({success:true, message: "order details fetched", data: cart });
+    
+    res.status(200).json({success:true},cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
