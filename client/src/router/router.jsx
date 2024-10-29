@@ -31,6 +31,7 @@ import { EditProfiles } from "../pages/owner/EditProfiles";
 import { DeleteProfiles } from "../pages/owner/DeleteProfiles";
 import { Logouts } from "../pages/owner/Logouts";
 import { AdminProfile } from "../pages/admin/AdminProfile";
+import { PaymentSuccess } from "../pages/user/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -59,8 +60,9 @@ export const router = createBrowserRouter([
          { path: "menu", element: <MenuItems /> },
          { path: "menudetails/:id", element: <MenuDetails /> },
           {path:"logout",element:< Logout/>},
-          {path:"payment/success",element:<Order />},
-          {path:"payment/cancel",element:<UserProfile />}
+          {path:"payment/success",element:<PaymentSuccess />},
+          {path:"payment/cancel",element:<Cart />},
+          {path:"order",element:<Order />}
         ],
       },
     ],

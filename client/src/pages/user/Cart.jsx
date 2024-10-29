@@ -24,9 +24,8 @@ export const Cart = () => {
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
-                 if(result){
-                    handlePaymentSuccess();
-                 }
+                 const cartData = JSON.parse(localStorage.setItem("cartData"));
+                
         } catch (error) {
             console.log(error);
             

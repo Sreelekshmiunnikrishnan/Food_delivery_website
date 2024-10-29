@@ -79,3 +79,15 @@ export const removeFromCart = async(req,res,next) =>{
     }
     
 };
+
+// Example of clearing cart data for a specific user
+export const clearCart = async (req, res,next) => {
+    const userId = req.user.id; // Assuming user is authenticated
+    try {
+      await CartModel.deleteOne({ userId: userId }); // Adjust to your cart schema
+      res.status(200).json({ message: "Cart cleared successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error clearing cart", error });
+    }
+  };
+  
