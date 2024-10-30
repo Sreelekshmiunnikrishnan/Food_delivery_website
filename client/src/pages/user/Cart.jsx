@@ -24,7 +24,7 @@ export const Cart = () => {
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
-                // const cartData = JSON.parse(localStorage.setItem("cartData"));
+                navigate("/user/payment/success");
                 
         } catch (error) {
             console.log(error);

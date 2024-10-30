@@ -50,7 +50,7 @@ export const LoginPage = ({ role = "user" }) => {
       console.log(response, "====response");
       toast.success("Log-in success");
       alert("Log-in success");
-      dispatch(login({ role: role }));
+      dispatch(login({ role: user.role }));
       navigate(user.profile_route,{ replace: true });
     } catch (error) {
       toast.error("Log-in failed");
