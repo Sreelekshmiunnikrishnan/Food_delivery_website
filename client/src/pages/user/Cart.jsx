@@ -24,7 +24,7 @@ export const Cart = () => {
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
-                 const cartData = JSON.parse(localStorage.setItem("cartData"));
+                // const cartData = JSON.parse(localStorage.setItem("cartData"));
                 
         } catch (error) {
             console.log(error);
@@ -32,7 +32,7 @@ export const Cart = () => {
         } 
     } 
 
-    const handlePaymentSuccess = async () => {
+   /*  const handlePaymentSuccess = async () => {
         try {
       
           // Add items to order history
@@ -47,7 +47,7 @@ export const Cart = () => {
           console.log("Error adding order:", error);
         }
       };
-
+ */
      const handleRemoveItem = async (menuId) => {
         try {
             console.log({menuId});
@@ -55,10 +55,10 @@ export const Cart = () => {
             const response = await axiosInstance({
                 method: "DELETE",
                 url: "/cart/remove-menu",
-                data: { menuId:menuId } ,
+                data: {menuId :menuId}
             });
             if(response){
-                navigate("/user/cart");
+                navigate("/user/menu");
                 //toast.success("Item removed from cart");
                 alert("Item removed from cart")
             }

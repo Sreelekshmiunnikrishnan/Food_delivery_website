@@ -8,11 +8,11 @@ import { Spinner } from '@material-tailwind/react';
 
 export const MenuDetails = () => {
   const { id } = useParams();  // Use useParams to extract the menu ID from the URL
-  const [menu, setMenu] = useState(null);
+  const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);   // Initialize as null, not an array
   const [error, setError] = useState(null);  // State for error handling
   const navigate = useNavigate();
-  const userAuthorized = useSelector((state)=>state.user.userAuthorized)
+  const userAuthorized = useSelector((state)=>state.auth.userAuthorized);
 
   const fetchMenu = async () => {
     try {

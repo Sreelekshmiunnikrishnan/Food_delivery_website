@@ -32,6 +32,7 @@ import { DeleteProfiles } from "../pages/owner/DeleteProfiles";
 import { Logouts } from "../pages/owner/Logouts";
 import { AdminProfile } from "../pages/admin/AdminProfile";
 import { PaymentSuccess } from "../pages/user/PaymentSuccess";
+import { GetRestaurants } from "../pages/owner/GetRestaurants";
 
 export const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ export const router = createBrowserRouter([
       {
         path: "createmenu",
         element: <CreateMenu />
+      },
+      {
+        path: "getrestaurants",
+        element: <GetRestaurants />
       },
       // Other owner routes
     ],

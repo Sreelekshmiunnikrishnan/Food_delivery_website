@@ -17,7 +17,7 @@ export const MenuItems = () => {
        });
       
        setMenus(response.data);
-       console.log("response===",response);
+       //console.log("response===",response);
        
     } catch (error) {
       console.log(error);

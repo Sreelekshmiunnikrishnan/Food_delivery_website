@@ -210,6 +210,11 @@ const navListItems = [
     icon: CodeBracketSquareIcon,
     path : "/owner/createmenu"
   },
+  {
+    label: "Restaurants",
+    icon: CodeBracketSquareIcon,
+    path : "/owner/getrestaurants"
+  },
 ];
  
 function NavList() {

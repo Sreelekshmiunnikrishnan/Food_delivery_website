@@ -9,23 +9,27 @@ export const PaymentSuccess = () => {
 
   const handlePaymentSuccess = async () => {
     try {
-      const cartData = JSON.parse(localStorage.getItem("cartData")); // Example of accessing cart data
-
+      
       // Add items to order history
-      await axiosInstance({
-        url: "/order/createorder",
+      const response = await axiosInstance({
+        url: "/order/createorder",  // Endpoint to add items to order history
         method: "POST",
-        data: cartData,
+        data:  cartData ,
       });
+      if(response){
+      console.log("Order placed successfully!");
+      }
+     const clear = await axiosInstance({
+      url:"cart/clear",
+      method:"POST"
+     } );
 
-      // Clear cart data
-      localStorage.removeItem("cartData");
-      await axiosInstance.post("/cart/clear");
-
-      toast.success("Order placed successfully!");
-
+      if(clear){
+        console.log("cart data cleared");
+        
+      }
       // Redirect to order page or home
-      navigate("/order");
+      navigate("/user/order");
     } catch (error) {
       console.log("Error processing order:", error);
     }

@@ -66,12 +66,23 @@ export const removeFromCart = async(req,res,next) =>{
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
-        console.log(menuId);
-        
-        cart.menus = cart.menus.filter((item) => !item.menuId == menuId);
+       // console.log("Removing menuId:", menuId);
+        //console.log("Cart before removal:", cart.menus);
+
+        // Remove item explicitly without filter or splice
+        cart.menus = cart.menus.reduce((acc, item) => {
+            console.log("Checking item menuId:", item.menuId);
+            if (item.menuId.toString() !== menuId.toString()) {
+                acc.push(item);
+            }
+            return acc;
+        }, []);
+
+        //console.log("Cart after item removal:", cart.menus);
+
         cart.calculateTotalPrice();
         await cart.save();
-        
+        console.log("Cart after save:", cart);
         res.status(200).json({ message: "Item removed from cart", cart });
     } catch (error) {
         console.log(error);
