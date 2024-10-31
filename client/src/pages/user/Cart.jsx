@@ -24,13 +24,13 @@ export const Cart = () => {
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
-                 if (result.error) {
+                 /* if (result.error) {
                     console.error("Error with Stripe Checkout:", result.error.message);
                     toast.error("Payment failed. Please try again.");
                 } else {
                     localStorage.setItem("cartData", JSON.stringify(cartData));
                     navigate("/user/payment/success");
-                }
+                } */
                 
         } catch (error) {
             console.log(error);

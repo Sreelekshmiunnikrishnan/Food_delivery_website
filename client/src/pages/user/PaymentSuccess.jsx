@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export const PaymentSuccess = () => {
 
-  const navigate = useNavigate();
+  /* const navigate = useNavigate();
   const cartData = JSON.parse(localStorage.getItem("cartData"));
  
     if (!cartData) {
@@ -38,7 +38,7 @@ const handlePaymentSuccess = async() =>{
   useEffect(() => {
    
     handlePaymentSuccess();
-  }, []);
+  }, []); */
   return (
   <div>
     Processing your order...</div>
