@@ -10,27 +10,28 @@ export const createOrder = async (req, res) => {
   try {
     const userId  = req.user;
     const userDetails = await User.findById(userId);
-    const cart = await Cart.findOne({ userId: userId }).populate('menus.menuId');
+    const cartData = req.body;
+    //const cart = await Cart.findOne({ userId: userId }).populate('menus.menuId');
  
-    if (!cart) {
+    if (!cartData) {
       return res.json({ message: 'cart is empty' });
     }
    
-    const totalPrice = cart.totalPrices;
-    const items = cart.menus;
+    const totalPrice = cartData.totalPrices;
+    const items = cartData.menus;
     console.log(items);
     
     //const { quantity, deliveryAddress, paymentMethod } = req.body;
-    const orderTime = Order.orderDate;
-    if (!quantity || !deliveryAddress || !paymentMethod) {
+    //const orderTime = Order.orderDate;
+   /*  if (!quantity || !deliveryAddress || !paymentMethod) {
       return res.status(400).json({ message: 'All fields required' });
-    }
+    } */
 
     const newOrder = new Order({
       customer: userId,
-      items:data.menus,
+      items:items,
       quantity:1,
-      totalPrice:data.totalPrices,
+      totalPrice:cartData.totalPrices,
       deliveryAddress:userDetails.address,
       paymentMethod:'cash',
       

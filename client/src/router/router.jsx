@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { ErrorPage } from "../pages/user/ErrorPage";
 import { About } from "../pages/shared/About";
-import { RestaurantDetails } from "../pages/user/RestaurantDetails";
+
 import { Contact} from "../pages/shared/Contact";
 import { Cart } from "../pages/user/Cart";
 import { Home } from "../pages/user/Home";
@@ -24,7 +24,7 @@ import { Logout } from "../pages/user/Logout";
 import { DeleteProfile } from "../pages/user/DeleteProfile";
 import {OwnerProfile} from "../pages/owner/OwnerProfile";
 import { CreateRestaurant} from "../pages/owner/CreateRestaurant";
-import { EditRestaurant} from "../pages/owner/EditRestaurant";
+
 import { CreateMenu} from "../pages/owner/CreateMenu";
 import { EditMenu} from "../pages/owner/EditMenu";
 import { EditProfiles } from "../pages/owner/EditProfiles";
@@ -33,6 +33,9 @@ import { Logouts } from "../pages/owner/Logouts";
 import { AdminProfile } from "../pages/admin/AdminProfile";
 import { PaymentSuccess } from "../pages/user/PaymentSuccess";
 import { GetRestaurants } from "../pages/owner/GetRestaurants";
+import { EditRestaurant } from "../pages/owner/EditRestaurant";
+import { MyRestaurants } from "../pages/owner/MyResturants";
+import { Mymenu } from "../pages/owner/Mymenu";
 
 export const router = createBrowserRouter([
   {
@@ -56,7 +59,6 @@ export const router = createBrowserRouter([
           { path: "profile-update", element: <EditProfile /> },
           { path: "profile-delete", element: <DeleteProfile /> },
           { path: "cart", element: <Cart /> },
-          { path: "order", element: <Order /> },
           { path: "restaurant", element: <Restaurants /> },
          { path: "menu", element: <MenuItems /> },
          { path: "menudetails/:id", element: <MenuDetails /> },
@@ -102,10 +104,25 @@ export const router = createBrowserRouter([
         element: <CreateMenu />
       },
       {
-        path: "getrestaurants",
-        element: <GetRestaurants />
+        path: "myrestaurants",
+        element: <MyRestaurants />
       },
-      // Other owner routes
+      {
+        path: "editRestaurant/:id",
+        element: <EditRestaurant />
+      },
+      {
+        path: "mymenu",
+        element: <Mymenu />
+      },
+      {
+        path: "editMenu/:id",
+        element: <EditMenu />
+      },
+      {
+        path: "logout",
+        element: <Home />
+      },
     ],
   },
   {

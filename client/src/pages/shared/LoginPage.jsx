@@ -36,24 +36,19 @@ export const LoginPage = ({ role = "user" }) => {
     try {
 
 
-      /*  if (data.role === "admin") {
-         (user.login_api = "/admin/login"), (user.profile_route = "/admin/admin-profile"), (user.signup_route = "/admin/signup");
-       } else if (data.role === "restaurantOwner") {
-         
-         (user.login_api = "/owner/login"), (user.profile_route = "/owner/owner-profile"), (user.signup_route = "/owner/signup");
-       } */
+      
       const response = await axiosInstance({
         method: "POST",
         url: user.login_api,
         data
       });
       console.log(response, "====response");
-      toast.success("Log-in success");
+      
       alert("Log-in success");
       dispatch(login({ role: user.role }));
       navigate(user.profile_route,{ replace: true });
     } catch (error) {
-      toast.error("Log-in failed");
+    
       alert("Login failed")
       console.log(error);
     }
@@ -98,16 +93,7 @@ export const LoginPage = ({ role = "user" }) => {
               })} required className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Password" />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
-            {/*  <div className="w-full max-w-sm min-w-[200px]">
-              <label htmlFor="role">Select your role:</label>
-              <select id="role" {...register("role",  { required: "Role is required" })}>
-                <option value="">--Select Role--</option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-                <option value="restaurantOwner">Restaurant Owner</option>
-              </select>
-              {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
-            </div> */}
+            
           </div>
           <div className="flex justify-center">
             <button className="btn btn-primary">

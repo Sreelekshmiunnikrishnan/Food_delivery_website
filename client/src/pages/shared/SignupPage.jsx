@@ -25,11 +25,11 @@ export const SignupPage = () => {
         data
       });
       console.log(response, '======response');
-     toast.success("Signup success");
+     
     alert("Signup success")
       navigate("/");
     } catch (error) {
-      toast.error("Signup failed. Please try again.");
+     
       alert("Signup failed. Please try again.")
       console.error(error);
     }

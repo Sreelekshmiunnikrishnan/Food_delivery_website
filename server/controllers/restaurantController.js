@@ -1,11 +1,9 @@
 import express from "express";
 import { Restaurant } from "../models/restaurantModel.js";
 import { MenuItem } from "../models/menuModel.js";
+import mongoose from "mongoose";
 import e from "express";
 const router = e.Router();
-
-
-
 // Create a new restaurant
 export const create = async (req, res,next) => {
   try {
@@ -48,7 +46,7 @@ export const getAllRestaurants = async (req, res,next) => {
 export const getRestaurant = async (req, res,next) => {
   try {
     const {id} =req.params;
-    const restaurant = await Restaurant.findById(id).populate('owner').populate('menuItems');
+    const restaurant = await Restaurant.findById(id).populate('menuItems');
     if (!restaurant) {
       return res.status(404).json({ message: 'Restaurant not found' });
     }
@@ -73,6 +71,15 @@ export const updateRestaurant = async (req, res,next) => {
     res.status(200).json(updatedRestaurant);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+export const ownerRestaurant= async (req, res,next) => {
+  const ownerId = new  mongoose.Types.ObjectId(req.user.id); // Get ownerId from authenticated token
+  try {
+      const restaurants = await Restaurant.find({ ownerId });
+      res.json(restaurants);
+  } catch (error) {
+      res.status(500).json({ message: "Error fetching restaurants" });
   }
 };
 

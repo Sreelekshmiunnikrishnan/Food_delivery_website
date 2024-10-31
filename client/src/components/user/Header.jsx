@@ -5,7 +5,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Card,
   Avatar,
   Menu,
   MenuHandler,
@@ -20,7 +19,9 @@ export const Header = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const handleResize = () => window.innerWidth >= 960 && setOpenNav(false);
+    const handleResize = () => {
+      if (window.innerWidth >= 960) setOpenNav(false);
+    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -33,7 +34,6 @@ export const Header = () => {
         { name: "Contact Us", path: "/contact" },
         { name: "Restaurants", path: "/restaurant" },
         { name: "Menu", path: "/menu" },
-
       ].map((item) => (
         <Typography
           key={item.name}
@@ -51,8 +51,8 @@ export const Header = () => {
   );
 
   return (
-    <div className= "max-w-full">
-      <Navbar className="sticky top-0 z-10  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
+    <div className="max-w-full">
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Avatar
             variant="circular"
@@ -61,39 +61,44 @@ export const Header = () => {
             className="border border-gray-900 p-1.0 mr-4"
             src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
           />
-
-          <div className="flex items-center justify-between w-full lg:gap-80">
-            <div className="mr-4 hidden lg:block">{navList}
-
-            </div>
+           <div className="flex-1 flex justify-center">{navList}</div>
 
             <div className="flex items-center gap-x-1">
               <DarkMode />
               <Menu>
                 <MenuHandler>
-                  <Button color="deep-orange" variant="text"
-                    size="lg" className="hidden lg:inline-block" ripple={true}>
+                  <Button
+                    color="deep-orange"
+                    variant="text"
+                    size="lg"
+                    className="hidden lg:inline-block"
+                    ripple={true}
+                  >
                     Login Options
                   </Button>
                 </MenuHandler>
                 <MenuList>
-                  <MenuItem className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600 !important" onClick={() => navigate("/login")}>User Login</MenuItem>
-                  <MenuItem className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600" onClick={() => navigate("/admin/login")}>Admin Login</MenuItem>
-                  <MenuItem className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600" onClick={() => navigate("/owner/login")}>
+                  <MenuItem
+                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    onClick={() => navigate("/login")}
+                  >
+                    User Login
+                  </MenuItem>
+                  <MenuItem
+                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    onClick={() => navigate("/admin/login")}
+                  >
+                    Admin Login
+                  </MenuItem>
+                  <MenuItem
+                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    onClick={() => navigate("/owner/login")}
+                  >
                     Restaurant Owner Login
                   </MenuItem>
                 </MenuList>
               </Menu>
 
-              {/* <Button
-                variant="text"
-                size="lg"
-                className="hidden lg:inline-block"
-                color="deep-orange"
-                onClick={() => navigate("/login")}
-              >
-                <span>Log In</span>
-              </Button> */}
               <Button
                 variant="gradient"
                 size="lg"
@@ -104,24 +109,31 @@ export const Header = () => {
                 <span>Sign Up</span>
               </Button>
             </div>
-          </div>
+          
         </div>
 
-        <Collapse open={openNav} className="lg-hidden">
+        <Collapse open={openNav} className="lg:hidden">
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" onClick={() => navigate('/login')}>
+            <Button
+              fullWidth
+              variant="text"
+              size="sm"
+              onClick={() => navigate('/login')}
+            >
               <span>Log In</span>
             </Button>
-
-
-            <Button fullWidth variant="gradient" size="sm" onClick={() => navigate('/signup')}>
+            <Button
+              fullWidth
+              variant="gradient"
+              size="sm"
+              onClick={() => navigate('/signup')}
+            >
               <span>Sign Up</span>
             </Button>
           </div>
         </Collapse>
 
-        {/* Mobile Menu Button */}
         <IconButton
           variant="text"
           className="ml-auto lg:hidden"
@@ -130,8 +142,6 @@ export const Header = () => {
           {openNav ? "Close" : "Menu"}
         </IconButton>
       </Navbar>
-
-
     </div>
   );
-}; 
+};

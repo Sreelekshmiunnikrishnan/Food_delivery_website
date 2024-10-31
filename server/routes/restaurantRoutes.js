@@ -1,6 +1,6 @@
 import e from "express";
 
-import { create, deleteRestaurant, getAllRestaurants, getRestaurant, updateRestaurant } from "../controllers/restaurantController.js";
+import { create, deleteRestaurant, getAllRestaurants, getRestaurant, ownerRestaurant, updateRestaurant } from "../controllers/restaurantController.js";
 import { authRestOwner } from "../middlewares/authRestOwner.js";
 import { authUser } from "../middlewares/authUser.js";
 import { upload } from "../middlewares/multer.js";
@@ -19,7 +19,7 @@ router.get('/getRestaurant/:id',authUser, getRestaurant);
 
 // Update a restaurant by ID
 router.put('/updateRestaurant/:id',authRestOwner, updateRestaurant);
-
+router.get('/getOwnRestaurant', authRestOwner,ownerRestaurant);
 // Delete a restaurant by ID
 router.delete('/deleteRestaurant/:id',authRestOwner, deleteRestaurant);
 

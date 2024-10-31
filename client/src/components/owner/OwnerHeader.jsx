@@ -16,18 +16,17 @@ import {
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
-  ShoppingCartIcon,
+  CakeIcon,
   UserCircleIcon,
   ArrowUpOnSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
   BuildingOfficeIcon,
-  LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
-  CodeBracketSquareIcon
+  
 } from "@heroicons/react/24/solid";
 import { DarkMode } from "../shared/DarkMode";
 // profile menu component
@@ -45,12 +44,12 @@ const profileMenuItems = [
   {
     label: "Deactivate Profile",
     icon: Cog6ToothIcon,
-    path :"owner/profile-delete"
+    path :"/owner/profile-delete"
   },
   {
     label: "Sign Out",
     icon: PowerIcon,
-    path :"/logout"
+    path :"/owner/logout"
   },
 ];
  
@@ -207,13 +206,23 @@ const navListItems = [
   },
   {
     label: "Create Menuitems",
-    icon: CodeBracketSquareIcon,
+    icon:  CakeIcon,
     path : "/owner/createmenu"
   },
   {
-    label: "Restaurants",
-    icon: CodeBracketSquareIcon,
-    path : "/owner/getrestaurants"
+    label: "My Restaurants",
+    icon: BuildingOfficeIcon,
+    path : "/owner/myrestaurants"
+  },
+  /* {
+    label: "Edit Restaurant",
+    icon: Cog6ToothIcon,
+    path : "/owner/editRestaurant"
+  }, */
+  {
+    label: "My Menu",
+    icon: Cog6ToothIcon,
+    path : "/owner/mymenu"
   },
 ];
  
@@ -233,7 +242,7 @@ function NavList() {
         >
           <MenuItem className="flex items-center gap-2 lg:rounded-full">
             {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            <span className="text-gray-900"> {label}</span>
+            <span className="text-white"> {label}</span>
           </MenuItem>
         </Typography>
       ))}
@@ -255,8 +264,8 @@ export const OwnerHeader = () => {
  
  
   return (
-    <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] ">
-    <Navbar className="sticky top-0 z-10  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
+    <div className="max-w-full overflow-hidden ">
+    <Navbar className="sticky top-0 z-10  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
       <Avatar
             variant="circular"

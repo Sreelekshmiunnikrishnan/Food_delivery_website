@@ -19,7 +19,7 @@ export const PaymentSuccess = () => {
       if(response){
       console.log("Order placed successfully!");
       }
-     const clear = await axiosInstance({
+     /* const clear = await axiosInstance({
       url:"cart/clear",
       method:"POST"
      } );
@@ -27,7 +27,7 @@ export const PaymentSuccess = () => {
       if(clear){
         console.log("cart data cleared");
         
-      }
+      } */
       // Redirect to order page or home
       navigate("/user/order");
     } catch (error) {

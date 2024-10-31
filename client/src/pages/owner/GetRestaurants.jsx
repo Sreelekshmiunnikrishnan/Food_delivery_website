@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { axiosInstance } from "../../config/axiosInstance";
 import { Card, Typography, Button } from "@material-tailwind/react";
 import { Spinner } from "@material-tailwind/react";
-
+import { Link } from 'react-router-dom';
 export const GetRestaurants = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [editRestaurant, setEditRestaurant] = useState(null);
+    /* const [editRestaurant, setEditRestaurant] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         address: '',
@@ -15,7 +15,7 @@ export const GetRestaurants = () => {
         phoneNumber: '',
         rating: '',
         ownerEmail: ''
-    });
+    }); */
 
     const fetchRestaurants = async () => {
         try {
@@ -40,7 +40,7 @@ export const GetRestaurants = () => {
         try {
             await axiosInstance({
                 method: "DELETE",
-                url: `/restaurant/delete/${id}`
+                url: `/restaurant/deleteRestaurant/${id}`
             });
             // Refresh the restaurant list after deletion
             fetchRestaurants();
@@ -49,37 +49,7 @@ export const GetRestaurants = () => {
         }
     };
 
-    const handleEdit = (restaurant) => {
-        setEditRestaurant(restaurant);
-        setFormData({
-            name: restaurant.name,
-            address: restaurant.address,
-            cuisineType: restaurant.cuisineType,
-            phoneNumber: restaurant.phoneNumber,
-            rating: restaurant.rating,
-            ownerEmail: restaurant.ownerEmail
-        });
-    };
-
-    const handleFormChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleUpdate = async () => {
-        try {
-            await axiosInstance({
-                method: "PUT",
-                url: `/restaurant/update/${editRestaurant._id}`,
-                data: formData
-            });
-            // Refresh the restaurant list after update
-            fetchRestaurants();
-            setEditRestaurant(null); // Clear the edit form
-        } catch (error) {
-            console.error("Failed to update restaurant:", error);
-        }
-    };
-
+    
     if (isLoading) {
         return (
             <div className="flex justify-center items-center pt-10">
@@ -112,17 +82,18 @@ export const GetRestaurants = () => {
                                 <td className="p-4"><Typography variant="small" color="blue-gray" className="font-normal">{restaurant.phoneNumber}</Typography></td>
                                 <td className="p-4"><Typography variant="small" color="blue-gray" className="font-normal">{restaurant.rating}</Typography></td>
                                 <td className="p-4"><Typography variant="small" color="blue-gray" className="font-normal">{restaurant.ownerEmail}</Typography></td>
-                                <td className="p-4">
-                                    <Button color="blue" onClick={() => handleEdit(restaurant)}>Edit</Button>
+                               {/*  <td className="p-4">
+                                <Link to={`/owner/editRestaurant/${restaurant._id}`}>
+                                    <Button color="yellow">Edit</Button></Link>
                                     <Button color="red" onClick={() => handleDelete(restaurant._id)}>Delete</Button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </Card>
 
-            {editRestaurant && (
+            {/* {editRestaurant && (
                 <div className="modal">
                     <h2>Edit Restaurant</h2>
                     <form onSubmit={(e) => { e.preventDefault(); handleUpdate(); }}>
@@ -136,7 +107,7 @@ export const GetRestaurants = () => {
                     </form>
                     <button onClick={() => setEditRestaurant(null)}>Cancel</button>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }
