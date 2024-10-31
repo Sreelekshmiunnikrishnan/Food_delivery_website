@@ -18,9 +18,9 @@ export const Cart = () => {
             const session = await axiosInstance({
                 url : "/payment/create-checkout-session",
                 method : "POST",
-                data : { products : cartData},
+                data : { products : cartData?.menus},
                  });
-                 console.log(session);
+                 console.log(session,"====session");
                  const result = stripe.redirectToCheckout({
                     sessionId : session?.data?.sessionId,
                  })
@@ -91,7 +91,7 @@ export const Cart = () => {
     <div className="w-6/12 flex bg-gray-100 flex-col items-center gap-5">
         <h2>Price summary...</h2>
         <h2>Total Price: {cartData?.totalPrices?.toLocaleString('en-US', { style: 'currency', currency: 'INR' })}</h2>
-        <button className="btn btn-secondary flex items-center justify-center w-1/3 px-4" disabled={!cartData?.menus?.length} onClick={makePayment}>
+        <button className="btn btn-secondary flex items-center justify-center w-1/3 px-4"  onClick={makePayment}>
             Checkout
         </button>
     </div>

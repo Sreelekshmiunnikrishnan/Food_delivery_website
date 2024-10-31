@@ -34,3 +34,18 @@ export const createPayment = async(req,res,next)=>{
     }
     
 }
+export const sessionstatus =async(req,res) =>{
+    try {
+        const sessionId = req.query.session.id;
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+        res.send({
+            status : session.status,
+            customer_email: session?.customer_details?.email,
+        });
+    } catch (error) {
+        res.status(error ?.sttatusCode || 500).json(error.message || "Internal server error");
+
+    }
+
+}
