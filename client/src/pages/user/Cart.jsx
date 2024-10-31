@@ -28,7 +28,8 @@ export const Cart = () => {
                     console.error("Error with Stripe Checkout:", result.error.message);
                     toast.error("Payment failed. Please try again.");
                 } else {
-                    navigate("/user/payment/success",cartData);
+                    localStorage.setItem("cartData", JSON.stringify(cartData));
+                    navigate("/user/payment/success");
                 }
                 
         } catch (error) {
