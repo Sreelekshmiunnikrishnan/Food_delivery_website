@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   admin: {},
-  adminAuthorized:false
+  isAdminAuthorized:false
 }
 
 export const adminSlice = createSlice({
@@ -11,11 +11,11 @@ export const adminSlice = createSlice({
   reducers: {
     saveAdmin: (state,action) => {
       state.admin=action.payload;
-      state.adminAuthorized=true
+      state.isAdminAuthorized=true
     },
     clearAdmin: (state) => {
       state.admin={};
-      state.adminAuthorized=false
+      state.isAdminAuthorized=false
     },
 
   },

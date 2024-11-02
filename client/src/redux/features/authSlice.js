@@ -12,7 +12,8 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.userAuthorized = true;
-      state.role = action.payload.role; // role is passed from login action payload
+      // Use optional chaining to avoid TypeError if action.payload is undefined
+      state.role = action.payload?.role || null; // Default to null if role is undefined
     },
     logout: (state) => {
       state.userAuthorized = false;

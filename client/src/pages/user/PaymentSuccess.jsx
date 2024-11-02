@@ -1,46 +1,61 @@
-// PaymentSuccess.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 export const PaymentSuccess = () => {
+   /*  const navigate = useNavigate();
+    const [menus, setMenus] = useState([]);
+    const [sessionId, setSessionId] = useState(null);
 
-  /* const navigate = useNavigate();
-  const cartData = JSON.parse(localStorage.getItem("cartData"));
- 
-    if (!cartData) {
-      toast.error("Cart data not found. Please try again.");
-      return;
-    }
-const handlePaymentSuccess = async() =>{
-    try {
-      // Add items to order history
-      const response = await axiosInstance({
-        url: "/order/createorder",
-        method: "POST",
-        data: cartData,
-      });
+    const handlePaymentSuccess = async () => {
+        try {
+            // Retrieve menus and sessionId from local storage
+            const storedMenus = localStorage.getItem('cartMenus');
+            const storedSessionId = localStorage.getItem('sessionId');
 
-      if (response) {
-        console.log("Order placed successfully!");
-        alert("Order placed successfully!");
-      }
+            // Parse stored menus if available
+            if (storedMenus) {
+                setMenus(JSON.parse(storedMenus)); // Parse the JSON string back into an array
+            }
 
-    await navigate("/user/order");
-    } catch (error) {
-      console.log("Error processing order:", error);
-      alert("error peocessing order",error)
-    }
-  
-  };
+            // Store the sessionId if available
+            if (storedSessionId) {
+                setSessionId(storedSessionId);
+            }
 
-  useEffect(() => {
-   
-    handlePaymentSuccess();
-  }, []); */
-  return (
-  <div>
-    Processing your order...</div>
-);
+            // Proceed with creating the order
+            if (menus.length > 0 && sessionId) {
+                const response = await axiosInstance({
+                    url: "/order/createorder",
+                    method: "POST",
+                    data: { menus, sessionId },
+                });
+
+                if (response) {
+                    console.log("Order placed successfully!");
+                    alert("Order placed successfully!");
+                    // Clear localStorage after successful order placement
+                    localStorage.removeItem('cartMenus');
+                    localStorage.removeItem('sessionId');
+                    navigate("/user/order");
+                }
+            } else {
+                alert("No order data found. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error processing order:", error);
+            alert("Error processing order. Please try again.");
+        }
+    };
+
+    useEffect(() => {
+        handlePaymentSuccess();
+    }, []); */
+
+    return (
+        <div>
+            <h1>Payment Successful!</h1>
+            
+        </div> 
+    );
 };

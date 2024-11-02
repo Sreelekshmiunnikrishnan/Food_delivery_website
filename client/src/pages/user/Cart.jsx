@@ -5,38 +5,37 @@ import { toast } from 'react-toastify';
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
+import { useDispatch } from 'react-redux';
 
 export const Cart = () => {
-    const navigate = useNavigate();
-    const [cartData, isLoading, error] = useFetch("/cart/getcart");
-    if(!cartData){
-   toast.error("cart can't be fetched");
-    }
-    const makePayment = async() =>{
-        try {
-            const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
-            const session = await axiosInstance({
-                url : "/payment/create-checkout-session",
-                method : "POST",
-                data : { products : cartData?.menus},
-                 });
-                 console.log(session,"====session");
-                 const result = stripe.redirectToCheckout({
-                    sessionId : session?.data?.sessionId,
-                 })
-                 /* if (result.error) {
-                    console.error("Error with Stripe Checkout:", result.error.message);
-                    toast.error("Payment failed. Please try again.");
-                } else {
-                    localStorage.setItem("cartData", JSON.stringify(cartData));
-                    navigate("/user/payment/success");
-                } */
-                
-        } catch (error) {
-            console.log(error);
-            
-        } 
-    } 
+   
+  const navigate = useNavigate();
+    
+    const [cartData] = useFetch("/cart/getcart");
+    
+        const makePayment = async () => {
+            try {
+                const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
+                const session = await axiosInstance({
+                    url: "/payment/create-checkout-session",
+                    method: "POST",
+                    data: { products: cartData?.menus }, // Ensure cartData is defined
+                });
+        
+               console.log(session,"===session");
+               
+                // Redirect to Stripe checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.data.sessionId,
+                });
+        
+               
+            } catch (error) {
+                console.error("Payment error:", error);
+                alert("An error occurred while processing your payment. Please try again.");
+            }
+        };
+        
 
    /*  const handlePaymentSuccess = async () => {
         try {

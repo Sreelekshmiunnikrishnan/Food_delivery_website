@@ -2,23 +2,21 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
-export const ProtectRoute = ({ role }) => {
+export const ProtectRoute = () => {
+    // Accessing authorization states from the slices
+    const userAuthorized = useSelector((state) => state.user.userAuthorized);
+    const adminAuthorized = useSelector((state) => state.admin.isAdminAuthorized);
+    const ownerAuthorized = useSelector((state) => state.owner.isOwnerAuthorized);
 
-    const userAuthorized = useSelector((state)=>state.auth.userAuthorized)
-    const userRole = useSelector((state) => state.auth.role);
-
-    console.log('userAutherized======',userAuthorized);
-    
     const navigate = useNavigate();
 
-     useEffect(() => {
-        if (!userAuthorized) {
-            navigate("/login");
+   useEffect(() => {
+        // Check if any user role is authorized
+        if (!userAuthorized && !adminAuthorized && !ownerAuthorized) {
+            navigate("/login"); // Redirect to login if not authorized
         }
-     else if (role && userRole !== role) {
-        navigate("/unauthorized"); // Optional: create an unauthorized page
-      }
-     }, [userAuthorized, userRole, role, navigate]);
+    }, [userAuthorized, adminAuthorized, ownerAuthorized, navigate]);
 
-    return userAuthorized && (!role || userRole === role) ? <Outlet /> : null;
+    // Render the Outlet if any user is authorized
+    return (userAuthorized || adminAuthorized || ownerAuthorized) ? <Outlet /> : null;
 };

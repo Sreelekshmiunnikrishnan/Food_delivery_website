@@ -170,7 +170,7 @@ export const login = async (req, res,next) => {
   export const checkUser =  async (req, res,next) => {
     try {
 
-      res.json({ success: true, message: "autherized user" });
+      res.status(200).json({ success: true, message: "autherized user" });
   } catch (error) {
       console.log(error);
       res.status(error.statusCode || 500).json(error.message || 'Internal server error')

@@ -27,9 +27,9 @@ export const createPayment = async(req,res,next)=>{
             cancel_url: `${client_domain}/user/payment/cancel`,
           });
         
-          res.send({sucess:true,sessionId : session.id});
+          res.status(200).send({sucess:true,sessionId : session.id});
     } catch (error) {
-        res.json({error});
+        res.status(500).json({error : "Failed to create payment session"});
         
     }
     

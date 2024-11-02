@@ -10,32 +10,36 @@ import { axiosInstance } from '../config/axiosInstance';
 import {AdminHeader} from "../components/admin/AdminHeader";
 
 import { login, logout } from '../redux/features/authSlice';
+import { saveAdmin } from '../redux/features/adminSlice';
 
-export const AdminLayout = ({role}) => {
+export const AdminLayout = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const adminAuthorized = useSelector((state) => state.auth.userAuthorized);
-
+  const adminAuthorized = useSelector((state) => state.admin.isAdminAuthorized);
+  console.log(adminAuthorized);
+  
   const checkAdmin = async () => {
     try {
-        const response = await axiosInstance({ method: "GET", url: "/admin/check-admin" });
+        const response = await axiosInstance({ method: "GET", url: "/admin/check-admin",credentials:'include'});
         console.log(response, "====response");
-        dispatch(login(response?.data?.data));
+        dispatch(saveAdmin(response?.data?.data));
     } catch (error) {
         console.log(error, "===error");
-        dispatch(logout());
+        dispatch(clearAdmin());
+        
     }
 };
 
 useEffect(() => {
-    checkAdmin();
-}, []);
+  console.log("Checking admin authorization...");
+  checkAdmin();
+}, [location.pathname]);
 
-if (adminAuthorized === undefined) {
+ /* if (adminAuthorized === undefined) {
   return <div>Loading...</div>;
-}
+}  */
   return (
     <div className="pt-3 ">
            {adminAuthorized ? <AdminHeader /> : <Header />}

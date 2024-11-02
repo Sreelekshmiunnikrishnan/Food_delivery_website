@@ -26,22 +26,13 @@ const orderSchema = new Schema({
         type: Number,
         required: true
       },
-    totalPrice: {
-      type: Number,
-      ref: 'Cart',
-      required: true,
-      default:0,
-    },
+    
     status: {
       type: String,
       enum: ['pending', 'preparing', 'delivered', 'cancelled'],
       default: 'pending'
     },
-    //deliveryPerson: {
-     // type: Schema.Types.ObjectId,
-     // ref: 'User',
-     // required: false
-  //  },
+   
      deliveryAddress: {
       type: String,
       required: true
@@ -50,6 +41,11 @@ const orderSchema = new Schema({
       type: String,
       enum: ['card', 'cash', 'online'],
       required: true
+    },
+    
+    OrderId :{
+      type:String,
+      required:true,
     },
    /* orderDate: { type: Date, default: Date.now },
     delivery: {

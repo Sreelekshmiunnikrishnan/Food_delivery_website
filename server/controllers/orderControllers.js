@@ -8,44 +8,52 @@ import { MenuItem } from '../models/menuModel.js';
 // Create a new order
 export const createOrder = async (req, res) => {
   try {
-    const userId  = req.user;
+    const userId = req.user.id;
+
+    // Fetch user details
     const userDetails = await User.findById(userId);
-    const cartData = req.body;
-    //const cart = await Cart.findOne({ userId: userId }).populate('menus.menuId');
- 
-    if (!cartData) {
-      return res.json({ message: 'cart is empty' });
+    if (!userDetails) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    const {cartData,sessionId} = req.body;
    
-    const totalPrice = cartData.totalPrices;
+    // Check if cartData is empty or if menus are not present
+    if (!cartData || !cartData?.menus || cartData?.menus.length === 0) {
+      return res.json({ message: 'Cart is empty' });
+    }
+
     const items = cartData.menus;
     console.log(items);
-    
-    //const { quantity, deliveryAddress, paymentMethod } = req.body;
-    //const orderTime = Order.orderDate;
-   /*  if (!quantity || !deliveryAddress || !paymentMethod) {
-      return res.status(400).json({ message: 'All fields required' });
-    } */
 
+    
+    // Create a new order
     const newOrder = new Order({
       customer: userId,
-      items:items,
-      quantity:1,
-      totalPrice:cartData.totalPrices,
-      deliveryAddress:userDetails.address,
-      paymentMethod:'cash',
-      
+      items: items,
+      quantity: quantity || 1, // Default to 1 if quantity is not provided
+      deliveryAddress: deliveryAddress || userDetails.address, // Use provided address or default to user address
+      paymentMethod: paymentMethod || 'cash',
+      ownerId:sessionId, // Default payment method if not provided
     });
 
+    // Save the order
     const savedOrder = await newOrder.save();
-    const newCart = await Cart.findByIdAndDelete(userId);
-    const newuser = await User.findById(userId);
-    if (!newuser.email) {
+
+    // Remove items from the cart
+    await Cart.findByIdAndDelete(userId);
+
+    // Check if the user email exists before sending email
+    if (!userDetails.email) {
       return res.status(400).json({ message: 'User email not found' });
     }
-    await sendDynamicEmail(userId,newuser, savedOrder)
+    // Send dynamic email with order details
+    await sendDynamicEmail(userId, userDetails, savedOrder);
+
+    // Respond with the created order
     res.status(201).json(savedOrder);
   } catch (error) {
+    console.error(error); // Log the error for debugging purposes
     res.status(500).json({ message: error.message });
   }
 };

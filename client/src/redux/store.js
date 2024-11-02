@@ -1,20 +1,35 @@
-/* import { configureStore } from '@reduxjs/toolkit'
-import userReducer from "./features/userSlice";
-import adminReducer from "../redux/features/adminSlice"
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-},
- 
-}) */
+/* import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../redux/features/authSlice';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
-// src/redux/store.js
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../redux/features/authSlice";
+const persistConfig = {
+  key: 'auth',
+  storage,
+};
 
-export const store = configureStore({
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
+const store = configureStore({
   reducer: {
-    auth: authReducer,
+    auth: persistedAuthReducer,
   },
 });
+
+export const persistor = persistStore(store);
+export default store; */
+
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "../redux/features/authSlice";
+import userReducer from "../redux/features/userSlice";
+import adminReducer from "../redux/features/adminSlice";
+import ownerReducer from "../redux/features/ownerSlice";
+export const store = configureStore({
+  reducer: {
+   user : userReducer,
+   admin : adminReducer,
+   owner : ownerReducer,
+  },
+  
+}); 
 

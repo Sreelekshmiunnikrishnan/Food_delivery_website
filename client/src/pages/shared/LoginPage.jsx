@@ -2,8 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Card, Typography } from "@material-tailwind/react";
-import axios from "axios";
-import { toast } from 'react-toastify';
+
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
 import { axiosInstance } from "../../config/axiosInstance";
@@ -34,10 +33,7 @@ export const LoginPage = ({ role = "user" }) => {
 
   const onSubmit = async (data) => {
     try {
-
-
-      
-      const response = await axiosInstance({
+const response = await axiosInstance({
         method: "POST",
         url: user.login_api,
         data
@@ -53,12 +49,7 @@ export const LoginPage = ({ role = "user" }) => {
       console.log(error);
     }
   }
-
-
-
-
-
-  return (
+return (
     <div className="flex justify-center items-center pt-10  bg-gray-100">
       <Card className="w-300 p-6">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
@@ -90,7 +81,7 @@ export const LoginPage = ({ role = "user" }) => {
               <input type="password" {...register("password", {
                 required: "Password is required",
                 minLength: { value: 6, message: "Password must be at least 6 characters" }
-              })} required className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Password" />
+              })} required className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Password"   autoComplete="current-password"/>
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
             

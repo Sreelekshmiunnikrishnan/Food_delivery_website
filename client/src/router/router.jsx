@@ -60,9 +60,9 @@ export const router = createBrowserRouter([
           { path: "profile-delete", element: <DeleteProfile /> },
           { path: "cart", element: <Cart /> },
           { path: "restaurant", element: <Restaurants /> },
-         { path: "menu", element: <MenuItems /> },
-         { path: "menudetails/:id", element: <MenuDetails /> },
-          {path:"logout",element:< Logout/>},
+          { path: "menu", element: <MenuItems /> },
+          { path: "menudetails/:id", element: <MenuDetails /> },
+          {path:"logout",element:<Logout />},
           {path:"payment/success",element:<PaymentSuccess />},
           {path:"payment/cancel",element:<Cart />},
           {path:"order",element:<Order />}
@@ -123,7 +123,8 @@ export const router = createBrowserRouter([
         path: "logout",
         element: <Home />
       },
-    ],
+
+     ],
   },
   {
     path: "admin",

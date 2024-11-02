@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   owner: {},
-  ownerAuthorized:false
+  isOwnerAuthorized:false
 }
 
 export const ownerSlice = createSlice({
@@ -11,11 +11,11 @@ export const ownerSlice = createSlice({
   reducers: {
     saveOwner: (state,action) => {
       state.owner=action.payload;
-      state.ownerAuthorized=true
+      state.isOwnerAuthorized=true
     },
     clearOwner: (state) => {
       state.owner={};
-      state.ownerAuthorized=false
+      state.isOwnerAuthorized=false
     },
 
   },

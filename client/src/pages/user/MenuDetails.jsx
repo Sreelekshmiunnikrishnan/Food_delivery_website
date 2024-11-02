@@ -12,11 +12,11 @@ export const MenuDetails = () => {
   const [loading, setLoading] = useState(true);   // Initialize as null, not an array
   const [error, setError] = useState(null);  // State for error handling
   const navigate = useNavigate();
-  const userAuthorized = useSelector((state)=>state.auth.userAuthorized);
+ 
 
   const fetchMenu = async () => {
     try {
-      if(userAuthorized){
+    
       const response = await axiosInstance({
         method: "GET",
         url: `/menu/getmenu/${id}`  // Use the ID from useParams in the URL
@@ -24,11 +24,7 @@ export const MenuDetails = () => {
 
       setMenu(response.data);  // Set the fetched menu data to state
       console.log("response ===", response.data);
-    }else{
-    //toast.error("Login your account to add item to cart")
-    alert("Login your account to add item to cart")
-      navigate("/login");
-    }
+    
     } catch (error) {
       console.error('Error fetching menu:', error);
       setError('Could not fetch menu details');  // Handle the error
@@ -48,13 +44,13 @@ export const MenuDetails = () => {
       });
       console.log("response ===", response.data);
       alert("Item successfully added to cart");
-      toast.success("Item added to cart successfully");
+      //toast.success("Item added to cart successfully");
       navigate("/user/cart");
     
     } catch (error) {
       console.log(error); 
       alert("Item already in  cart");
-      toast.error(error?.response?.data?.message ||  'error adding product to cart') ;
+     // toast.error(error?.response?.data?.message ||  'error adding product to cart') ;
     }
   };
   

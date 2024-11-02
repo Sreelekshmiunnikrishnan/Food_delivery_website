@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 
 export const Order = () => {
-const [item,setItem] = useState([]);
+const [food,setFood] = useState([]);
   // Payment success handler in the success URL page
 const handleGetOrder = async () => {
   try {
@@ -10,12 +10,12 @@ const handleGetOrder = async () => {
     // Add items to order history
     const response = await axiosInstance({
       url: "/order/getorder",  // Endpoint to add items to order history
-      method: "GET",
+      method: "GET"
       
     });
-    setItem(response);
+    setFood(response);
 
-    console.log("Order placed successfully!");
+    console.log("Order fetched successfully!");
   } catch (error) {
     console.log("Error adding order:", error);
   }
@@ -28,10 +28,10 @@ useEffect(() => {
 
   return (
     <div>OrderDetails...
-      <p>Item Id: {item.menus.menuId}</p>
-      <p>Item name :{item.menus.menuName}</p>
-      <p>Item totalprice :{item.totalPrices}</p>
-      <p>Address :{item.deliveryAddress}</p>
+      <p>Item Id: {food.items.menuId}</p>
+      <p>Item name :{food.items.menuName}</p>
+      <p>Item price :{food.items.price}</p>
+      <p>Address :{food.tems.deliveryAddress}</p>
     </div>
   );
 }

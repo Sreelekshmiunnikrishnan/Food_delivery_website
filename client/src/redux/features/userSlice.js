@@ -14,7 +14,7 @@ export const userSlice = createSlice({
       state.userAuthorized=true
     },
     clearUser: (state) => {
-      state.user={};
+      state.user= {};
       state.userAuthorized=false
     },
 

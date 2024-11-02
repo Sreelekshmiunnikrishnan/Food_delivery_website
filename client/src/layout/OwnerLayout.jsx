@@ -14,31 +14,33 @@ export const OwnerLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const ownerAuthorized = useSelector((state) => state.auth.userAuthorized);
-  console.log("authorize..",ownerAuthorized);
+  const ownerAuthorized = useSelector((state) => state.owner.isOwnerAuthorized);
+  
+  console.log(ownerAuthorized,"==ownerAuthorized");
   
     const checkOwner = async () => {
       try {
 
-         const response = await axiosInstance({ method: "GET", url: "/owner/check-owner", credentials: 'include' 
+         const response = await axiosInstance({ method: "GET", url: "/owner/check-owner",credentials:'include'
          
            });
           console.log(response, "====response");
-          dispatch(login(response?.data?.data));
+          dispatch(saveOwner(response?.data?.data));
 
       } catch (error) {
           console.log(error, "===error");
-          dispatch(logout());
+          dispatch(clearOwner());
+         
       }
   };
 
   useEffect(() => {
       checkOwner();
-  }, []); 
-
-  if (ownerAuthorized=== undefined) {
-    return <div>Loading...</div>;
-}
+  }, [location.pathname]); 
+ /* if (ownerAuthorized === undefined) {
+  return <div>Loading...</div>;
+}  
+  */
   return (
     <div className="pt-3 ">
        {ownerAuthorized ?  <OwnerHeader /> : <Header />}
