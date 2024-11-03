@@ -1,18 +1,14 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const orderSchema = new Schema({
-    customer: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
     
     items: [{
-      menuId: {
-        type: Schema.Types.ObjectId,
-        ref: 'MenuItem',
-        required: true,
-      },
+    
       menuName:{
         type:String,
         required:true,
@@ -21,7 +17,11 @@ const orderSchema = new Schema({
         type:Number,
         required: true,
     },
-      }],
+   }],
+   /*  totalAmount: {
+    type: Number,
+    required: true,
+},  */
       quantity: {
         type: Number,
         required: true
@@ -29,11 +29,12 @@ const orderSchema = new Schema({
     
     status: {
       type: String,
-      enum: ['pending', 'preparing', 'delivered', 'cancelled'],
+      enum: ['pending', 'preparing', 'completed', 'cancelled'],
       default: 'pending'
     },
+    ownerId: String,
    
-     deliveryAddress: {
+    /*  deliveryAddress: {
       type: String,
       required: true
     },
@@ -41,16 +42,10 @@ const orderSchema = new Schema({
       type: String,
       enum: ['card', 'cash', 'online'],
       required: true
-    },
+    }, */
     
-    OrderId :{
-      type:String,
-      required:true,
-    },
-   /* orderDate: { type: Date, default: Date.now },
-    delivery: {
-      type: Date,
-    } */
+   
+  
   }, { timestamps: true });
   
   export const Order = mongoose.model('Order', orderSchema);

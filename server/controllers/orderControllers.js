@@ -6,58 +6,53 @@ import { sendDynamicEmail } from '../utilities/nodemailer.js';
 import { User } from '../models/userModel.js';
 import { MenuItem } from '../models/menuModel.js';
 // Create a new order
-export const createOrder = async (req, res) => {
+export const createOrder = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+      const userId = req.user.id;
+      const { items, ownerId } = req.body;
 
-    // Fetch user details
-    const userDetails = await User.findById(userId);
-    if (!userDetails) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+      // Fetch user details
+      const userDetails = await User.findById(userId);
+      if (!userDetails) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      if (!Array.isArray(items) || items.length === 0) {
+          return res.status(400).json({ message: 'Items array is required and cannot be empty' });
+      }
 
-    const {cartData,sessionId} = req.body;
-   
-    // Check if cartData is empty or if menus are not present
-    if (!cartData || !cartData?.menus || cartData?.menus.length === 0) {
-      return res.json({ message: 'Cart is empty' });
-    }
+      const orderItems = items.map(item => ({
+         // Ensure this matches the ID of the MenuItem in your database
+          menuName: item.menuName, // Product name
+          price: item.price, // Already in the correct format
+      }));
 
-    const items = cartData.menus;
-    console.log(items);
+      // Create a new order
+      const newOrder = new Order({
+          userId,
+          items: orderItems,
+          ownerId,
+          status: 'completed', // Adjust based on your payment status
+          quantity: items.length, // Total quantity based on items
+      });
 
-    
-    // Create a new order
-    const newOrder = new Order({
-      customer: userId,
-      items: items,
-      quantity: quantity || 1, // Default to 1 if quantity is not provided
-      deliveryAddress: deliveryAddress || userDetails.address, // Use provided address or default to user address
-      paymentMethod: paymentMethod || 'cash',
-      ownerId:sessionId, // Default payment method if not provided
-    });
+      const savedOrder = await newOrder.save();
+      await Cart.deleteMany({ userId: userId });
+      if (!userDetails.email) {
+          return res.status(400).json({ message: 'User email not found' });
+      }
 
-    // Save the order
-    const savedOrder = await newOrder.save();
-
-    // Remove items from the cart
-    await Cart.findByIdAndDelete(userId);
-
-    // Check if the user email exists before sending email
-    if (!userDetails.email) {
-      return res.status(400).json({ message: 'User email not found' });
-    }
-    // Send dynamic email with order details
-    await sendDynamicEmail(userId, userDetails, savedOrder);
-
-    // Respond with the created order
-    res.status(201).json(savedOrder);
+      // Send dynamic email with order details
+      await sendDynamicEmail(userId, userDetails, savedOrder);
+      res.status(201).json({ message: 'Order created successfully', order: savedOrder });
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
-    res.status(500).json({ message: error.message });
+      console.error('Error creating order:', error);
+      res.status(500).json({ message: 'Failed to create order', error: error.message });
   }
 };
 
+
+    
+   
 // Get all orders
 export const getOrders = async (req, res, next) => {
   try {
@@ -80,9 +75,9 @@ export const getOrder = async (req, res, next) => {
     if (!cart) {
       return res.json({ message: 'No orders' });
     }
-    res.json({success:true, message: "order details fetched", data: cart });
+    res.status(200).json({success:true, message: "order details fetched", data: cart });
     
-    res.status(200).json({success:true},cart);
+    //res.status(200).json({success:true},cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

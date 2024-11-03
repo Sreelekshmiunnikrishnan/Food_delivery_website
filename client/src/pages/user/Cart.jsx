@@ -29,6 +29,7 @@ export const Cart = () => {
                     sessionId: session.data.sessionId,
                 });
         
+                
                
             } catch (error) {
                 console.error("Payment error:", error);
