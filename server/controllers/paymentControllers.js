@@ -23,7 +23,7 @@ export const createPayment = async(req,res,next)=>{
             payment_method_types :["card"],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${client_domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${client_domain}/user/payment/success`,
             cancel_url: `${client_domain}/user/payment/cancel`,
           });
         console.log(lineItems);
