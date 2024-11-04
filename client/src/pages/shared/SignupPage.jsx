@@ -27,7 +27,7 @@ export const SignupPage = () => {
       console.log(response, '======response');
      
     alert("Signup success")
-      navigate("/home");
+      navigate("/");
     } catch (error) {
      
       alert("Signup failed. Please try again.")
