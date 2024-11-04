@@ -47,9 +47,10 @@ export const PaymentSuccess = () => {
                     })),
                     ownerId: sessionId, // Your payment intent identifier
                 };
+            console.log(orderData);
             
                 try {
-                    const response = await axiosInstance.post("/order/createorder", orderData);
+                    const response = await axiosInstance.post("/order/createorder", {orderData});
                     console.log("Order created successfully:", response.data);
                 } catch (error) {
                     console.error("Error creating order:", error);

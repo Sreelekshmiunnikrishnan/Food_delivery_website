@@ -9,17 +9,22 @@ import { MenuItem } from '../models/menuModel.js';
 export const createOrder = async (req, res, next) => {
   try {
       const userId = req.user.id;
-      const { items, ownerId } = req.body;
-
+      const {orderData} = req.body;
+      console.log(req.body,"requestbody");
+      
+    const items =orderData.items;
+    console.log(items,"items");
+    
+   const ownerId = orderData.ownerId;
       // Fetch user details
       const userDetails = await User.findById(userId);
       if (!userDetails) {
           return res.status(404).json({ message: 'User not found' });
       }
-      if (!Array.isArray(items) || items.length === 0) {
+       if (!Array.isArray(items) || items.length === 0) {
           return res.status(400).json({ message: 'Items array is required and cannot be empty' });
       }
-
+ 
       const orderItems = items.map(item => ({
          // Ensure this matches the ID of the MenuItem in your database
           menuName: item.menuName, // Product name
@@ -75,7 +80,7 @@ export const getOrder = async (req, res, next) => {
     if (!cart) {
       return res.json({ message: 'No orders' });
     }
-    res.status(200).json({success:true, message: "order details fetched", data: cart });
+    res.status(200).json({success:true, message: "order details fetched",  cart });
     
     //res.status(200).json({success:true},cart);
   } catch (error) {

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
 export const Order = () => {
-const [food,setFood] = useState([]);
+const [products,setProducts] = useState([]);
   // Payment success handler in the success URL page
 const handleGetOrder = async () => {
   try {
@@ -14,7 +14,7 @@ const handleGetOrder = async () => {
       
     });
     if(response){
-    setFood(response.data);
+    setProducts(response);
     console.log(food);
      console.log("Order fetched successfully!");
     
@@ -36,12 +36,13 @@ useEffect(() => {
   return (
     <div className="w-full h-40">
       <h2>Order Details</h2>
-      <p><strong>User ID:</strong> {food.data.userId}</p>
+      <p><strong>UserIde:</strong> {products.order.userId}</p>
+     {/*   <p><strong>User ID:</strong> {food.data.userId}</p>
        <p><strong>Status:</strong> {food.data.status}</p>
       <p><strong>Owner ID:</strong> {food.data.ownerId}</p>
       <p><strong>Menu Name:</strong> {food.data.items.menuName}</p>
      <p><strong>Quantity:</strong> {food.data.quantity}</p>
-     <p><strong>Price:</strong> {food.data.items.price}</p> 
+     <p><strong>Price:</strong> {food.data.items.price}</p>   */}
      {/*  <h3>Items:</h3>
       {food.data.items && food.data.items.length > 0 ? (
         <ul>
