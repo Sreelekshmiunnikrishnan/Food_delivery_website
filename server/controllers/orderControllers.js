@@ -23,7 +23,7 @@ export const createOrder = async (req, res, next) => {
       }
        if (!Array.isArray(items) || items.length === 0) {
           return res.status(400).json({ message: 'Items array is required and cannot be empty' });
-      }
+       }
  
       const orderItems = items.map(item => ({
          // Ensure this matches the ID of the MenuItem in your database
