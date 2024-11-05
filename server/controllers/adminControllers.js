@@ -169,9 +169,9 @@ export const adminSignin = async (req, res,next) => {
 export const checkAdmin =  async (req, res,next) => {
   try {
    
-     res.json({ message: 'Admin authorized' });
+    res.status(200).json({ success: true, message: "autherized user" });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting profile', error });
+    res.status(error.statusCode || 500).json(error.message || 'Internal server error')
   }
 };
 
