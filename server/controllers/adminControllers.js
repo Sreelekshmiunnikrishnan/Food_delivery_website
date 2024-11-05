@@ -171,7 +171,7 @@ export const checkAdmin =  async (req, res,next) => {
    
     res.status(200).json({ success: true, message: "autherized user" });
   } catch (error) {
-    res.status(error.statusCode || 500).json(error.message || 'Internal server error')
+    res.status(error.statusCode || 500).json(error.message || 'Internal server error');
   }
 };
 
