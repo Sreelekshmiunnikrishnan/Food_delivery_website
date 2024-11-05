@@ -22,8 +22,7 @@ export const UserLayout = () => {
         } catch (error) {
             console.log(error, "===error");
             dispatch(clearUser());
-           
-        }
+           }
     };
 
     useEffect(() => {

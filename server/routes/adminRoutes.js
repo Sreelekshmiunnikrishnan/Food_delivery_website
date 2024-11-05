@@ -19,7 +19,7 @@ router.put("/block-owner/:id",authAdmin,blockOwner)
 router.get('/getRestaurant/:id',getRestaurant);
 router.get("/admin-profile",authAdmin,getAdminProfile)
 router.post("/logout",authAdmin,logout)
-router.get("/check-admin",checkAdmin)
+router.get("/check-admin",authAdmin,checkAdmin)
     
 
 

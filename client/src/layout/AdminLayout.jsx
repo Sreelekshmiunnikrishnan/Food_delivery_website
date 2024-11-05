@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useNavigate,useLocation  } from 'react-router-dom';
 import { Header } from "../components/user/Header";
 import { Footer } from "../components/user/Footer";
@@ -10,15 +10,16 @@ import { axiosInstance } from '../config/axiosInstance';
 import {AdminHeader} from "../components/admin/AdminHeader";
 
 import { login, logout } from '../redux/features/authSlice';
-import { saveAdmin } from '../redux/features/adminSlice';
+import { saveAdmin,clearAdmin} from '../redux/features/adminSlice';
 
 export const AdminLayout = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+ // const [loading, setLoading] = useState(true); // Loading state
   const adminAuthorized = useSelector((state) => state.admin.isAdminAuthorized);
-  console.log(adminAuthorized);
+  console.log(adminAuthorized,"admin authorized");
   
   const checkAdmin = async () => {
     try {
@@ -28,18 +29,14 @@ export const AdminLayout = () => {
     } catch (error) {
         console.log(error, "===error");
         dispatch(clearAdmin());
-        
-    }
+         }  
 };
 
 useEffect(() => {
-  console.log("Checking admin authorization...");
+
   checkAdmin();
 }, [location.pathname]);
 
- /* if (adminAuthorized === undefined) {
-  return <div>Loading...</div>;
-}  */
   return (
     <div className="pt-3 ">
            {adminAuthorized ? <AdminHeader /> : <Header />}

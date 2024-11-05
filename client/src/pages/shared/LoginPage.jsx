@@ -41,7 +41,7 @@ const response = await axiosInstance({
       console.log(response, "====response");
       
       alert("Log-in success");
-      dispatch(login({ role: user.role }));
+      //dispatch(login({ role: user.role }));
       navigate(user.profile_route,{ replace: true });
     } catch (error) {
     

@@ -131,7 +131,7 @@ export const router = createBrowserRouter([
      ],
   },
  
-  {
+   {
     path: "admin",
     element:<AdminLayout />,
     errorElement: <ErrorPage />,
@@ -151,6 +151,8 @@ export const router = createBrowserRouter([
       },
     // Other admin routes, such as dashboard, settings, etc.
     ],
-  },
+  }, 
+  
+  
   
 ]);
