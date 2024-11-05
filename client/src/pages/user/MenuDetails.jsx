@@ -48,9 +48,14 @@ export const MenuDetails = () => {
       navigate("/user/cart");
     
     } catch (error) {
-      console.log(error); 
-      alert("Item already in  cart");
-     // toast.error(error?.response?.data?.message ||  'error adding product to cart') ;
+      if (error.response && error.response.status === 401) {
+        alert("You need to Log in to add items to the cart.");
+        navigate("/login");
+      } else {
+        console.log(error);
+        alert("Item already in cart");
+        // toast.error(error?.response?.data?.message || 'Error adding product to cart');
+      }
     }
   };
   

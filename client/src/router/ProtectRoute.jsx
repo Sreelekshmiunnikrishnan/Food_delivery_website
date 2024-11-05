@@ -10,12 +10,12 @@ export const ProtectRoute = () => {
 
     const navigate = useNavigate();
 
-  // useEffect(() => {
+   useEffect(() => {
         // Check if any user role is authorized
         if (!userAuthorized && !adminAuthorized && !ownerAuthorized) {
             navigate("/login"); // Redirect to login if not authorized
         }
-   // }, [userAuthorized, adminAuthorized, ownerAuthorized, navigate]);
+    }, [userAuthorized, adminAuthorized, ownerAuthorized, navigate]);
 
     // Render the Outlet if any user is authorized
     return (userAuthorized || adminAuthorized || ownerAuthorized) ? <Outlet /> : null;

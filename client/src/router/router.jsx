@@ -80,6 +80,9 @@ export const router = createBrowserRouter([
         element: <LoginPage role="restaurantOwner" />,
       },
       {
+        element:<ProtectRoute role="restaurantOwner" />,
+        children:[
+      {
         path: "owner-profile",
         element: <OwnerProfile />,
       },
@@ -123,23 +126,53 @@ export const router = createBrowserRouter([
         path: "logout",
         element: <Home />
       },
-
+    ],
+  },
      ],
   },
-  {
+  /* {
     path: "admin",
-    element: <AdminLayout />,
+    element:  <UserLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "login",
         element: <LoginPage role="admin" />,
       },
+      {
+        path: ".",
+        element:  <ProtectRoute role="admin" />,
+        errorElement: <ErrorPage />,
+        children: [
        {
         path: "admin-profile",
         element:<AdminProfile />
       }, 
-      // Other admin routes
     ],
   },
+      // Other admin routes
+    ],
+  }, */
+  {
+    path: "admin",
+    element:<AdminLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage role="admin" />,
+      },
+      {
+      element:<ProtectRoute role="admin" />,
+      children:[
+        {
+        path: "admin-profile",
+        element: <AdminProfile />,
+        },
+      ],
+      },
+    // Other admin routes, such as dashboard, settings, etc.
+    ],
+  },
+  
 ]);
