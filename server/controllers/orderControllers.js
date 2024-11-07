@@ -65,6 +65,17 @@ export const getOrders = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getAllOrders = async (req, res, next) => {
+  try {
+   
+    const orders = await Order.find().populate('items');
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // Get a specific order by ID
 export const getOrder = async (req, res, next) => {

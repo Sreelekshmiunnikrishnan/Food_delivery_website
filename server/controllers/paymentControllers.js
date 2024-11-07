@@ -19,6 +19,7 @@ export const createPayment = async (req, res, next) => {
                 currency: "inr",
                 product_data: {
                     name: product?.menuId?.name || "Unknown Product",
+                    id:product?.menuId,
                     images: product?.menuId?.image ? [product.menuId.image] : [],
                 },
                 unit_amount: Math.round(product?.menuId?.price * 100 || 0),

@@ -25,6 +25,8 @@ import {
   PowerIcon,
   HomeIcon,
   Bars2Icon,
+  StarIcon,
+  ArchiveBoxArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import { DarkMode } from "../shared/DarkMode";
 
@@ -81,7 +83,8 @@ const navListItems = [
   { label: "Restaurants", icon: BuildingOfficeIcon, path: "/restaurant" },
   { label: "Menu", icon: CakeIcon, path: "/menu" },
   { label: "Cart", icon: ShoppingCartIcon, path: "/user/cart" },
-  { label: "Order", icon:  UserCircleIcon, path: "/user/order" },
+  { label: "Your Orders", icon: ArchiveBoxArrowDownIcon, path: "/user/order" },
+  { label: " Your Reviews", icon: StarIcon, path: "/user/review" },
 ];
 
 function NavList() {

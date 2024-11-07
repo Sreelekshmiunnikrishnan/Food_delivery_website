@@ -26,6 +26,7 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  ArchiveBoxArrowDownIcon,
   
 } from "@heroicons/react/24/solid";
 import { DarkMode } from "../shared/DarkMode";
@@ -223,6 +224,16 @@ const navListItems = [
     label: "My Menu",
     icon: Cog6ToothIcon,
     path : "/owner/mymenu"
+  },
+  {
+    label: "User Orders",
+    icon: ArchiveBoxArrowDownIcon,
+    path : "/owner/userorders"
+  },
+  {
+    label: "User Reviews",
+    icon: ArchiveBoxArrowDownIcon,
+    path : "/owner/userreviews"
   },
 ];
  

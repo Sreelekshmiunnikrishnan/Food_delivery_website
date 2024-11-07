@@ -36,6 +36,10 @@ import { GetRestaurants } from "../pages/owner/GetRestaurants";
 import { EditRestaurant } from "../pages/owner/EditRestaurant";
 import { MyRestaurants } from "../pages/owner/MyResturants";
 import { Mymenu } from "../pages/owner/Mymenu";
+import { Review } from "../pages/user/Review";
+import { GetReviews } from "../pages/user/GetReviews";
+import { UserOrder } from "../pages/owner/UserOrder";
+import { GetReview } from "../pages/owner/GetReview";
 
 export const router = createBrowserRouter([
   {
@@ -65,7 +69,9 @@ export const router = createBrowserRouter([
           {path:"logout",element:<Logout />},
           {path:"payment/success",element:<PaymentSuccess />},
           {path:"payment/cancel",element:<Cart />},
-          {path:"order",element:<Order />}
+          {path:"order",element:<Order />},
+          {path:"review/:id",element:<Review />},
+          {path:"review",element:<GetReviews />}
         ],
       },
     ],
@@ -121,6 +127,14 @@ export const router = createBrowserRouter([
       {
         path: "editMenu/:id",
         element: <EditMenu />
+      },
+      {
+        path: "userorders",
+        element: <UserOrder />
+      },
+      {
+        path: "userreviews",
+        element: <GetReview />
       },
       {
         path: "logout",
