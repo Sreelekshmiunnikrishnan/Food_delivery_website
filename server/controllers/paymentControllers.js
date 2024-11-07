@@ -5,7 +5,12 @@ const stripe = new Stripe(process.env.Stripe_Private_Api_key);
 const client_domain = process.env.CLIENT_DOMAIN;
 export const createPayment = async(req,res,next)=>{
     try {
-        const { products} = req.body;
+        const { products,quantity } = req.body;
+       /*  const coupons = {
+            "DISCOUNT10": 10,  // 10% discount
+            "SAVE20": 20       // 20% discount
+        };
+        const discountPercentage = coupons[couponCode] || 0; */
             const lineItems = products.map((product) =>({
                 price_data : {
                 currency :"inr",
@@ -14,16 +19,20 @@ export const createPayment = async(req,res,next)=>{
                         name: product?.menuId?.name,
                         images : [product?.menuId?.image],
                     },
-                    unit_amount : Math.round(product?.menuId?.price * 100),
+                    
+                    unit_amount :Math.round(product?.menuId?.price * 100),
                 },
-                quantity : 1,
+                quantity : quantity,
         }));
+        const client_domain = process.env.NODE_ENV === 'production' 
+            ? process.env.CLIENT_DOMAIN 
+            : 'http://localhost:5173';
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types :["card"],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${client_domain}/user/payment/success`,
+            success_url: `${client_domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${client_domain}/user/payment/cancel`,
           });
         console.log(lineItems);

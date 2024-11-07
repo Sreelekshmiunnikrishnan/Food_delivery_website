@@ -61,8 +61,8 @@ export const createOrder = async (req, res, next) => {
 // Get all orders
 export const getOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find()
-      .populate('customer'); // Populate customer details
+    const userId = req.user.id;
+    const orders = await Order.find({userId}).populate('items'); // Populate customer details
     // .populate('items') // Populate restaurant details
     // Populate menu item details
 

@@ -12,6 +12,10 @@ export const Cart = () => {
   const navigate = useNavigate();
     
     const [cartData] = useFetch("/cart/getcart");
+    const [quantity, setQuantity] = useState(1); // Initialize quantity
+   /*  const [quantity, setQuantity] = useState(1); // Initialize quantity
+    const [couponCode, setCouponCode] = useState(""); // Initialize coupon code
+     */
     
         const makePayment = async () => {
             try {
@@ -19,7 +23,7 @@ export const Cart = () => {
                 const session = await axiosInstance({
                     url: "/payment/create-checkout-session",
                     method: "POST",
-                    data: { products: cartData?.menus }, // Ensure cartData is defined
+                    data: { products: cartData?.menus,quantity:quantity }, // Ensure cartData is defined
                 });
         
                console.log(session,"===session");
@@ -88,9 +92,43 @@ export const Cart = () => {
             <p>Your cart is empty.</p>
         )}
     </div>
-    <div className="w-6/12 flex bg-gray-100 flex-col items-center gap-5">
+    <div className="w-1/3 h-40 flex bg-gray flex-col items-center gap-5">
         <h2>Price summary...</h2>
         <h2>Total Price: {cartData?.totalPrices?.toLocaleString('en-US', { style: 'currency', currency: 'INR' })}</h2>
+        <label>
+                        Quantity:
+                        <input 
+                            type="number" 
+                            min="1" 
+                            value={quantity} 
+                            onChange={(e) => setQuantity(e.target.value)} 
+                            className="input"
+                        />
+                    </label>
+         {/* Quantity and Coupon Code inputs */}
+       {/*   <div className="w-6/12 flex bg-gray-100 flex-col items-center gap-5">
+                    <label>
+                        Quantity:
+                        <input 
+                            type="number" 
+                            min="1" 
+                            value={quantity} 
+                            onChange={(e) => setQuantity(e.target.value)} 
+                            className="input"
+                        />
+                    </label>
+                     <label>
+                        Coupon Code:
+                        <input 
+                            type="text" 
+                            value={couponCode} 
+                            onChange={(e) => setCouponCode(e.target.value)} 
+                            className="input"
+                            placeholder="Enter number"
+                        />
+                    </label> 
+                </div> */}
+
         <button className="btn btn-secondary flex items-center justify-center w-1/3 px-4"  onClick={makePayment}>
             Checkout
         </button>

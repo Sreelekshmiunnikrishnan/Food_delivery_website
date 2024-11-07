@@ -41,9 +41,9 @@ export const PaymentSuccess = () => {
             
                 const orderData = {
                     items: products.map(product => ({
-                       
+                       quantity:product.quantity,
                         menuName: product.price_data.product_data.name,
-                        price: product.price_data.unit_amount / 100,
+                        price: (product.price_data.unit_amount / 100)*quantity,
                     })),
                     ownerId: sessionId, // Your payment intent identifier
                 };
@@ -68,7 +68,7 @@ export const PaymentSuccess = () => {
     return (
         <div className="ml-100">
        
-        <Card className="w-80 h-80  ml-80 items-center bg-gray ">
+        <Card className="w-1/3 h-6/12  ml-80 items-center bg-gray ">
         <h1 className="text-white font-bold ">Payment successful..</h1>
         <h1 className="text-yellow font-semi-bold">Products</h1>
         {products && products.length > 0 ? (
@@ -80,10 +80,10 @@ export const PaymentSuccess = () => {
            
              
               <p className="text-white font-bold"> Quantity: {product.quantity}</p>
-              <Link to={"/user/order"}>
+               <Link to={"/user/order"}>
                   <button className="btn btn-primary">Click to view Order details</button>
               </Link>
-              
+               
             </div>
           ))
         ) : (

@@ -9,13 +9,13 @@ const handleGetOrder = async () => {
 
     // Add items to order history
     const response = await axiosInstance({
-      url: "/order/getorder",  // Endpoint to add items to order history
+      url: "/order/getorders",  // Endpoint to add items to order history
       method: "GET"
       
     });
     if(response){
-    setProducts(response);
-    console.log(food);
+    setProducts(response.data);
+     console.log(products);
      console.log("Order fetched successfully!");
     
     }
@@ -36,27 +36,14 @@ useEffect(() => {
   return (
     <div className="w-full h-40">
       <h2>Order Details</h2>
-      <p><strong>UserIde:</strong> {products.order.userId}</p>
-     {/*   <p><strong>User ID:</strong> {food.data.userId}</p>
-       <p><strong>Status:</strong> {food.data.status}</p>
+      {/* <p><strong>User ID:</strong> {products.order.userId}</p>
+        <p><strong>Owner ID:</strong> {products.order.ownerId}</p>
+       <p><strong>Status:</strong> {products.order.status}</p>
       <p><strong>Owner ID:</strong> {food.data.ownerId}</p>
-      <p><strong>Menu Name:</strong> {food.data.items.menuName}</p>
-     <p><strong>Quantity:</strong> {food.data.quantity}</p>
-     <p><strong>Price:</strong> {food.data.items.price}</p>   */}
-     {/*  <h3>Items:</h3>
-      {food.data.items && food.data.items.length > 0 ? (
-        <ul>
-          {food.data.items.map((item, index) => (
-            <li key={index}>
-              <p><strong>Menu Name:</strong> {item.menuName}</p>
-              <p><strong>Quantity:</strong> {item.quantity}</p>
-              <p><strong>Price:</strong> {item.price.toLocaleString('en-US', { style: 'currency', currency: 'INR' })}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No items in this order.</p>
-      )} */}
+      <p><strong>Menu Name:</strong> {products.order.items.menuName}</p>
+     <p><strong>Quantity:</strong> {products.order.quantity}</p>
+     <p><strong>Price:</strong> {products.order.items.price}</p>    */}
+     
     </div>
   );
 }
