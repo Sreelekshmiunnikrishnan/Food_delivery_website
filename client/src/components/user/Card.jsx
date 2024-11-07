@@ -1,4 +1,4 @@
-import React from 'react';
+import Reac,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import {
   Table,
@@ -63,8 +63,8 @@ export const MenuCard = ((menu) => {
   );
 })
 
-export const CartCards = ({ item, handleRemove }) => {
-
+export const CartCards = ({ item, handleRemove,handleQuantityChange,quantities }) => {
+  //const [quantities, setQuantities] = useState({});
 
   return (
     <div className="flex flex-wrap justify-center">
@@ -74,19 +74,35 @@ export const CartCards = ({ item, handleRemove }) => {
 
           <img src={item?.menuId?.image} alt="cart-item" className="w-24 h-20" />
 
-          <div  className="cart-item">
+          <div className="cart-item">
 
             <p>{item?.menuId?.name} </p>
             <p>{item?.menuId?.price}</p>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleQuantityChange(item._id, -1)}
+                className="p-2 text-white bg-gray rounded"
+              >
+                -
+              </button>
+              <span>{quantities[item._id]}</span>
+              <button
+                onClick={() => handleQuantityChange(item._id, 1)}
+                className="p-2 text-white bg-gray rounded"
+              >
+                +
+              </button>
+            </div>
           </div>
-         
-          <button className="btn btn-secondary" onClick={()=>handleRemove(item?.menuId?._id)}>Remove</button>
+
+          <button className="btn btn-secondary" onClick={() => handleRemove(item?.menuId?._id)}>Remove</button>
         </div>
-       </div>
-       <div>
-      
-       </div>
-     </div>
-     
+      </div>
+      <div>
+
+      </div>
+    </div>
+
   );
 };

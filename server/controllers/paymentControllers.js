@@ -7,12 +7,13 @@ const client_domain = process.env.CLIENT_DOMAIN;
 
 export const createPayment = async (req, res, next) => {
     try {
-        const { products } = req.body;
+        const { products, discount } = req.body;
 
         if (!products || products.length === 0) {
             return res.status(400).json({ error: "No products provided" });
         }
 
+        // Map products to Stripe line items with discount applied if provided
         const lineItems = products.map((product) => ({
             price_data: {
                 currency: "inr",
@@ -25,19 +26,34 @@ export const createPayment = async (req, res, next) => {
             quantity: product.quantity || 1,
         }));
 
+        // Adjust prices for discount by applying it to each line item
+        const discountedLineItems = lineItems.map(item => {
+            const discountedAmount = discount > 0
+                ? item.price_data.unit_amount - Math.round(item.price_data.unit_amount * discount / 100)
+                : item.price_data.unit_amount;
+            return {
+                ...item,
+                price_data: {
+                    ...item.price_data,
+                    unit_amount: discountedAmount
+                }
+            };
+        });
+
         const domain = process.env.NODE_ENV === 'production' 
             ? client_domain 
             : 'http://localhost:5173';
 
+        // Create the Stripe session without payment_intent_data
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
-            line_items: lineItems,
+            line_items: discountedLineItems,
             mode: 'payment',
             success_url: `${domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${domain}/user/payment/cancel`,
         });
 
-        console.log("Line Items:", lineItems);
+        console.log("Line Items:", discountedLineItems);
         console.log("Session ID:", session.id);
 
         res.status(200).json({ success: true, sessionId: session.id });

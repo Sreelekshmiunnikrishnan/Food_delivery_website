@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Card } from "@material-tailwind/react";
 
 export const PaymentSuccess = () => {
@@ -10,22 +10,27 @@ export const PaymentSuccess = () => {
     const [loading, setLoading] = useState(true);
     const sessionId = searchParams.get("session_id"); 
 
+    // Fetch session details when component mounts
     const fetchSessionDetails = async () => {
-        if (sessionId) {
-            try {
-                const response = await axiosInstance.get(`/payment/sessionstatus?session_id=${sessionId}`);
-                const responseProduct = response.data.products;
-                console.log("Products:", responseProduct);
-                setProducts(responseProduct);
-            } catch (error) {
-                console.error("Error retrieving session details:", error);
-                setError("Failed to retrieve session details. Please try again.");
-            } finally {
-                setLoading(false);
-            }
+        if (!sessionId) {
+            setError("Session ID is missing. Unable to retrieve payment details.");
+            setLoading(false);
+            return;
+        }
+        
+        try {
+            const response = await axiosInstance.get(`/payment/sessionstatus?session_id=${sessionId}`);
+            const responseProduct = response.data.products;
+            setProducts(responseProduct);
+        } catch (error) {
+            console.error("Error retrieving session details:", error);
+            setError("Failed to retrieve session details. Please try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
+    // Move to order creation after products are loaded
     const moveToOrder = async (products) => {
         if (!products || products.length === 0) {
             console.error("No products available to create an order.");
@@ -53,9 +58,8 @@ export const PaymentSuccess = () => {
 
     useEffect(() => {
         fetchSessionDetails();
-    }, []);
+    }, [sessionId]);
 
-    // Trigger order creation once products are set
     useEffect(() => {
         if (products.length > 0) {
             moveToOrder(products);

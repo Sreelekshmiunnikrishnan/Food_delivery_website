@@ -71,6 +71,12 @@ export const Order = () => {
     ) : (
       <Typography color="red">No orders found.</Typography>
     )}
+   {/* Link to add a review for each specific order */}
+  {/*  <Link to={`/order/${order.orderId}`}>
+                        <button className="btn btn-primary mt-3" onClick={addreview}>
+                            ADD REVIEW
+                        </button>
+                    </Link> */}
   </div>
   );
 };

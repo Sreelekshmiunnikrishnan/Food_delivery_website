@@ -81,6 +81,7 @@ const navListItems = [
   { label: "Restaurants", icon: BuildingOfficeIcon, path: "/restaurant" },
   { label: "Menu", icon: CakeIcon, path: "/menu" },
   { label: "Cart", icon: ShoppingCartIcon, path: "/user/cart" },
+  { label: "Order", icon:  UserCircleIcon, path: "/user/order" },
 ];
 
 function NavList() {

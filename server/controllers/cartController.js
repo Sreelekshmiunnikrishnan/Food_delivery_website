@@ -102,3 +102,49 @@ export const clearCart = async (req, res,next) => {
     }
   };
   
+
+   export const couponDiscount = async (req, res,next) => {
+    const { couponCode } = req.body;
+    const coupons = [
+        {
+          code: "DISCOUNT10",
+          discount: 10, // 10% off
+          type: "percentage", // Type of discount: "percentage" or "fixed"
+          expirationDate: new Date("2024-12-31"), // Expiration date
+        },
+        {
+          code: "OFF100",
+          discount: 100, // ₹100 off
+          type: "fixed", // Fixed discount amount
+          expirationDate: new Date("2024-12-31"),
+        },
+      ];
+    // Validate the coupon code (this could involve checking a database or predefined list)
+    if (!couponCode) {
+        return res.status(400).json({ message: "Coupon code is required" });
+      }
+    
+      // Find the coupon from the list (or database)
+      const coupon = coupons.find(c => c.code === couponCode);
+    
+      // Check if coupon exists
+      if (!coupon) {
+        return res.status(400).json({ message: "Invalid coupon code" });
+      }
+    
+      // Check if coupon has expired
+      if (coupon.expirationDate < new Date()) {
+        return res.status(400).json({ message: "Coupon has expired" });
+      }
+    
+      // Apply the discount based on the coupon type
+      let discountAmount = 0;
+      if (coupon.type === "percentage") {
+        discountAmount = coupon.discount; // Percentage discount
+      } else if (coupon.type === "fixed") {
+        discountAmount = coupon.discount; // Fixed amount discount
+      }
+    
+      return res.json({ discount: discountAmount, type: coupon.type });
+    
+};
