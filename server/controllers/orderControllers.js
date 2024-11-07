@@ -1,94 +1,89 @@
 import express from 'express';
 import { Cart } from '../models/cartModel.js';
-const router = express.Router();
 import { Order } from '../models/orderModel.js';
 import { sendDynamicEmail } from '../utilities/nodemailer.js';
 import { User } from '../models/userModel.js';
-import { MenuItem } from '../models/menuModel.js';
+
+const router = express.Router();
+
 // Create a new order
 export const createOrder = async (req, res, next) => {
   try {
-      const userId = req.user.id;
-      const {orderData} = req.body;
-      console.log(req.body,"requestbody");
-      
-    const items =orderData.items;
-    console.log(items,"items");
+    const userId = req.user.id;
+    const { orderData } = req.body;
+
+    const items = orderData.items;
+    const orderId = orderData.orderId;
+
+    const userDetails = await User.findById(userId);
+    if (!userDetails) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ message: 'Order must include items' });
+    }
+
+    const orderItems = items.map(item => ({
+      menuName: item.menuName,
+      price: item.price,
+    }));
     
-   const ownerId = orderData.ownerId;
-      // Fetch user details
-      const userDetails = await User.findById(userId);
-      if (!userDetails) {
-          return res.status(404).json({ message: 'User not found' });
-      }
-       if (!Array.isArray(items) || items.length === 0) {
-          return res.status(400).json({ message: 'Items array is required and cannot be empty' });
-       }
- 
-      const orderItems = items.map(item => ({
-         // Ensure this matches the ID of the MenuItem in your database
-          menuName: item.menuName, // Product name
-          price: item.price, // Already in the correct format
-      }));
+    const totalQuantity = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
-      // Create a new order
-      const newOrder = new Order({
-          userId,
-          items: orderItems,
-          ownerId,
-          status: 'completed', // Adjust based on your payment status
-          quantity: items.length, // Total quantity based on items
-      });
+    const newOrder = new Order({
+      userId,
+      items: orderItems,
+      orderId,
+      status: 'completed',
+      quantity: totalQuantity,
+    });
 
-      const savedOrder = await newOrder.save();
-      await Cart.deleteMany({ userId: userId });
-      if (!userDetails.email) {
-          return res.status(400).json({ message: 'User email not found' });
-      }
+    const savedOrder = await newOrder.save();
+    await Cart.deleteMany({ userId });
 
-      // Send dynamic email with order details
-      await sendDynamicEmail(userId, userDetails, savedOrder);
-      res.status(201).json({ message: 'Order created successfully', order: savedOrder });
+    if (!userDetails.email) {
+      return res.status(400).json({ message: 'User email not found' });
+    }
+
+    await sendDynamicEmail(userId, userDetails, savedOrder);
+    res.status(201).json({ message: 'Order created successfully', order: savedOrder });
   } catch (error) {
-      console.error('Error creating order:', error);
-      res.status(500).json({ message: 'Failed to create order', error: error.message });
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Failed to create order', error: error.message });
   }
 };
 
-
-    
-   
-// Get all orders
+// Get all orders for a user
 export const getOrders = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const orders = await Order.find({userId}).populate('items'); // Populate customer details
-    // .populate('items') // Populate restaurant details
-    // Populate menu item details
+    const orders = await Order.find({ userId }).populate('items');
 
     res.status(200).json(orders);
   } catch (error) {
+    console.error('Error fetching orders:', error);
     res.status(500).json({ message: error.message });
   }
 };
 
-// Get an order by ID
+// Get a specific order by ID
 export const getOrder = async (req, res, next) => {
   try {
     const { user } = req;
-    const cart = await Order.findOne({ userId: user.id }).populate('items');
-    if (!cart) {
-      return res.json({ message: 'No orders' });
+    const order = await Order.findOne({ userId: user.id, _id: req.params.id }).populate('items');
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
     }
-    res.status(200).json({success:true, message: "order details fetched",  cart });
-    
-    //res.status(200).json({success:true},cart);
+
+    res.status(200).json({ success: true, message: "Order details fetched", order });
   } catch (error) {
+    console.error('Error fetching order:', error);
     res.status(500).json({ message: error.message });
   }
 };
 
-// Update an order (e.g., status or delivery details)
+// Update an order
 export const updateOrder = async (req, res, next) => {
   try {
     const { status, quantity, deliveryTime } = req.body;
@@ -103,8 +98,9 @@ export const updateOrder = async (req, res, next) => {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    res.status(200).json(updatedOrder);
+    res.status(200).json({ message: 'Order updated successfully', updatedOrder });
   } catch (error) {
+    console.error('Error updating order:', error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -120,7 +116,7 @@ export const deleteOrder = async (req, res, next) => {
 
     res.status(200).json({ message: 'Order deleted successfully' });
   } catch (error) {
+    console.error('Error deleting order:', error);
     res.status(500).json({ message: error.message });
   }
 };
-

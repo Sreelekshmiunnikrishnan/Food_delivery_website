@@ -32,7 +32,7 @@ const orderSchema = new Schema({
       enum: ['pending', 'preparing', 'completed', 'cancelled'],
       default: 'pending'
     },
-    ownerId: String,
+    orderId: String,
    
     /*  deliveryAddress: {
       type: String,
