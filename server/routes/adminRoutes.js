@@ -3,6 +3,8 @@ import e from "express";
 import {adminSignin, getAllUser,getUserProfile, getAdminProfile, logout, checkAdmin ,blockUser, register,getAllOwners, blockOwner, getOwnerProfile, unblockUser, unblockOwner} from "../controllers/adminControllers.js";
 import { authAdmin } from "../middlewares/authAdmin.js";
 import { getAllRestaurants, getRestaurant } from "../controllers/restaurantController.js";
+import { getAllOrders } from "../controllers/orderControllers.js";
+import { getAllReviews } from "../controllers/reviewControllers.js";
 const router = e.Router();
 
 router.post("/signup",register)
@@ -15,7 +17,8 @@ router.put("/unblock-user/:id",authAdmin,unblockUser)
 router.put("/unblock-owner/:id",authAdmin,unblockOwner)
 router.get("/owner-profile/:id",authAdmin, getOwnerProfile)
 router.put("/block-owner/:id",authAdmin,blockOwner)
-
+router.get("/getorders",authAdmin,getAllOrders)
+router.get("/getreviews",authAdmin,getAllReviews)
 router.get('/getRestaurant/:id',getRestaurant);
 router.get("/admin-profile",authAdmin,getAdminProfile)
 router.post("/logout",authAdmin,logout)

@@ -19,7 +19,8 @@ export const AdminProfile = () => {
   const [owners,setOwners] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
  const [menus,setMenus] = useState([]);
-
+ const [orders,setOrders] = useState([]);
+ const [reviews,setReviews] = useState([]);
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
@@ -142,7 +143,31 @@ export const AdminProfile = () => {
      console.error("Failed to unblock user:", error);
    }
  };
-  
+ const handleGetOrder = async () => {
+  try {
+    const response = await axiosInstance.get("/admin/getorders"); // Simplified axios request with GET method
+    if (response && response.data) {
+      setOrders(response.data);
+      console.log("Orders fetched successfully:", response.data);
+    } else {
+      console.log("Error fetching order details");
+    }
+  } catch (error) {
+    console.log("Error fetching orders:", error);
+  }
+};
+const fetchReview = async () => {
+  try {
+      const response = await axiosInstance({
+          method: "GET",
+          url: "/admin/getreviews",  // API endpoint for fetching reviews
+      });
+      setReviews(response.data);  // Store the fetched reviews in state
+      console.log("Reviews fetched:", response.data);
+  } catch (error) {
+      console.log("Error fetching reviews:", error);
+  } 
+};
 
   const fetchProfile = async () => {
     try {
@@ -204,6 +229,16 @@ if(response){
       GetMenus();
     }
   }, [activeSection]);
+  useEffect(() => {
+    if (activeSection === 'Orders') {
+     handleGetOrder();
+    }
+  }, [activeSection]);
+  useEffect(() => {
+    if (activeSection === 'Reviews') {
+      fetchReview();
+    }
+  }, [activeSection]);
 
   return (
     <div className="flex flex-col md:flex-row ">
@@ -249,6 +284,12 @@ if(response){
                 </ListItem>
                 <ListItem onClick={() => setActiveSection('Menu')}>
                   Get Menu
+                </ListItem>
+                <ListItem onClick={() => setActiveSection('Orders')}>
+                  Orders
+                </ListItem>
+                <ListItem onClick={() => setActiveSection('Reviews')}>
+               Reviews
                 </ListItem>
               </List>
             </AccordionBody>
@@ -314,7 +355,64 @@ if(response){
           </div>
         </>
       )}
-    
+    {activeSection === 'Orders' && (
+                <div className="orders-section">
+                    <h2>Orders</h2>
+                    {orders.length > 0 ? (
+                        orders.map((order, index) => (
+                            <div key={index} className="order-card">
+                                <p><strong>Order ID:</strong> {order.orderId}</p>
+                                <p><strong>Customer Id:</strong> {order.userId}</p>
+                                <p><strong>Status:</strong> {order.status}</p>
+                                <p><strong>Quantity:</strong> {order.quantity}</p>
+                                <p><strong>Items:</strong></p>
+                                <ul>
+                                    {order.items.map((item, idx) => (
+                                        <li key={idx}>
+                                            {item.menuName} - Price: ₹{item.price.toFixed(2)}
+                                        </li>
+                                    ))}
+                                </ul>
+                                
+                            </div>
+                        ))
+                    ) : (
+                        <p>No orders found.</p>
+                    )}
+                </div>
+            )}
+
+          {activeSection === 'Reviews' && (
+                <div className="w-2/3 h-auto ml-20">
+                    <Typography variant="h4" color="deep-orange" className="mb-4 text-center">
+                        Admin Reviews
+                    </Typography>
+
+                    {reviews.length > 0 ? (
+                        reviews.map((review, index) => (
+                            <Card key={index} className="mb-6 p-4 shadow-lg bg-gray">
+                                <Typography variant="h5" color="amber" className="font-semibold">
+                                    Review ID: {review._id}
+                                </Typography>
+                                <Typography color="amber" className="mb-1">
+                                    <strong>User ID:</strong> {review.userId._id}
+                                </Typography>
+                                <Typography color="amber" className="mb-1">
+                                    <strong>Menu Item ID:</strong> {review.menuId}
+                                </Typography>
+                                <Typography color="amber" className="mb-1">
+                                    <strong>Rating:</strong> {review.rating} / 5
+                                </Typography>
+                                <Typography color="amber" className="mb-1">
+                                    <strong>Comment:</strong> {review.comment}
+                                </Typography>
+                            </Card>
+                        ))
+                    ) : (
+                        <Typography color="red">No reviews found.</Typography>
+                    )}
+                </div>
+            )}
         
         {activeSection === 'GetUsers' && (
           <div className="overflow-x-auto">
