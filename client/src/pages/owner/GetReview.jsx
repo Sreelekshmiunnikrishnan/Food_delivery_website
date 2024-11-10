@@ -39,6 +39,7 @@ export const GetReview = () => {
                 <h3 className="text-amber-500 font-semi-bold">Menu Item: {review.menuId}</h3>
                 <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
                 <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
+                  <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
                  
             </div>
         ))
