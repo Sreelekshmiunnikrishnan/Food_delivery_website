@@ -374,7 +374,7 @@ if(response){
                             <tr>
                                 <th className="border-b p-2 text-left">Item Name</th>
                                 <th className="border-b p-2 text-left">Price</th>
-                                <th className="border-b p-2 text-left">Quantity</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -382,7 +382,7 @@ if(response){
                                 <tr key={idx} className="border-b">
                                     <td className="p-2">{item.menuName}</td>
                                     <td className="p-2">₹{item.price.toFixed(2)}</td>
-                                    <td className="p-2">{item.quantity}</td>
+                                    
                                 </tr>
                             ))}
                         </tbody>
