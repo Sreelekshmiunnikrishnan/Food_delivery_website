@@ -356,7 +356,7 @@ if(response){
           </div>
         </>
       )}
-    {activeSection === 'Orders' && (
+ {activeSection === 'Orders' && (
     <div className="orders-section">
         <h2>Orders</h2>
         {orders.length > 0 ? (
@@ -394,7 +394,6 @@ if(response){
         )}
     </div>
 )}
-
 
           {activeSection === 'Reviews' && (
                 <div className="w-2/3 h-auto ml-20">
