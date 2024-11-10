@@ -26,7 +26,7 @@ export const SignupPage = () => {
       console.log(response, '======response');
       toast.success('Signup Successfully!');
    
-      navigate("/");
+      navigate("/",{ replace: true });
     } catch (error) {
       toast.error('Signup failed. Please try again.!');
      

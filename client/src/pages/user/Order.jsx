@@ -59,9 +59,9 @@ export const Order = () => {
                 <Typography color="light-green">
                   <strong>Menu Name:</strong> {item.menuName}
                 </Typography>
-                <Typography color="light-green">
+                 {/* <Typography color="light-green">
                   <strong>Menu Id:</strong> {item.menuId}
-                </Typography>
+                </Typography>  */}
                 <Typography color="light-green">
                   <strong>Price:</strong> ₹{item.price.toFixed(2)}
                 </Typography>

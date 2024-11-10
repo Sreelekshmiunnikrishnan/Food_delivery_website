@@ -23,7 +23,7 @@ export const Restaurants = () => {
 
     } catch (error) {
       console.log(error);
-      toast.error("Failed to load restaurants.")
+      //toast.error("Failed to load restaurants.")
       //setError("Failed to load restaurants.");
     }
 

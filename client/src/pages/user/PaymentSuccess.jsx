@@ -41,7 +41,7 @@ export const PaymentSuccess = () => {
             items: products.map(product => ({
                 quantity: product.quantity,
                 menuName: product.price_data.product_data.name,
-                menuId:product.price_data.product_data.id,
+               
                 price: (product.price_data.unit_amount / 100) * product.quantity,
             })),
             orderId: sessionId,

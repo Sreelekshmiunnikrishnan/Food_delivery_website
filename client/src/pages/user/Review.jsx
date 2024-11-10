@@ -42,12 +42,12 @@ export const Review = () => {
           <div className="mb-1 flex flex-col gap-6">
           <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">
-               MenuId
+               MenuName
               </label>
-              <input type="text" {...register("menuId", {
-                required: "MenuId is required",
+              <input type="text" {...register("menuName", {
+                required: "MenuName is required",
               
-              })} required className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Menu Id" />
+              })} required className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Menu Name" />
               {errors.rating && <p className="text-red-500 text-sm">{errors.rating.message}</p>}
             </div>
             <div className="w-full max-w-sm min-w-[200px]">

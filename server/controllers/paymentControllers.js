@@ -8,6 +8,7 @@ const client_domain = process.env.CLIENT_DOMAIN;
 export const createPayment = async (req, res, next) => {
     try {
         const { products, discount } = req.body;
+        console.log(products);
 
         if (!products || products.length === 0) {
             return res.status(400).json({ error: "No products provided" });
@@ -19,12 +20,13 @@ export const createPayment = async (req, res, next) => {
                 currency: "inr",
                 product_data: {
                     name: product?.menuId?.name || "Unknown Product",
-                    id:product?.menuId,
-                    images: product?.menuId?.image ? [product.menuId.image] : [],
+                  images: product?.menuId?.image ? [product.menuId.image] : [],
                 },
                 unit_amount: Math.round(product?.menuId?.price * 100 || 0),
+
             },
             quantity: product.quantity || 1,
+
         }));
 
         // Adjust prices for discount by applying it to each line item
@@ -41,8 +43,8 @@ export const createPayment = async (req, res, next) => {
             };
         });
 
-        const domain = process.env.NODE_ENV === 'production' 
-            ? client_domain 
+        const domain = process.env.NODE_ENV === 'production'
+            ? client_domain
             : 'http://localhost:5173';
 
         // Create the Stripe session without payment_intent_data
@@ -50,8 +52,8 @@ export const createPayment = async (req, res, next) => {
             payment_method_types: ["card"],
             line_items: discountedLineItems,
             mode: 'payment',
-            success_url: `${client_domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${client_domain}/user/payment/cancel`,
+            success_url: `${domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${domain}/user/payment/cancel`,
         });
 
         console.log("Line Items:", discountedLineItems);
@@ -67,7 +69,7 @@ export const createPayment = async (req, res, next) => {
 export const sessionstatus = async (req, res) => {
     try {
         const sessionId = req.query.session_id;
-        
+
         if (!sessionId) {
             return res.status(400).json({ error: "Session ID is required" });
         }
@@ -81,11 +83,13 @@ export const sessionstatus = async (req, res) => {
                 currency: item.price.currency,
                 product_data: {
                     name: item.description,
-                    images: item.price.product?.images || [],
+                     images: item.price.product?.images || [],
                 },
                 unit_amount: item.price.unit_amount,
+
             },
             quantity: item.quantity,
+
         }));
 
         res.status(200).json({

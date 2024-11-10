@@ -6,15 +6,17 @@ import { Order} from "../models/orderModel.js";
 export const addReview = async (req, res,next) => {
     try {
        
-        const { menuId, rating, comment } = req.body;
+        const { menuName, rating, comment } = req.body;
         const userId = req.user.id;
+       /*  const menuItems = await MenuItem.findOne({menuName});
+        const menuId = menuItems._id; */
         //validate if user purchased the food
      //const order= await Order.findById(menuId);
       //if(!order){
        // return res.status(404).json({ message: "You can give review for an item only after purchasing." });
      // }
         // Validate if the menu item exists
-        const menu = await MenuItem.findById(menuId);
+        /* const menu = await MenuItem.findById(menuId);
         if (!menu) {
             return res.status(404).json({ message: "Item not found" });
         }
@@ -27,14 +29,14 @@ export const addReview = async (req, res,next) => {
             return res.status(403).json({ message: "You can only review items you have ordered" });
         }
 
-        
+         */
         if(rating>5 || rating <1 ){
            return res.status(400).json({ message: "Please provide a proper rating"});
         }
 
         // Create or update the review
         const review = await Review.findOneAndUpdate(
-            { userId, menuId },
+            { userId, menuName },
             { rating, comment },
             { new: true, upsert: true }
         );
