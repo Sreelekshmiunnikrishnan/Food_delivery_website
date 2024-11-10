@@ -408,10 +408,10 @@ if(response){
                                     Review ID: {review._id}
                                 </Typography>
                                 <Typography color="amber" className="mb-1">
-                                    <strong>User ID:</strong> {review.userId._id}
+                                    <strong>User ID:</strong> {review.userId}
                                 </Typography>
                                 <Typography color="amber" className="mb-1">
-                                    <strong>Menu Item ID:</strong> {review.menuId}
+                                    <strong>MenuItem Name:</strong> {review.menuName}
                                 </Typography>
                                 <Typography color="amber" className="mb-1">
                                     <strong>Rating:</strong> {review.rating} / 5
