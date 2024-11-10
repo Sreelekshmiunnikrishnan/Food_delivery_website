@@ -369,9 +369,11 @@ if(response){
                                 <p><strong>Items:</strong></p>
                                 <ul>
                                     {order.items.map((item, idx) => (
+                              <div key={idx} className="order-item-card">
                                         <li key={idx}>
                                             {item.menuName} - Price: ₹{item.price.toFixed(2)}
                                         </li>
+                                </div>
                                     ))}
                                 </ul>
                                 
