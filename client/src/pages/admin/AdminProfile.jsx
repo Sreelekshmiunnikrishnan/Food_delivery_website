@@ -366,7 +366,7 @@ if(response){
                     <p><strong>Customer Id:</strong> {order.userId}</p>
                     <p><strong>Status:</strong> {order.status}</p>
                     <p><strong>Total Quantity:</strong> {order.quantity}</p>
-                    
+                    <br></br>
                     <p><strong>Items:</strong></p>
                     {/* Itemized cards for each item in the order */}
                     <div className="order-items">
