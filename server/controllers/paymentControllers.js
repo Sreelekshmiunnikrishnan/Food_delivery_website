@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_API_KEY);
 const client_domain = process.env.CLIENT_DOMAIN;
+console.log("Stripe API Key:", stripe);
 
 export const createPayment = async (req, res, next) => {
     try {
@@ -41,9 +42,9 @@ export const createPayment = async (req, res, next) => {
             };
         });
 
-        const domain = process.env.NODE_ENV === 'production' 
+       /*  const domain = process.env.NODE_ENV === 'production' 
             ? client_domain 
-            : 'http://localhost:5173';
+            : 'http://localhost:5173'; */
 
         // Create the Stripe session without payment_intent_data
         const session = await stripe.checkout.sessions.create({
