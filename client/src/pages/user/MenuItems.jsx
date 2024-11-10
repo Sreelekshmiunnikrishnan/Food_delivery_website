@@ -22,7 +22,7 @@ export const MenuItems = () => {
        
     } catch (error) {
       console.log(error);
-      toast.error("Failed to load menu.")
+     // toast.error("Failed to load menu.")
       //setError("Failed to load restaurants.");
     }
   };
