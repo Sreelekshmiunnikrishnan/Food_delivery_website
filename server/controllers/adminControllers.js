@@ -12,11 +12,11 @@ export const register = async(req, res,next) => {
   try {
     const { name, email, password,role,address, phoneNumber,profilepic} = req.body;
     if(!name||!email ||!password ||!address||!phoneNumber || !role){
-      return res.status(400).json({ error: 'All fields are required' });
+      return res.status(400).json({ message: 'All fields are required' });
     }
     const isAdminExist = await Admin.findOne({ email });
     if (isAdminExist) {
-      return res.status(400).json({ error: 'User already exists' });
+      return res.status(409).json({message: 'User already exists' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -64,7 +64,7 @@ export const adminSignin = async (req, res,next) => {
       }
       const isAdminExist = await Admin.findOne({email});
       if (!isAdminExist) {
-        return res.status(400).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
       }
   
       const isPasswordMatch = await bcrypt.compare(password, isAdminExist.password);
@@ -188,7 +188,7 @@ export const checkAdmin =  async (req, res,next) => {
 
   // Check if the user is already blocked
   if (user.isBlocked) {
-    return res.status(400).json({ message: 'User is already blocked.' });
+    return res.status(409).json({ message: 'User is already blocked.' });
   }
 
   // Update the user's status to blocked
@@ -216,7 +216,7 @@ export const checkAdmin =  async (req, res,next) => {
 
   // Check if the user is not blocked
   if (!user.isBlocked) {
-    return res.status(400).json({ message: 'User is not blocked.' });
+    return res.status(409).json({ message: 'User is not blocked.' });
   }
 
   // Update the user's status to unblocked
@@ -245,7 +245,7 @@ export const checkAdmin =  async (req, res,next) => {
 
   // Check if the user is not blocked
   if (!user.isBlocked) {
-    return res.status(400).json({ message: 'User is not blocked.' });
+    return res.status(409).json({ message: 'User is not blocked.' });
   }
 
   // Update the user's status to unblocked

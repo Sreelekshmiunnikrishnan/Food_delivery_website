@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify'; // Import toast
-import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
+//import { toast, ToastContainer } from 'react-toastify'; // Import toast
+//import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
+import toast from 'react-hot-toast';
 import {Card,Button,Typography,List,ListItem,ListItemPrefix,Accordion,AccordionHeader,AccordionBody,
 } from "@material-tailwind/react";
 import { PresentationChartBarIcon,UserCircleIcon,PowerIcon,

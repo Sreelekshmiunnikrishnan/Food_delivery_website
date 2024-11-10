@@ -4,6 +4,7 @@ import { RestaurantCard } from '../../components/user/Card';
 import { Card, Typography } from "@material-tailwind/react";
 //import { CardPlacehoderSkeleton } from '../../components/shared/Skeleton';
 import { Spinner } from "@material-tailwind/react";
+import toast from 'react-hot-toast';
 export const Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +23,7 @@ export const Restaurants = () => {
 
     } catch (error) {
       console.log(error);
+      toast.error("Failed to load restaurants.")
       //setError("Failed to load restaurants.");
     }
 

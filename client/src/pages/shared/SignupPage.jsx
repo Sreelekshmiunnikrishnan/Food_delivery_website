@@ -2,8 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import { toast } from 'react-toastify';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { Input, Button, Card, Typography } from "@material-tailwind/react";
 export const SignupPage = () => {
   const { register, handleSubmit,formState: { errors }, watch } = useForm();
@@ -25,12 +24,12 @@ export const SignupPage = () => {
         data
       });
       console.log(response, '======response');
-     
-    alert("Signup success")
+      toast.success('Signup Successfully!');
+   
       navigate("/");
     } catch (error) {
+      toast.error('Signup failed. Please try again.!');
      
-      alert("Signup failed. Please try again.")
       console.error(error);
     }
    

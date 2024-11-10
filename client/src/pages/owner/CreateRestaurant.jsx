@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
 import { Card, Typography, Spinner } from "@material-tailwind/react";
-
+import toast from 'react-hot-toast';
 export const CreateRestaurant = () => {
   const { register, handleSubmit,formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
@@ -18,12 +18,12 @@ export const CreateRestaurant = () => {
         data
       });
       console.log(response, '======response');
-     //toast.success("Restaurant created");
-    alert("Restaurant created")
+     toast.success("Restaurant created");
+   
       navigate("/owner/owner-profile");
     } catch (error) {
-     // toast.error("Signup failed. Please try again.");
-      alert(" failed. Please try again.")
+      toast.error("Signup failed. Please try again.");
+      
       console.error(error);
     }
    

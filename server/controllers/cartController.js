@@ -8,9 +8,9 @@ export const getFromCart = async(req,res,next) =>{
        
         const cart = await Cart.findOne({userId:user.id}).populate('menus.menuId');
         if(!cart){
-            return res.json({message : 'cart is empty'});
+            return res.status(404).json({message : 'cart is empty'});
         }
-        res.json({ message :"cart details fetched", data :cart});
+        res.status(200).json({ message :"cart details fetched", data :cart});
     } catch (error) {
         console.log(error);
         res.json(error.statusCode || 500).json( error.message || "Internal server error")
@@ -26,7 +26,7 @@ export const addToCart = async(req,res) =>{
 
         const menu= await MenuItem.findById(menuId);
         if(!menu){
-            return res.status(400).json({message : 'Item not found'});
+            return res.status(404).json({message : 'Item not found'});
         }
 
         let cart = await Cart.findOne({userId});
@@ -36,7 +36,7 @@ export const addToCart = async(req,res) =>{
         }
         const menuExists = cart.menus.some((item) => item.menuId.equals(menuId));
         if(menuExists){
-        return res.status(400).json({ message :"Item already exists in cart"});
+        return res.status(409).json({ message :"Item already exists in cart"});
         }
 
         cart.menus.push({

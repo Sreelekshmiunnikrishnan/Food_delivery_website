@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Card, Typography } from "@material-tailwind/react";
+import toast from 'react-hot-toast';
 
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/authSlice";
@@ -39,14 +40,14 @@ const response = await axiosInstance({
         data
       });
       console.log(response, "====response");
-      
-      alert("Log-in success");
+      toast.success("Login success");
+ 
       //dispatch(login({ role: user.role }));
       navigate(user.profile_route,{ replace: true });
     } catch (error) {
-    
-      alert("Login failed")
-      console.log(error);
+      const errorMessage = error.response?.data?.message || "Login failed";
+      toast.error(errorMessage);
+      console.error("Login error:", error);
     }
   }
 return (

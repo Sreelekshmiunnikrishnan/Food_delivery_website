@@ -11,6 +11,7 @@ export const Order = () => {
       const response = await axiosInstance.get("/order/getorders"); // Simplified axios request with GET method
       if (response && response.data) {
         setProducts(response.data);
+        
         console.log("Orders fetched successfully:", response.data);
       } else {
         console.log("Error fetching order details");

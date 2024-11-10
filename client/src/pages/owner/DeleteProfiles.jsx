@@ -3,7 +3,8 @@ import  { useState, useEffect } from 'react';
 
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+
 import { Card, Typography, Spinner } from "@material-tailwind/react";
 export const DeleteProfiles = () => {
     const navigate = useNavigate();

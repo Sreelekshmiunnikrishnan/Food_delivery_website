@@ -26,7 +26,7 @@ export const createMenu = async (req, res,next) => {
     if (req.file) {
       // Check if req.file.path exists
       if (!req.file.path) {
-        return res.status(400).json({ error: 'File path not found' });
+        return res.status(404).json({ error: 'File path not found' });
       }
 
       // Upload the image to Cloudinary
@@ -108,7 +108,7 @@ export const updateMenu = async (req, res,next) => {
     if (req.file) {
       // Check if req.file.path exists
       if (!req.file.path) {
-        return res.status(400).json({ error: 'File path not found' });
+        return res.status(404).json({ error: 'File path not found' });
       }
 
       // Upload the image to Cloudinary

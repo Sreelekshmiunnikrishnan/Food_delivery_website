@@ -77,7 +77,7 @@ export const ownerRestaurant= async (req, res,next) => {
   const ownerId = new  mongoose.Types.ObjectId(req.user.id); // Get ownerId from authenticated token
   try {
       const restaurants = await Restaurant.find({ ownerId });
-      res.json(restaurants);
+      res.status(200).json(restaurants);
   } catch (error) {
       res.status(500).json({ message: "Error fetching restaurants" });
   }

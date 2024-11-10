@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
 import { Card, Typography } from "@material-tailwind/react";
-
+import toast from 'react-hot-toast';
 export const CreateMenu = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const [imagePreview, setImagePreview] = useState(null);
@@ -35,9 +35,11 @@ export const CreateMenu = () => {
       });
       console.log(response, '======response');
       alert("Menu created");
+      toast.success("Menu created succesfully..")
       navigate("/owner/owner-profile");
     } catch (error) {
-      alert("Failed to create menu. Please try again.");
+      toast.error("Failed to create menu. Please try again.");
+     
       console.error(error);
     }
   };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { Card, Typography, Spinner } from "@material-tailwind/react";
 
 export const EditProfiles = () => {
@@ -36,13 +36,13 @@ export const EditProfiles = () => {
       url:"/owner/profile-update",
       data  });
       if(response){
-        alert("Profile updated successfully");
-     // toast.success("Profile updated successfully");
+       
+      toast.success("Profile updated successfully");
       }
       navigate("/owner/owner-profile");
     } catch (error) {
-      alert("Update failed. Please try again.")
-     // toast.error("Update failed. Please try again.");
+      
+      toast.error("Update failed. Please try again.");
       console.error(error);
     }
   };

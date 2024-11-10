@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast
-import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
+import toast from 'react-hot-toast';
+//import { toast, ToastContainer } from 'react-toastify'; // Import toast
+//import 'react-toastify/dist/ReactToastify.css'; // Import toast CSS
 import { axiosInstance } from '../../config/axiosInstance';
 
 export const Logouts = () => {

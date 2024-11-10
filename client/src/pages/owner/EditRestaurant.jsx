@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { axiosInstance } from "../../config/axiosInstance";
 import { Card, Typography, Button } from "@material-tailwind/react";
 import { useNavigate, useParams } from 'react-router-dom'; 
+import toast from 'react-hot-toast';
 export const EditRestaurant = () => {
 
     const { id } = useParams(); 
@@ -62,6 +63,7 @@ export const EditRestaurant = () => {
             fetchRestaurant();
         } catch (error) {
             console.error("Failed to delete restaurant:", error);
+            toast.error("Failed to delete restaurant:");
         }
     };
 

@@ -5,6 +5,7 @@ import { MenuCard } from '../../components/user/Card';
 import { useFetch } from "../../hooks/UseFetch";
 
 import { Spinner } from '@material-tailwind/react';
+import toast from 'react-hot-toast';
 export const MenuItems = () => {
  // const [menus, loading,error] = useFetch("/menu/getmenuitems");
   const [menus,setMenus] = useState([]);
@@ -21,6 +22,7 @@ export const MenuItems = () => {
        
     } catch (error) {
       console.log(error);
+      toast.error("Failed to load menu.")
       //setError("Failed to load restaurants.");
     }
   };

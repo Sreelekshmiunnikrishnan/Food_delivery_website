@@ -19,9 +19,10 @@ app.use(cors({
    
 }));
  
-/* app.options('*', (req, res) => {
-    res.sendStatus(200);
-}); */
+app.options('*', cors({
+  origin: ["http://localhost:5173", "https://foodorderwebsitedelicazy.netlify.app"],
+  credentials: true
+}));
 
 
 
@@ -31,6 +32,14 @@ app.get('/', (req, res,next) => {
  })
 
 app.use('/api',apiRouter);
+app.use((err, req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error'
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

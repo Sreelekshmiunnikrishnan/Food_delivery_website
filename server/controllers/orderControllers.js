@@ -42,7 +42,7 @@ export const createOrder = async (req, res, next) => {
     await Cart.deleteMany({ userId });
 
     if (!userDetails.email) {
-      return res.status(400).json({ message: 'User email not found' });
+      return res.status(404).json({ message: 'User email not found' });
     }
 
     await sendDynamicEmail(userId, userDetails, savedOrder);

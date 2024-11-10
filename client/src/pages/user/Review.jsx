@@ -6,6 +6,7 @@ import { Input, Button, Card, Typography } from "@material-tailwind/react";
 //import { useDispatch } from "react-redux";
 //import { login } from "../../redux/features/authSlice";
 import { axiosInstance } from "../../config/axiosInstance";
+import toast from 'react-hot-toast';
 export const Review = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
@@ -18,13 +19,13 @@ export const Review = () => {
             data
           });
           console.log(response, "====response");
-          
-          alert("Review added successfully");
+          toast.success("Review added successfully");
+       
           //dispatch(login({ role: user.role }));
           navigate("/user/profile");
         } catch (error) {
+        toast.error("Failed to add review");
         
-          alert("Failed to add review")
           console.log(error);
         }
       }

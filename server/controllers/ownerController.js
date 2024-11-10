@@ -9,11 +9,11 @@ export const createowner = async(req, res,next) => {
     try {
       const { name, email, password,role,address, phoneNumber,profilePic} = req.body;
       if(!name||!email ||!password ||!address||!phoneNumber){
-        return res.status(400).json({ error: 'All fields are required' });
+        return res.status(400).json({ message: 'All fields are required' });
       }
       const existingUser = await Owner.findOne({ email });
       if (existingUser) {
-        return res.status(400).json({ error: 'User already exists' });
+        return res.status(409).json({ message: 'User already exists' });
       }
   
       const salt = await bcrypt.genSalt(10);
@@ -56,12 +56,12 @@ export const ownerLogin = async (req, res,next) => {
   
       const ownerExists = await Owner.findOne({email});
       if (!ownerExists) {
-        return res.status(400).json({error: 'User not found' });
+        return res.status(404).json({message: 'User not found' });
       }
   
       const isMatch = await bcrypt.compare(password, ownerExists.password);
       if (!isMatch) {
-        return res.status(400).json({ message: 'Password doesnt match' });
+        return res.status(401).json({ message: 'Password doesnt match' });
       }
   
       const token =  generateToken(ownerExists._id,'restaurantOwner');
@@ -71,7 +71,7 @@ export const ownerLogin = async (req, res,next) => {
         httpOnly:true,
        });
       
-      res.json({ message: 'Owner Login successful' });
+      res.status(200).json({ message: 'Owner Login successful' });
 
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message || "Internal server error"});
@@ -103,7 +103,7 @@ export const ownerLogin = async (req, res,next) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      res.json({ message: 'Profile updated successfully', user });
+      res.status(201).json({ message: 'Profile updated successfully', user });
     } catch (error) {
       res.status(500).json({ message: 'Error updating profile', error });
     }
@@ -116,7 +116,7 @@ export const ownerLogin = async (req, res,next) => {
         secure:true,
         httpOnly:true,
        });
-      res.json({ message: 'Logout successful' });
+      res.status(200).json({ message: 'Logout successful' });
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error });
     }
@@ -134,7 +134,7 @@ export const ownerLogin = async (req, res,next) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      res.json({ message: 'User profile deleted successfully' });
+      res.status(200).json({ message: 'User profile deleted successfully' });
     } catch (error) {
       res.status(500).json({ message: 'Error deleting profile', error });
     }
@@ -142,7 +142,7 @@ export const ownerLogin = async (req, res,next) => {
   export const checkOwner =  async (req, res,next) => {
     try {
      
-      res.json({ success: true, message: "autherized user" });
+      res.status(200).json({ success: true, message: "autherized user" });
     } catch (error) {
       res.status(error.statusCode || 500).json(error.message || 'Internal server error')
     }
