@@ -59,8 +59,7 @@ export const GetReviews = () => {
                         <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
                         <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
-                      <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
-
+                   
                     </div>
                 ))
             ) : (
