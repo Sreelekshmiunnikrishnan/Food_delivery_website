@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/UseFetch";
 import { CartCards } from "../../components/user/Card";
-import toast from 'react-hot-toast';
+
+import  toast  from 'react-hot-toast';
+
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
@@ -34,7 +36,7 @@ export const Cart = () => {
     const handleCouponApply = async () => {
         if (!couponCode) {
             return toast.error("Please enter a coupon code.");
-        }
+  }
 
         try {
             const response = await axiosInstance({
@@ -98,6 +100,9 @@ export const Cart = () => {
             if (response) {
                 navigate("/user/menu");
                 toast.success("Item removed from cart");
+
+              
+
             }
         } catch (error) {
             console.error(error);

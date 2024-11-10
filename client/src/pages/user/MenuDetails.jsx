@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';  // Import useParams to get ID from URL
 import { axiosInstance } from '../../config/axiosInstance'; // Import your Axios instance
+
 import toast from 'react-hot-toast';
+
+
 
 import { useSelector } from 'react-redux';
 import { Spinner } from '@material-tailwind/react';
@@ -43,7 +46,6 @@ export const MenuDetails = () => {
          data: {menuId:id} // Use the ID from useParams in the URL
       });
       console.log("response ===", response.data);
-      
       toast.success("Item added to cart successfully");
       navigate("/user/cart");
     
@@ -55,6 +57,8 @@ export const MenuDetails = () => {
       } else {
         console.log(error);
         toast.error(error?.response?.data?.message || 'Item already in  cart');
+
+       
       }
     }
   };
