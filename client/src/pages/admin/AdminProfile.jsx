@@ -356,7 +356,7 @@ if(response){
           </div>
         </>
       )}
-   {activeSection === 'Orders' && (
+ {activeSection === 'Orders' && (
     <div className="orders-section">
         <h2>Orders</h2>
         {orders.length > 0 ? (
@@ -366,18 +366,27 @@ if(response){
                     <p><strong>Customer Id:</strong> {order.userId}</p>
                     <p><strong>Status:</strong> {order.status}</p>
                     <p><strong>Total Quantity:</strong> {order.quantity}</p>
-                    <br></br>
+                    
                     <p><strong>Items:</strong></p>
-                    {/* Itemized cards for each item in the order */}
-                    <div className="order-items">
-                        {order.items.map((item, idx) => (
-                            <div key={idx} className="order-item-card bg-gray-100 p-4 rounded-lg mb-3 shadow-sm">
-                                <p><strong>Item Name:</strong> {item.menuName}</p>
-                                <p><strong>Price:</strong> ₹{item.price.toFixed(2)}</p>
-                                <p><strong>Quantity:</strong> {item.quantity}</p>
-                            </div>
-                        ))}
-                    </div>
+                    {/* Table for displaying items */}
+                    <table className="w-full table-auto border-collapse">
+                        <thead>
+                            <tr>
+                                <th className="border-b p-2 text-left">Item Name</th>
+                                <th className="border-b p-2 text-left">Price</th>
+                                <th className="border-b p-2 text-left">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {order.items.map((item, idx) => (
+                                <tr key={idx} className="border-b">
+                                    <td className="p-2">{item.menuName}</td>
+                                    <td className="p-2">₹{item.price.toFixed(2)}</td>
+                                    <td className="p-2">{item.quantity}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             ))
         ) : (
