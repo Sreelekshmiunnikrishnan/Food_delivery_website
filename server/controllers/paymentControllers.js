@@ -50,8 +50,8 @@ export const createPayment = async (req, res, next) => {
             payment_method_types: ["card"],
             line_items: discountedLineItems,
             mode: 'payment',
-            success_url: `${domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${domain}/user/payment/cancel`,
+            success_url: `${client_domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${client_domain}/user/payment/cancel`,
         });
 
         console.log("Line Items:", discountedLineItems);
