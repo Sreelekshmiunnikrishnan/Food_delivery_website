@@ -356,34 +356,35 @@ if(response){
           </div>
         </>
       )}
-    {activeSection === 'Orders' && (
-                <div className="orders-section">
-                    <h2>Orders</h2>
-                    {orders.length > 0 ? (
-                        orders.map((order, index) => (
-                            <div key={index} className="order-card">
-                                <p><strong>Order ID:</strong> {order.orderId}</p>
-                                <p><strong>Customer Id:</strong> {order.userId}</p>
-                                <p><strong>Status:</strong> {order.status}</p>
-                                <p><strong>Quantity:</strong> {order.quantity}</p>
-                                <p><strong>Items:</strong></p>
-                                <ul>
-                                    {order.items.map((item, idx) => (
-                              <div key={idx} className="order-item-card">
-                                        <li key={idx}>
-                                            {item.menuName} - Price: ₹{item.price.toFixed(2)}
-                                        </li>
-                                </div>
-                                    ))}
-                                </ul>
-                                
+   {activeSection === 'Orders' && (
+    <div className="orders-section">
+        <h2>Orders</h2>
+        {orders.length > 0 ? (
+            orders.map((order, index) => (
+                <div key={index} className="order-card bg-white p-5 shadow-md rounded-lg mb-4">
+                    <p><strong>Order ID:</strong> {order.orderId}</p>
+                    <p><strong>Customer Id:</strong> {order.userId}</p>
+                    <p><strong>Status:</strong> {order.status}</p>
+                    <p><strong>Total Quantity:</strong> {order.quantity}</p>
+                    
+                    <p><strong>Items:</strong></p>
+                    {/* Itemized cards for each item in the order */}
+                    <div className="order-items">
+                        {order.items.map((item, idx) => (
+                            <div key={idx} className="order-item-card bg-gray-100 p-4 rounded-lg mb-3 shadow-sm">
+                                <p><strong>Item Name:</strong> {item.menuName}</p>
+                                <p><strong>Price:</strong> ₹{item.price.toFixed(2)}</p>
+                                <p><strong>Quantity:</strong> {item.quantity}</p>
                             </div>
-                        ))
-                    ) : (
-                        <p>No orders found.</p>
-                    )}
+                        ))}
+                    </div>
                 </div>
-            )}
+            ))
+        ) : (
+            <p>No orders found.</p>
+        )}
+    </div>
+)}
 
           {activeSection === 'Reviews' && (
                 <div className="w-2/3 h-auto ml-20">
