@@ -74,7 +74,7 @@ export const getReviews = async (req, res,next) => {
      
         const userId = req.user.id;
         const reviews = await Review.find({ userId })
-            .populate("userId","comment")
+           
             .sort({ createdAt: -1 });
           console.log(reviews);
           
@@ -92,7 +92,7 @@ export const getAllReviews = async (req, res,next) => {
      
        
         const reviews = await Review.find()
-            .populate("userId","comment")
+           
             .sort({ createdAt: -1 });
           console.log(reviews);
           
