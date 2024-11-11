@@ -36,7 +36,7 @@ export const GetReview = () => {
         reviews.map((review, index) => (
             <div key={index} className="card card-compact  w-96 shadow-xl m-4 p-8">
                   <h2 className="text-indigo-500 font-bold">Reviews</h2>
-                <h3 className="text-amber-500 font-semi-bold">Menu Item: {review.menuId}</h3>
+                <h3 className="text-amber-500 font-semi-bold">Menu Item: {review.menuName}</h3>
                 <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
                 <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
                   <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>

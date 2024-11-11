@@ -45,7 +45,7 @@ export const createOrder = async (req, res, next) => {
       return res.status(404).json({ message: 'User email not found' });
     }
 
-    await sendDynamicEmail(userId, userDetails, savedOrder);
+    await sendDynamicEmail(userId, userDetails,savedOrder);
     res.status(201).json({ message: 'Order created successfully', order: savedOrder });
   } catch (error) {
     console.error('Error creating order:', error);

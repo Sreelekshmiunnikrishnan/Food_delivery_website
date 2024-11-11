@@ -1,20 +1,27 @@
-import React from 'react'
+import React,{ useState} from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from '../../config/axiosInstance';
-import toast, { Toaster } from 'react-hot-toast';
-import { Input, Button, Card, Typography } from "@material-tailwind/react";
+import toast from 'react-hot-toast';
+import {  Card, Typography } from "@material-tailwind/react";
+import { useDispatch } from 'react-redux';
+import { clearAdmin } from '../../redux/features/adminSlice';
+import { clearUser } from '../../redux/features/userSlice';
+import { clearOwner } from '../../redux/features/ownerSlice';
 export const SignupPage = () => {
   const { register, handleSubmit,formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  
     const onSubmit = async (data) => {
+      setLoading(true);
     try {
       let signupRoute = '/user/signup'; // Default
 
       if (data.role === "admin") {
         signupRoute = '/admin/signup';
+       
       } else if (data.role === "restaurantOwner") {
         signupRoute = '/owner/signup';
       }
@@ -25,17 +32,19 @@ export const SignupPage = () => {
       });
       console.log(response, '======response');
       toast.success('Signup Successfully!');
-   
-      navigate("/",{ replace: true });
+      if (data.role === "user") dispatch(clearUser());
+      if (data.role === "admin") dispatch(clearAdmin());
+      if (data.role === "restaurantOwner") dispatch(clearOwner());
+
+      navigate("/");
     } catch (error) {
       toast.error('Signup failed. Please try again.!');
      
       console.error(error);
-    }
-   
-
-
-  }
+    }finally {
+      setLoading(false);
+   }
+  };
   return (
 
 

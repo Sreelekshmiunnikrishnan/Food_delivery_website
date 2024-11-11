@@ -5,8 +5,7 @@ const router = e.Router();
 import { register,login, checkUser,updateProfile,getProfile,deleteProfile,logout } from "../controllers/usercontrollers.js";
 import {authUser} from '../middlewares/authUser.js';
 import { getAllRestaurants, getRestaurant } from "../controllers/restaurantController.js";
-import { upload } from "../middlewares/multer.js";
-import { addToCart, getFromCart, removeFromCart } from "../controllers/cartController.js";
+
 router.post("/signup",register)
 router.post("/login",login)
 router.put("/profile-update",authUser,updateProfile)

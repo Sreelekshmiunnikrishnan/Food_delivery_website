@@ -75,15 +75,14 @@ export const sendOrderDetails = async (userEmail,name) => {
         html: `
           <h1>Thank you for your order, ${newuser.name}!</h1>
           <p>Your order number is: <strong>${orderDetails.id}</strong></p>
-          <p>Order total: <strong>${orderDetails.totalPrice}</strong></p>
-         <p>Delivery Address: <strong>${orderDetails.deliveryAddress}</strong></p>
-         <p>Delivery time: <strong>${orderDetails.deliveryTime}</strong></p>
-         
+          <p>Order status: <strong>${orderDetails.status}</strong></p>
+         <p>Delivery Address: <strong>${newuser.address}</strong></p>
+          <p>Quantity: <strong>${orderDetails.quantity}</strong></p>
         <ul>
             ${orderDetails.items
               .map(
                 (item) =>
-                  `<li>${orderDetails.menuName} - ${orderDetails.quantity} x ${item.price}</li>`
+                  `<li>${item.menuName}   - ${item.price}</li>`
               )
               .join('')}
           </ul>

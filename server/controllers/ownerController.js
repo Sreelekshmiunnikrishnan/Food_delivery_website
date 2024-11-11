@@ -32,13 +32,14 @@ export const createowner = async(req, res,next) => {
 
       const savedOwner =  await newOwner.save();
       await sendRegistrationEmail(email);
-      if(savedOwner){
+    /*   if(savedOwner){
        const token = generateToken(savedOwner._id)
        res.cookie("token",token,{
         sameSite:"None",
         secure:true,
         httpOnly:true,
-       });
+       }); */
+       if(savedOwner){
      return res.status(201).json({ message: 'User created successfully' ,savedOwner});
       // res.status(200).json({message: 'User created successfully',savedUser});
       }
