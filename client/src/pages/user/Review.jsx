@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate,useParams } from "react-router-dom";
-import { Input, Button, Card, Typography } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 
 //import { useDispatch } from "react-redux";
 //import { login } from "../../redux/features/authSlice";
@@ -9,10 +9,13 @@ import { axiosInstance } from "../../config/axiosInstance";
 import toast from 'react-hot-toast';
 export const Review = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { itemId } = useParams(); 
     const onSubmit = async (data) => {
         try {
+          
+    
     const response = await axiosInstance({
             method: "POST",
             url: "/review/addreview",
@@ -23,8 +26,10 @@ export const Review = () => {
        
           //dispatch(login({ role: user.role }));
           navigate("/user/profile");
+        
+       
         } catch (error) {
-        toast.error("Failed to add review");
+        toast.error("Failed to add review.Buy item to add review");
         
           console.log(error);
         }

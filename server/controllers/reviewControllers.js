@@ -19,17 +19,17 @@ export const addReview = async (req, res,next) => {
         /* const menu = await MenuItem.findById(menuId);
         if (!menu) {
             return res.status(404).json({ message: "Item not found" });
-        }
+        }*/
         const order = await Order.findOne({
             userId,
-            items: { $elemMatch: { menuId: menuId } }, // Check if the item is in the user's order
+            items: { $elemMatch: { menuName: menuName } }, // Check if the item is in the user's order
         });
 
         if (!order) {
             return res.status(403).json({ message: "You can only review items you have ordered" });
         }
 
-         */
+         
         if(rating>5 || rating <1 ){
            return res.status(400).json({ message: "Please provide a proper rating"});
         }
