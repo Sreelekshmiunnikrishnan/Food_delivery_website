@@ -107,10 +107,9 @@ export const getAllReviews = async (req, res,next) => {
 };
 
 
-
 export const deleteReview = async (req, res, next) => {
     try {
-        const { reviewId } = req.params;
+        const  reviewId  = req.params.id;
         const userId = req.user.id;
         console.log(`User ${userId} is attempting to delete review ${reviewId}`);
 
@@ -119,15 +118,16 @@ export const deleteReview = async (req, res, next) => {
             return res.status(403).json({ message: "Review not found or not authorized" });
         }
 
-        await review.remove();
+       const response =await Review.deleteOne({ _id: reviewId });
+       if(response){
         console.log(`Review deleted by user ${userId}: ${reviewId}`);
         res.status(200).json({ message: "Review deleted successfully" });
+       }
     } catch (error) {
         console.error(`Error deleting review: ${error.message}`);
         res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
-
 
 
 export const getAverageRating = async (req, res,next) => {
