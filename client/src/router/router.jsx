@@ -24,7 +24,6 @@ import { Logout } from "../pages/user/Logout";
 import { DeleteProfile } from "../pages/user/DeleteProfile";
 import {OwnerProfile} from "../pages/owner/OwnerProfile";
 import { CreateRestaurant} from "../pages/owner/CreateRestaurant";
-
 import { CreateMenu} from "../pages/owner/CreateMenu";
 import { EditMenu} from "../pages/owner/EditMenu";
 import { EditProfiles } from "../pages/owner/EditProfiles";
@@ -32,7 +31,7 @@ import { DeleteProfiles } from "../pages/owner/DeleteProfiles";
 import { Logouts } from "../pages/owner/Logouts";
 import { AdminProfile } from "../pages/admin/AdminProfile";
 import { PaymentSuccess } from "../pages/user/PaymentSuccess";
-import { GetRestaurants } from "../pages/owner/GetRestaurants";
+
 import { EditRestaurant } from "../pages/owner/EditRestaurant";
 import { MyRestaurants } from "../pages/owner/MyResturants";
 import { Mymenu } from "../pages/owner/Mymenu";
@@ -40,6 +39,7 @@ import { Review } from "../pages/user/Review";
 import { GetReviews } from "../pages/user/GetReviews";
 import { UserOrder } from "../pages/owner/UserOrder";
 import { GetReview } from "../pages/owner/GetReview";
+import { EditProfilesUser } from "../pages/user/EditProfilesuser";
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
         element: <ProtectRoute role="user" />,
         children: [
           { path: "profile", element: <UserProfile /> },
-          { path: "profile-update", element: <EditProfile /> },
+          { path: "profile-update", element: <EditProfile />},
           { path: "profile-delete", element: <DeleteProfile /> },
           { path: "cart", element: <Cart /> },
           { path: "restaurant", element: <Restaurants /> },

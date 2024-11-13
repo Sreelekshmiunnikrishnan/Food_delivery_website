@@ -81,7 +81,7 @@ export const EditProfiles = () => {
               <label className="block mb-2 text-sm text-slate-600">Your Name</label>
               <input 
                 type="text"
-                {...register("name" )}
+                {...register("name",{ required: "Name is required" } )}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
               placeholder={profile.name}
               />
@@ -93,7 +93,7 @@ export const EditProfiles = () => {
               <input 
                 type="email"
                 {...register("email", {
-                 
+                  required: "Email is required" ,
                   pattern: {
                     value: /\S+@\S+\.\S+/,
                     message: "Please enter a valid email"
@@ -111,7 +111,7 @@ export const EditProfiles = () => {
                 className="w-full bg-transparent text-slate-700 text-sm border border-blue-gray-300 rounded-md px-3 py-2"
                placeholder={profile.role} 
                 id="role" 
-                {...register("role", )}
+                {...register("role",{ required: "Role is required" } )}
               >
                 <option value="">--Select--</option>
                 <option value="user">User</option>
@@ -125,7 +125,7 @@ export const EditProfiles = () => {
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">Address</label>
               <textarea 
-                {...register("address", )} 
+                {...register("address",{ required: "Address is required" } )} 
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
                placeholder={profile.address}
               />
@@ -138,6 +138,7 @@ export const EditProfiles = () => {
                 type="text"
                 {...register("phoneNumber", {
                   
+                    required: "Phonenumber is required",
                   pattern: {
                     value: /^[0-9]{10}$/,
                     message: "Please enter a valid 10-digit phone number"
