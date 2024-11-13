@@ -95,7 +95,6 @@ export const getAllReviews = async (req, res,next) => {
 };
 
 
-
 export const deleteReview = async (req, res, next) => {
     try {
         const  reviewId  = req.params.id;
@@ -137,8 +136,6 @@ export const deleteReviewsOwner = async (req, res, next) => {
         res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
-
-
 
 
 export const getAverageRating = async (req, res,next) => {

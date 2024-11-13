@@ -17,6 +17,7 @@ router.post("/logout",authUser,logout)
 router.get("/check-user",authUser,checkUser)
 router.get("getAllRestaurants",authUser,getAllRestaurants)
 router.get('/getRestaurant/:id',authUser,getRestaurant);
+router.delete("/deletereview/:id",authUser,deleteReview);
 //router.post('/add-to-cart',authUser,addToCart);
 //router.get('/getcart',authUser,getFromCart);
 //router.delete('/deletecart',authUser,removeFromCart);

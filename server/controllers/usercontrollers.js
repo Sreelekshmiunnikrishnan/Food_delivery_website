@@ -49,13 +49,13 @@ import { sendRegistrationEmail } from "../utilities/nodemailer.js";
       const savedUser =  await newUser.save();
       await sendRegistrationEmail(email,name);
        if(savedUser){
-      /*  const token =  generateToken(savedUser._id);
+       const token =  generateToken(savedUser._id);
        res.cookie("token",token,{
         sameSite:"None",
         secure:true,
         httpOnly:true,
        }); 
-     */
+     
      return res.status(201).json({success: true, message: 'User created successfully' ,savedUser});
       // res.status(200).json({message: 'User created successfully',savedUser});
       }

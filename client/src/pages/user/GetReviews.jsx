@@ -20,7 +20,9 @@ export const GetReviews = () => {
             setIsLoading(false);  // Set loading to false once data is fetched or error occurs
         }
     };
-    
+
+   
+
     useEffect(() => {
         fetchReviews();  // Trigger fetching reviews when the component mounts
     }, []);
@@ -54,12 +56,16 @@ export const GetReviews = () => {
                         <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
                         <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
+
                         <button 
+
+                        
                             onClick={() => handleDelete(review._id)}  // Pass the review ID to the delete handler
                             className="bg-red-500 text-white px-4 py-2 rounded mt-4"
                         >
                             Delete
                         </button>
+
                     </div>
                 ))
             ) : (
