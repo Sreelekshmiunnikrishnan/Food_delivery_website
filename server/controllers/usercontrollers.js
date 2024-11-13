@@ -93,8 +93,7 @@ export const login = async (req, res,next) => {
         sameSite:"None",
         secure:true,
         httpOnly:true,
-         path:"/",
-        domain:"https://foodorderwebsitedelicazy.netlify.app" 
+         
        });
 
        
