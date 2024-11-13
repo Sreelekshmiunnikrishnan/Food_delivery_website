@@ -39,7 +39,6 @@ import { Review } from "../pages/user/Review";
 import { GetReviews } from "../pages/user/GetReviews";
 import { UserOrder } from "../pages/owner/UserOrder";
 import { GetReview } from "../pages/owner/GetReview";
-import { EditProfilesUser } from "../pages/user/EditProfilesuser";
 
 export const router = createBrowserRouter([
   {
