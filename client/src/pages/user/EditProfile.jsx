@@ -39,7 +39,7 @@ export const EditProfile = () => {
        // alert("Profile updated successfully");
       toast.success("Profile updated successfully");
       }
-      navigate("/profile");
+      navigate("/user/profile");
     } catch (error) {
       //alert("Update failed. Please try again.")
       toast.error("Update failed. Please try again.");
