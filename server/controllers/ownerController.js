@@ -75,7 +75,7 @@ export const ownerLogin = async (req, res,next) => {
         httpOnly:true,
        });
       
-      res.status(200).json({ message: 'Owner Login successful' });
+    return  res.status(200).json({ message: 'Owner Login successful' });
 
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message || "Internal server error"});

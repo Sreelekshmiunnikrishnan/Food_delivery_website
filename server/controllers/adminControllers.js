@@ -81,7 +81,7 @@ export const adminSignin = async (req, res,next) => {
         httpOnly:true,
        });
       
-      res.json({ message: 'Admin Login successful' });
+     return res.json({ message: 'Admin Login successful' });
     } catch (error) {
       res.status(500).json({ message: 'Error logging in', error });
     }
