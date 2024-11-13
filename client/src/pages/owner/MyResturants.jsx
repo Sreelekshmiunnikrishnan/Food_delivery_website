@@ -53,6 +53,7 @@ export const MyRestaurants = () => {
                 <p className="text-center">Cuisine Type: {restaurant.cuisineType}</p>
                 <p className="text-center">Rating: {restaurant.rating}</p>
                 <p className="text-center">Phone number: {restaurant.phoneNumber}</p>
+                <p className="text-center">Restaurant Id: {restaurant._id}</p>
                 <div className="flex justify-center mt-4 space-x-4">
                     <Link to={`/owner/editRestaurant/${restaurant._id}`}>
                         <Button className="bg-yellow text-white px-4 py-2 rounded-md">
