@@ -20,27 +20,22 @@ export const GetReviews = () => {
             setIsLoading(false);  // Set loading to false once data is fetched or error occurs
         }
     };
-    /* const handleDeleteReview = async (reviewId) => {
-        try {
-            const response = await axiosInstance({
-                method: "DELETE",
-                url: `/review/deletereview/${reviewId}`,  // API endpoint to delete a review by its ID
-            });
-          console.log(reviewId);
-          
-            if (response.status === 200) {
-                // Remove the deleted review from the state to update the UI
-                setReviews(reviews.filter((review) => review._id !== reviewId));
-                console.log("Review deleted successfully.");
-            }
-        } catch (error) {
-            console.error("Error deleting review:", error);
-        }
-    };
- */
+    
     useEffect(() => {
         fetchReviews();  // Trigger fetching reviews when the component mounts
     }, []);
+    const handleDelete = async (reviewId) => {
+        try {
+            await axiosInstance({
+                method: "DELETE",
+                url: `/user/deletereview/${reviewId}`,  // API endpoint for deleting a review
+            });
+            setReviews(reviews.filter(review => review._id !== reviewId));  // Update state to remove the deleted review
+            console.log(`Review with ID ${reviewId} deleted`);
+        } catch (error) {
+            console.log("Error deleting review:", error);
+        }
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;  // Show a loading message or spinner while reviews are being fetched
@@ -59,7 +54,12 @@ export const GetReviews = () => {
                         <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
                         <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
-                   
+                        <button 
+                            onClick={() => handleDelete(review._id)}  // Pass the review ID to the delete handler
+                            className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+                        >
+                            Delete
+                        </button>
                     </div>
                 ))
             ) : (

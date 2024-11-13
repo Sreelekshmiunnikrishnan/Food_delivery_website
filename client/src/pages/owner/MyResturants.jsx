@@ -3,6 +3,7 @@ import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from 'react-router-dom';
 import { Card, Button } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 export const MyRestaurants = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +12,11 @@ export const MyRestaurants = () => {
     const fetchRestaurants = async () => {
         try {
             const response = await axiosInstance.get('/restaurant/getOwnRestaurant');
-            setRestaurants(response.data); // Only owned restaurants should return here
+            if(response){
+            setRestaurants(response.data); 
+            }else{
+                toast.error("You haven't created any restaurants yet..");
+            }
         } catch (error) {
             setError("Failed to load restaurants.");
         } finally {
@@ -48,6 +53,7 @@ export const MyRestaurants = () => {
                 <p className="text-center">Cuisine Type: {restaurant.cuisineType}</p>
                 <p className="text-center">Rating: {restaurant.rating}</p>
                 <p className="text-center">Phone number: {restaurant.phoneNumber}</p>
+                <p className="text-center">Restaurant Id: {restaurant._id}</p>
                 <div className="flex justify-center mt-4 space-x-4">
                     <Link to={`/owner/editRestaurant/${restaurant._id}`}>
                         <Button className="bg-yellow text-white px-4 py-2 rounded-md">

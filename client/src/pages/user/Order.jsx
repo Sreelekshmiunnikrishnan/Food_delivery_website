@@ -59,14 +59,14 @@ export const Order = () => {
                 <Typography color="light-green">
                   <strong>Menu Name:</strong> {item.menuName}
                 </Typography>
-                 {/* <Typography color="light-green">
+                   {/*  <Typography color="light-green">
                   <strong>Menu Id:</strong> {item.menuId}
-                </Typography>  */}
+                </Typography>     */}
                 <Typography color="light-green">
                   <strong>Price:</strong> ₹{item.price.toFixed(2)}
                 </Typography>
                  {/* Link to add a review for each specific order */}
-                 <Link to={`/user/review/${item._id}`}>
+                 <Link to={`/user/review/${order._id}/${item._id}`}>
                  <Button  size="sm" className="mt-3 bg-yellow text-white">
                             ADD REVIEW
                         </Button>

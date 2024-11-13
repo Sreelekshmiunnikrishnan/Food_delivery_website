@@ -6,6 +6,16 @@ const reviewSchema = new Schema({
       ref: 'User',
       required: true
     },
+    orderId:{
+      type: Schema.Types.ObjectId,
+      ref: 'Order',
+      required: true
+    },
+    itemId:{
+      type: Schema.Types.ObjectId,
+     
+      required: true
+    },
     menuName: {
       type: String,
     required: true

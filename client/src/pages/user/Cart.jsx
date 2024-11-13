@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/UseFetch";
 import { CartCards } from "../../components/user/Card";
-
-import  toast  from 'react-hot-toast';
-
+import toast from 'react-hot-toast';
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-import { useDispatch } from 'react-redux';
 
 export const Cart = () => {
     const navigate = useNavigate();
@@ -15,6 +12,7 @@ export const Cart = () => {
     const [quantities, setQuantities] = useState({});
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(0);
+    const [isCouponLoading, setIsCouponLoading] = useState(false);
 
     useEffect(() => {
         if (cartData?.menus) {
@@ -32,11 +30,13 @@ export const Cart = () => {
             [menuId]: Math.max(1, (prevQuantities[menuId] || 1) + delta)
         }));
     };
-    
+
     const handleCouponApply = async () => {
         if (!couponCode) {
             return toast.error("Please enter a coupon code.");
-  }
+        }
+
+        setIsCouponLoading(true); // Show loading state
 
         try {
             const response = await axiosInstance({
@@ -53,6 +53,8 @@ export const Cart = () => {
         } catch (error) {
             console.error("Error applying coupon:", error);
             toast.error(error?.response?.data?.message || "Failed to apply coupon");
+        } finally {
+            setIsCouponLoading(false); // Hide loading state
         }
     };
 
@@ -60,7 +62,7 @@ export const Cart = () => {
         if (!cartData?.menus?.length) {
             return toast.error("Your cart is empty.");
         }
-
+       
         try {
             const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
             const session = await axiosInstance({
@@ -68,7 +70,7 @@ export const Cart = () => {
                 method: "POST",
                 data: {
                     products: cartData.menus.map(item => ({
-                        ...item,
+                       ...item,
                       quantity: quantities[item._id]
                     })),
                     discount,
@@ -76,7 +78,7 @@ export const Cart = () => {
                 },
             });
 
-            const result = await stripe.redirectToCheckout({
+          const result = await stripe.redirectToCheckout({
                 sessionId: session.data.sessionId,
             });
 
@@ -100,9 +102,6 @@ export const Cart = () => {
             if (response) {
                 navigate("/user/menu");
                 toast.success("Item removed from cart");
-
-              
-
             }
         } catch (error) {
             console.error(error);
@@ -110,15 +109,21 @@ export const Cart = () => {
         }
     };
 
+    // Calculate the price after discount
+    const getTotalPrice = () => {
+        const total = cartData?.totalPrices || 0;
+        return total - (total * (discount / 100));
+    };
+
     return (
         <div className="flex justify-between">
             <div className="w-6/12">
                 {cartData?.menus?.length ? (
                     cartData.menus.map((item) => (
-                        <CartCards 
-                            item={item} 
-                            key={item._id} 
-                            handleRemove={handleRemoveItem} 
+                        <CartCards
+                            item={item}
+                            key={item._id}
+                            handleRemove={handleRemoveItem}
                             handleQuantityChange={handleQuantityChange}
                             quantities={quantities}
                         />
@@ -131,27 +136,31 @@ export const Cart = () => {
                 <h2 className="text-red-500">Limited Offer!!!</h2>
                 <p className="text-yellow">Apply Coupon code "DISCOUNT10" to avail discount on items..</p>
                 <h2 className="text-yellow">Price summary...</h2>
-                <h2 className="text-green">Total Price: {cartData?.totalPrices?.toLocaleString('en-US', { style: 'currency', currency: 'INR' })}</h2>
+                <h2 className="text-green">
+                    Total Price: {getTotalPrice().toLocaleString('en-US', { style: 'currency', currency: 'INR' })}
+                </h2>
 
                 <div className="flex flex-col items-center gap-2 mt-4">
-                    <input 
-                        type="text" 
-                        value={couponCode} 
-                        onChange={(e) => setCouponCode(e.target.value)} 
-                        placeholder="Enter coupon code" 
+                    <input
+                        type="text"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value)}
+                        placeholder="Enter coupon code"
                         className="p-2 border border-gray-300 rounded"
                     />
-                    <button 
-                        onClick={handleCouponApply} 
+                    <button
+                        onClick={handleCouponApply}
                         className="p-2 text-white bg-blue-500 rounded"
+                        disabled={isCouponLoading}
                     >
-                        Apply Coupon
+                        {isCouponLoading ? "Applying..." : "Apply Coupon"}
                     </button>
                 </div>
 
-                <button 
+                <button
                     className="btn btn-secondary flex items-center justify-center w-1/3 mt-15 px-4"
                     onClick={makePayment}
+                    disabled={cartData?.menus?.length === 0}
                 >
                     Checkout
                 </button>

@@ -8,8 +8,12 @@ const orderSchema = new Schema({
     },
     
     items: [{
-    
-      menuName:{
+     /*   menuId:{
+        type: Schema.Types.ObjectId,
+        ref: 'MenuItem',
+        required: true
+        },    */
+     menuName:{
         type:String,
         required:true,
       },
@@ -23,6 +27,11 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
 },  */
+   /*  menuId:{
+  type: Schema.Types.ObjectId,
+  ref: 'MenuItem',
+  required: true
+  },   */
       quantity: {
         type: Number,
         required: true

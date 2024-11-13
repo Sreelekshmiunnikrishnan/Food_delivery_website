@@ -55,6 +55,23 @@ export const UserProfile = () => {
         <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
           <CardHeader color="blue-gray" className="relative h-48 sm:h-60">
             <img
+              src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1728489530/samples/dessert-on-a-plate.jpg"
+              alt="card-image"
+              className="object-cover w-full h-full"
+            />
+          </CardHeader>
+          <CardBody className="p-2">
+            <Typography variant="h5" color="blue-gray" className="mb-2 text-center">
+              Go through Our Menu
+            </Typography>
+            <Typography className="text-center">
+            "Food is not rational. Food is culture, habit, craving, and identity." - Jonathan Safran Foer
+            </Typography>
+          </CardBody>
+        </Card>
+        <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
+          <CardHeader color="blue-gray" className="relative h-48 sm:h-60">
+            <img
               src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1728489529/samples/breakfast.jpg"
               alt="card-image"
               className="object-cover w-full h-full"
@@ -69,7 +86,23 @@ export const UserProfile = () => {
             </Typography>
           </CardBody>
         </Card>
-        {/* Additional cards */}
+        <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
+          <CardHeader color="blue-gray" className="relative h-48 sm:h-60">
+            <img
+              src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1728489520/samples/food/pot-mussels.jpg"
+              alt="card-image"
+              className="object-cover w-full h-full"
+            />
+          </CardHeader>
+          <CardBody className="p-2">
+            <Typography variant="h5" color="blue-gray" className="mb-2 text-center">
+              Go through Our Menu
+            </Typography>
+            <Typography className="text-center">
+            "Food is our common ground, a universal experience." - James Beard
+            </Typography>
+          </CardBody>
+        </Card>
       </div>
     );
   };

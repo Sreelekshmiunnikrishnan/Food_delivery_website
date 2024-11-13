@@ -11,7 +11,11 @@ export const Mymenu = () => {
     const fetchMenus = async () => {
         try {
             const response = await axiosInstance.get('/menu/getOwnMenu');
-            setMenus(response.data); // Only owned restaurants should return here
+            if(response){
+            setMenus(response.data);
+            }else{
+                toast.error("You haven't created any menu yet..");
+            } // Only owned restaurants should return here
         } catch (error) {
             setError("Failed to load menus.");
         } finally {

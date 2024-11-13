@@ -8,7 +8,8 @@ export const PaymentSuccess = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const sessionId = searchParams.get("session_id"); 
+    const [orderCreated, setOrderCreated] = useState(false); // Track if order is created
+    const sessionId = searchParams.get("session_id");
 
     // Fetch session details when component mounts
     const fetchSessionDetails = async () => {
@@ -17,11 +18,11 @@ export const PaymentSuccess = () => {
             setLoading(false);
             return;
         }
-        
+
         try {
             const response = await axiosInstance.get(`/payment/sessionstatus?session_id=${sessionId}`);
-            const responseProduct = response.data.products;
-            setProducts(responseProduct);
+            setProducts(response.data.products);
+            console.log("Products from session:", response.data.products);
         } catch (error) {
             console.error("Error retrieving session details:", error);
             setError("Failed to retrieve session details. Please try again.");
@@ -32,16 +33,16 @@ export const PaymentSuccess = () => {
 
     // Move to order creation after products are loaded
     const moveToOrder = async (products) => {
-        if (!products || products.length === 0) {
-            console.error("No products available to create an order.");
+        if (!products || products.length === 0 || orderCreated) {
+            console.error("No products available to create an order or order already created.");
             return;
         }
-    
+
         const orderData = {
             items: products.map(product => ({
                 quantity: product.quantity,
                 menuName: product.price_data.product_data.name,
-               
+                 
                 price: (product.price_data.unit_amount / 100) * product.quantity,
             })),
             orderId: sessionId,
@@ -51,6 +52,7 @@ export const PaymentSuccess = () => {
         try {
             const response = await axiosInstance.post("/order/createorder", { orderData });
             console.log("Order created successfully:", response.data);
+            setOrderCreated(true); // Mark order as created
         } catch (error) {
             console.error("Error creating order:", error);
             setError("Failed to create the order. Please try again.");
@@ -62,10 +64,10 @@ export const PaymentSuccess = () => {
     }, [sessionId]);
 
     useEffect(() => {
-        if (products.length > 0) {
+        if (products.length > 0 && !orderCreated) {
             moveToOrder(products);
         }
-    }, [products]);
+    }, [products, orderCreated]);
 
     if (loading) {
         return <p>Loading payment details...</p>;
@@ -87,14 +89,14 @@ export const PaymentSuccess = () => {
                             <p className="text-white font-bold">Currency: {product.price_data.currency.toUpperCase()}</p>
                             <p className="text-white font-bold">Price: ₹{product.price_data.unit_amount / 100}</p>
                             <p className="text-white font-bold">Quantity: {product.quantity}</p>
-                            <Link to="/user/order">
-                                <button className="btn btn-primary mt-4">View Order Details</button>
-                            </Link>
                         </div>
                     ))
                 ) : (
                     <p className="text-white">No products found.</p>
                 )}
+                <Link to="/user/order">
+                    <button className="btn btn-primary mt-4">View Order Details</button>
+                </Link>
             </Card>
         </div>
     );

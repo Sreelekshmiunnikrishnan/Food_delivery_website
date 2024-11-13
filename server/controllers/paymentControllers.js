@@ -4,34 +4,36 @@ import Stripe from 'stripe';
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_API_KEY);
 const client_domain = process.env.CLIENT_DOMAIN;
-console.log("Stripe API Key:", stripe);
 
 export const createPayment = async (req, res, next) => {
     try {
         const { products, discount } = req.body;
-        console.log(products);
-
+        console.log(products); // Optional: remove or replace with a logging mechanism
+      
+    
         if (!products || products.length === 0) {
             return res.status(400).json({ error: "No products provided" });
         }
 
         // Map products to Stripe line items with discount applied if provided
-        const lineItems = products.map((product) => ({
+        const line_items = products.map((product) => ({
             price_data: {
                 currency: "inr",
                 product_data: {
                     name: product?.menuId?.name || "Unknown Product",
                   images: product?.menuId?.image ? [product.menuId.image] : [],
+              /*   metadata:{
+                     id:product?.menuId?._id,
+                }, */
                 },
                 unit_amount: Math.round(product?.menuId?.price * 100 || 0),
-
             },
             quantity: product.quantity || 1,
-
+            
         }));
 
-        // Adjust prices for discount by applying it to each line item
-        const discountedLineItems = lineItems.map(item => {
+        const discountedLineItems = line_items.map(item => {
+
             const discountedAmount = discount > 0
                 ? item.price_data.unit_amount - Math.round(item.price_data.unit_amount * discount / 100)
                 : item.price_data.unit_amount;
@@ -48,18 +50,16 @@ export const createPayment = async (req, res, next) => {
             ? client_domain
             : 'http://localhost:5173';
 
-
         // Create the Stripe session without payment_intent_data
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
-            line_items: discountedLineItems,
+            line_items:discountedLineItems,
             mode: 'payment',
             success_url: `${domain}/user/payment/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${domain}/user/payment/cancel`,
         });
 
-        console.log("Line Items:", discountedLineItems);
-        console.log("Session ID:", session.id);
+        console.log("Session ID Created: ", session.id);
 
         res.status(200).json({ success: true, sessionId: session.id });
     } catch (error) {
@@ -68,7 +68,7 @@ export const createPayment = async (req, res, next) => {
     }
 };
 
-export const sessionstatus = async (req, res) => {
+ export const sessionstatus = async (req, res) => {
     try {
         const sessionId = req.query.session_id;
 
@@ -80,24 +80,32 @@ export const sessionstatus = async (req, res) => {
             expand: ['line_items'],
         });
 
-        const products = session.line_items.data.map(item => ({
+        if (!session) {
+            return res.status(404).json({ error: "Session not found" });
+        }
+
+         const products = session.line_items.data.map(item => ({
+          
             price_data: {
                 currency: item.price.currency,
                 product_data: {
-                    name: item.description,
+                    name: item.description || "Unknown Product",
                      images: item.price.product?.images || [],
+                    /*  metadata:{
+                        id:item.price.product?.id,
+                     } */
+                 
                 },
                 unit_amount: item.price.unit_amount,
-
-            },
+              },
             quantity: item.quantity,
-
-        }));
-
+           
+        })); 
+       
         res.status(200).json({
             status: session.status,
             customer_email: session.customer_details?.email,
-            products,
+           products,
         });
     } catch (error) {
         console.error("Error retrieving session status:", error);
@@ -106,3 +114,5 @@ export const sessionstatus = async (req, res) => {
         });
     }
 };
+ 
+

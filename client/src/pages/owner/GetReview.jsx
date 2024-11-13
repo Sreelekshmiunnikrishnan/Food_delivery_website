@@ -23,6 +23,18 @@ export const GetReview = () => {
     useEffect(() => {
         fetchReview();  // Trigger fetching reviews when the component mounts
     }, []);
+    const handleDelete = async (reviewId) => {
+        try {
+            await axiosInstance({
+                method: "DELETE",
+                url: `/owner/deletereview/${reviewId}`,  // API endpoint for deleting a review
+            });
+            setReviews(reviews.filter(review => review._id !== reviewId));  // Update state to remove the deleted review
+            console.log(`Review with ID ${reviewId} deleted`);
+        } catch (error) {
+            console.log("Error deleting review:", error);
+        }
+    };
 
     /* if (isLoading) {
         return <div>Loading...</div>;  // Show a loading message or spinner while reviews are being fetched
@@ -40,7 +52,12 @@ export const GetReview = () => {
                 <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
                 <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
                   <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
-                 
+                  <button 
+                            onClick={() => handleDelete(review._id)}  // Pass the review ID to the delete handler
+                            className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+                        >
+                            Delete
+                        </button>
             </div>
         ))
     ) : (

@@ -2,7 +2,7 @@ import e from "express";
 
 import {adminSignin, getAllUser,getUserProfile, getAdminProfile, logout, checkAdmin ,blockUser, register,getAllOwners, blockOwner, getOwnerProfile, unblockUser, unblockOwner} from "../controllers/adminControllers.js";
 import { authAdmin } from "../middlewares/authAdmin.js";
-import { getAllRestaurants, getRestaurant } from "../controllers/restaurantController.js";
+import {  getRestaurant } from "../controllers/restaurantController.js";
 import { getAllOrders } from "../controllers/orderControllers.js";
 import { getAllReviews } from "../controllers/reviewControllers.js";
 const router = e.Router();

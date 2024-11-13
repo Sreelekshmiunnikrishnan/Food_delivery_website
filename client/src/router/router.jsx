@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
           {path:"payment/success",element:<PaymentSuccess />},
           {path:"payment/cancel",element:<Cart />},
           {path:"order",element:<Order />},
-          {path:"review/:id",element:<Review />},
+          { path: "review/:orderId/:itemId", element: <Review /> }, 
           {path:"review",element:<GetReviews />}
         ],
       },
@@ -136,10 +136,10 @@ export const router = createBrowserRouter([
         path: "userreviews",
         element: <GetReview />
       },
-      {
+      /* {
         path: "logout",
         element: <Home />
-      },
+      }, */
     ],
   },
      ],

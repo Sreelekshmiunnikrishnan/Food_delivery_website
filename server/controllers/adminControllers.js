@@ -16,7 +16,7 @@ export const register = async(req, res,next) => {
     }
     const isAdminExist = await Admin.findOne({ email });
     if (isAdminExist) {
-      return res.status(409).json({message: 'User already exists' });
+     return res.status(409).json({message: 'User already exists' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -36,14 +36,14 @@ export const register = async(req, res,next) => {
 
     const savedAdmin =  await newAdmin.save();
     await sendRegistrationEmail(email);
-   /*  if(savedAdmin){
-     const token =  generateToken(savedAdmin._id)
+     if(savedAdmin){
+    /*  const token =  generateToken(savedAdmin._id)
      res.cookie("token",token,{
       sameSite:"None",
       secure:true,
       httpOnly:true,
-     });  */
-     if(savedAdmin){
+     });  
+     */
    return res.status(201).json({ message: 'Admin created successfully' ,savedAdmin});
     // res.status(200).json({message: 'User created successfully',savedUser});
     }

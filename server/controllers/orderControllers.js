@@ -14,7 +14,7 @@ export const createOrder = async (req, res, next) => {
 
     const items = orderData.items;
     const orderId = orderData.orderId;
-
+  
     const userDetails = await User.findById(userId);
     if (!userDetails) {
       return res.status(404).json({ message: 'User not found' });
@@ -22,12 +22,14 @@ export const createOrder = async (req, res, next) => {
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: 'Order must include items' });
     }
+    
 
     const orderItems = items.map(item => ({
       menuName: item.menuName,
+    
       price: item.price,
     }));
-    
+   
     const totalQuantity = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
     const newOrder = new Order({
@@ -58,6 +60,18 @@ export const getOrders = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const orders = await Order.find({ userId }).populate('items');
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getOrderbyId = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;  // Get orderId from route params
+    const orders = await Order.findById(orderId);  // Use orderId directly without wrapping in an object
 
     res.status(200).json(orders);
   } catch (error) {

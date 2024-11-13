@@ -3,53 +3,41 @@ import { Review } from "../models/reviewModel.js";
 import { MenuItem} from "../models/menuModel.js";
 import { Order} from "../models/orderModel.js";
 
-export const addReview = async (req, res,next) => {
+export const addReview = async (req, res, next) => {
     try {
-       
-        const { menuName, rating, comment } = req.body;
-        const userId = req.user.id;
-       /*  const menuItems = await MenuItem.findOne({menuName});
-        const menuId = menuItems._id; */
-        //validate if user purchased the food
-     //const order= await Order.findById(menuId);
-      //if(!order){
-       // return res.status(404).json({ message: "You can give review for an item only after purchasing." });
-     // }
-        // Validate if the menu item exists
-        /* const menu = await MenuItem.findById(menuId);
-        if (!menu) {
-            return res.status(404).json({ message: "Item not found" });
-        }*/
-        const order = await Order.findOne({
-            userId,
-            items: { $elemMatch: { menuName: menuName } }, // Check if the item is in the user's order
-        });
-
-        if (!order) {
-            return res.status(403).json({ message: "You can only review items you have ordered" });
-        }
-
-         
-        if(rating>5 || rating <1 ){
-           return res.status(400).json({ message: "Please provide a proper rating"});
-        }
-
-        // Create or update the review
-        const review = await Review.findOneAndUpdate(
-            { userId, menuName },
-            { rating, comment },
-            { new: true, upsert: true }
-        );
-
-        // Optionally, you can update the food's average rating here
-
-        res.status(201).json(review);
+      const { menuName, orderId, itemId, rating, comment } = req.body;
+      const userId = req.user.id;
+  
+      // Check if the user ordered the item
+      const order = await Order.findOne({
+        _id: orderId,  // Ensure you use `_id` if `orderId` refers to MongoDB's default ID field
+        items: { $elemMatch: { _id: itemId } },  // Match the item ID within the order
+      });
+  
+      if (!order) {
+        return res.status(403).json({ message: "You can only review items you have ordered, or check if the menu name is correct." });
+      }
+  
+      // Validate rating range
+      if (rating < 1 || rating > 5) {
+        return res.status(400).json({ message: "Please provide a rating between 1 and 5." });
+      }
+  
+      // Create or update the review
+      const review = await Review.findOneAndUpdate(
+        { userId, itemId },  // Assuming each user reviews a unique item
+        { rating, comment, menuName },
+        { new: true, upsert: true }  // Create a new review if none exists
+      );
+  
+      // Optionally update the average rating for the item if required
+      res.status(201).json(review);
     } catch (error) {
-        res.status(500).json({ message: "Internal server error", error });
+      console.error("Error adding review:", error);
+      res.status(500).json({ message: "Internal server error", error });
     }
-};
-
-
+  };
+  
 
 export const getMenuReviews = async (req, res,next) => {
     try {
@@ -110,7 +98,7 @@ export const getAllReviews = async (req, res,next) => {
 
 export const deleteReview = async (req, res, next) => {
     try {
-        const { reviewId } = req.params;
+        const  reviewId  = req.params.id;
         const userId = req.user.id;
         console.log(`User ${userId} is attempting to delete review ${reviewId}`);
 
@@ -119,14 +107,37 @@ export const deleteReview = async (req, res, next) => {
             return res.status(403).json({ message: "Review not found or not authorized" });
         }
 
-        await review.remove();
+       const response =await Review.deleteOne({ _id: reviewId });
+       if(response){
         console.log(`Review deleted by user ${userId}: ${reviewId}`);
         res.status(200).json({ message: "Review deleted successfully" });
+       }
     } catch (error) {
         console.error(`Error deleting review: ${error.message}`);
         res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
+
+export const deleteReviewsOwner = async (req, res, next) => {
+    try {
+        const  reviewId  = req.params.id;
+        
+        const review = await Review.findOne({ _id: reviewId });
+        if (!review) {
+            return res.status(403).json({ message: "Review not found or not authorized" });
+        }
+
+       const response =await Review.deleteOne({ _id: reviewId });
+       if(response){
+        console.log(`Review deleted : ${reviewId}`);
+        res.status(200).json({ message: "Review deleted successfully" });
+       }
+    } catch (error) {
+        console.error(`Error deleting review: ${error.message}`);
+        res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+};
+
 
 
 

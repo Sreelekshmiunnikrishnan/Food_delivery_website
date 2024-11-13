@@ -1,3 +1,4 @@
+
 import React,{ useState} from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,9 +6,9 @@ import { axiosInstance } from '../../config/axiosInstance';
 import toast from 'react-hot-toast';
 import {  Card, Typography } from "@material-tailwind/react";
 import { useDispatch } from 'react-redux';
-import { clearAdmin } from '../../redux/features/adminSlice';
-import { clearUser } from '../../redux/features/userSlice';
-import { clearOwner } from '../../redux/features/ownerSlice';
+import { saveAdmin } from '../../redux/features/adminSlice';
+import { saveUser } from '../../redux/features/userSlice';
+import { saveOwner } from '../../redux/features/ownerSlice';
 export const SignupPage = () => {
   const { register, handleSubmit,formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
@@ -18,13 +19,12 @@ export const SignupPage = () => {
       setLoading(true);
     try {
       let signupRoute = '/user/signup'; // Default
-
+     
       if (data.role === "admin") {
         signupRoute = '/admin/signup';
-       
-      } else if (data.role === "restaurantOwner") {
+        } else if (data.role === "restaurantOwner") {
         signupRoute = '/owner/signup';
-      }
+        }
       const response = await axiosInstance({
         method: "POST",
         url: signupRoute,
@@ -32,10 +32,7 @@ export const SignupPage = () => {
       });
       console.log(response, '======response');
       toast.success('Signup Successfully!');
-      if (data.role === "user") dispatch(clearUser());
-      if (data.role === "admin") dispatch(clearAdmin());
-      if (data.role === "restaurantOwner") dispatch(clearOwner());
-
+     
       navigate("/");
     } catch (error) {
       toast.error('Signup failed. Please try again.!');
