@@ -29,7 +29,7 @@ export const Mymenu = () => {
                 url: `/menu/deletemenu/${id}`
             });
             // Refresh the restaurant list after deletion
-            fetchRestaurants();
+            fetchMenus();
         } catch (error) {
             console.error("Failed to delete restaurant:", error);
         }

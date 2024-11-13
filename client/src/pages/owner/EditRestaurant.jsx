@@ -93,42 +93,42 @@ export const EditRestaurant = () => {
             name="name" 
             value={formData.name} 
             onChange={handleFormChange} 
-            placeholder="Name" 
+            placeholder={restaurant.name}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input 
             name="address" 
             value={formData.address} 
             onChange={handleFormChange} 
-            placeholder="Address" 
+            placeholder={restaurant.address}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input 
             name="cuisineType" 
             value={formData.cuisineType} 
             onChange={handleFormChange} 
-            placeholder="Cuisine Type" 
+            placeholder={restaurant.cuisineType}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input 
             name="phoneNumber" 
             value={formData.phoneNumber} 
             onChange={handleFormChange} 
-            placeholder="Phone Number" 
+            placeholder={restaurant.phoneNumber} 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input 
             name="rating" 
             value={formData.rating} 
             onChange={handleFormChange} 
-            placeholder="Rating" 
+            placeholder={restaurant.rating}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <input 
             name="ownerEmail" 
             value={formData.ownerEmail} 
             onChange={handleFormChange} 
-            placeholder="Owner Email" 
+            placeholder={restaurant.ownerEmail}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         

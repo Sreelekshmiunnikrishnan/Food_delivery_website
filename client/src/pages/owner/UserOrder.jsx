@@ -59,9 +59,9 @@ export const UserOrder = () => {
                 <Typography color="amber">
                   <strong>Menu Name:</strong> {item.menuName}
                 </Typography>
-                <Typography color="amber">
+               {/*  <Typography color="amber">
                   <strong>Menu Id:</strong> {item.menuId}
-                </Typography>
+                </Typography> */}
                 <Typography color="amber">
                   <strong>Price:</strong> ₹{item.price.toFixed(2)}
                 </Typography>
