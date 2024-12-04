@@ -67,8 +67,10 @@ export const CartCards = ({ item, handleRemove,handleQuantityChange,quantities }
   //const [quantities, setQuantities] = useState({});
 
   return (
+    
     <div className="flex flex-wrap justify-center">
-      <div className="card card-compact bg-base-100 w-96 shadow-xl m-4">
+
+      <div className="card card-compact bg-base-100 w-80 shadow-lg rounded-lg flex-shrink-0">
         <div className="card-body">
           <h2 className="card-title">User Cart</h2>
 

@@ -27,8 +27,6 @@ export const CreateRestaurant = () => {
       console.error(error);
     }
    
-
-
   }
   return (
     <div className="flex justify-center items-center pt-10  bg-gray-100">

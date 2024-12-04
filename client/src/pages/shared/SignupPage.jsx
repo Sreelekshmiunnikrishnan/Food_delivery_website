@@ -20,9 +20,9 @@ export const SignupPage = () => {
     try {
       let signupRoute = '/user/signup'; // Default
      
-      if (data.role === "admin") {
+      /* if (data.role === "admin") {
         signupRoute = '/admin/signup';
-        } else if (data.role === "restaurantOwner") {
+        } else */ if (data.role === "restaurantOwner") {
         signupRoute = '/owner/signup';
         }
       const response = await axiosInstance({
@@ -102,8 +102,7 @@ export const SignupPage = () => {
                 <select className="border border-blue rounded-md" id="role" {...register("role", { required: "Role is required" })}>
                   <option value="">--Select--</option>
                   <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                  <option value="restaurantOwner">Restaurant Owner</option>
+                 <option value="restaurantOwner">Restaurant Owner</option>
                 </select>
                 {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
               </div>

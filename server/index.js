@@ -33,7 +33,7 @@ app.get('/', (req, res,next) => {
 
 app.use('/api',apiRouter);
 app.use((err, req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Origin',  "https://foodorderwebsitedelicazy.netlify.app");
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.status(err.status || 500).json({
     message: err.message || 'Internal Server Error'

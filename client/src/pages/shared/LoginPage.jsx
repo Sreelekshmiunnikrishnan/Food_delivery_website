@@ -34,7 +34,7 @@ export const LoginPage = ({ role = "user" }) => {
 
   const onSubmit = async (data) => {
     try {
-const response = await axiosInstance({
+  const response = await axiosInstance({
         method: "POST",
         url: user.login_api,
         data

@@ -75,7 +75,13 @@ export const login = async (req, res,next) => {
       if (!user) {
         return res.status(401).json({message: 'User not found' });
       }
-  
+      if (user.isBlocked && user.status === "Inactive") {
+        // Update the user to unblock and activate their account
+        await User.findByIdAndUpdate(user._id, { isBlocked: false, status: "Active" });
+      } else if (user.isBlocked) {
+        // If the user is blocked but not inactive, prevent login
+        return res.status(403).json({ message: "Your account is blocked. Please contact support." });
+      }
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ message: 'Password doesnt match' });
@@ -93,8 +99,7 @@ export const login = async (req, res,next) => {
         sameSite:"None",
         secure:true,
         httpOnly:true,
-        /* path:"/",
-        domain:"https://foodorderwebsitedelicazy.netlify.app" */
+        
        });
 
        
@@ -119,10 +124,15 @@ export const login = async (req, res,next) => {
 
   export const updateProfile = async (req, res,next) => {
     try {
-      const { name, email,address,role, phoneNumber } = req.body;
+      const { name, email,address, phoneNumber } = req.body;
+
+      const existingUser = await User.findOne({ email });
+      if (existingUser && existingUser.id !== req.user.id) {
+        return res.status(400).json({ message: 'Email already exists' });
+      }
       const user = await User.findByIdAndUpdate(
         req.user.id,
-        { name,email,role, address, phoneNumber },
+        { name,email, address, phoneNumber },
         { new: true, runValidators: true }
       ).select('-password');
   

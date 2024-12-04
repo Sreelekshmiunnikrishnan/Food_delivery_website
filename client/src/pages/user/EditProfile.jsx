@@ -17,8 +17,12 @@ export const EditProfile = () => {
         url:"/user/profile"});
 
       setProfile(response.data);
-    
-       console.log("response===",response);
+      setValue("name", response.data.user.name);
+    setValue("email", response.data.user.email);
+    //setValue("role", response.data.user.role);
+    setValue("address", response.data.user.address);
+    setValue("phoneNumber", response.data.user.phoneNumber);
+    console.log("response===",response);
        
       setIsLoading(false);
    
@@ -36,13 +40,12 @@ export const EditProfile = () => {
       url:"/user/profile-update",
       data  });
       if(response){
-       // alert("Profile updated successfully");
+      
       toast.success("Profile updated successfully");
       }
-      navigate("/profile");
+      navigate("/user/profile");
     } catch (error) {
-      //alert("Update failed. Please try again.")
-      toast.error("Update failed. Please try again.");
+      toast.error("Update failed. Email already exists");
       console.error(error);
     }
   };
@@ -60,60 +63,48 @@ export const EditProfile = () => {
   } 
   
   return (
-    <div className="flex justify-center items-center  bg-gray-100">
-      {/*  <div className="flex flex-wrap justify-center pt-15">
-      <div className="card-body">
-            <h2 className="card-title">User name :{profile.user.name}</h2>
-            <p> Email :{profile.email}</p>
-            <p>Address:{profile.address}</p>
-            <p>PhoneNumber:{profile.phoneNumber}</p>
-           </div>
-           </div> */}
+  <div className="flex justify-center items-center bg-gray-100">
+    {isLoading ? (
+      <div className="flex justify-center items-center pt-10">
+        <Spinner />
+      </div>
+    ) : (
       <Card className="w-300 p-4">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
           Edit Profile
         </Typography>
-    
-    
         <form className="mt-8 mb-2 w-120 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4 flex flex-col gap-2">
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">Your Name</label>
-              <input 
+              <input
                 type="text"
-                {...register("name",{ required: "Name is required" } )}
-               
+                {...register("name", { required: "Name is required" })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-              placeholder={profile.user.name}
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
-
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">Email</label>
-              <input 
+              <input
                 type="email"
                 {...register("email", {
-                 required: "Email is required",
+                  required: "Email is required",
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: "Please enter a valid email"
-                  }
+                    message: "Please enter a valid email",
+                  },
                 })}
-                
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-                placeholder={profile.user.email}
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
-
-            <div className="w-full max-w-sm min-w-[200px]">
+            {/* <div className="w-full max-w-sm min-w-[200px]">
               <label htmlFor="role" className="block mb-2 text-sm text-slate-600">Choose your role:</label>
-              <select 
+              <select
                 className="w-full bg-transparent text-slate-700 text-sm border border-blue-gray-300 rounded-md px-3 py-2"
-               placeholder={profile.user.role} 
-                id="role" 
-                {...register("role",{required: "Roleis required"} )}
+                id="role"
+                {...register("role", { required: "Role is required" })}
               >
                 <option value="">--Select--</option>
                 <option value="user">User</option>
@@ -121,38 +112,33 @@ export const EditProfile = () => {
                 <option value="restaurantOwner">Restaurant Owner</option>
               </select>
               {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
-              
-            </div>
-
+            </div> */}
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">Address</label>
-              <textarea 
-                {...register("address" ,{ required: "Address is required" })} 
+              <textarea
+                {...register("address", { required: "Address is required" })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-               placeholder={profile.user.address}
               />
               {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
             </div>
-
             <div className="w-full max-w-sm min-w-[200px]">
               <label className="block mb-2 text-sm text-slate-600">Phone Number</label>
-              <input 
+              <input
                 type="text"
                 {...register("phoneNumber", {
-                  required: "Phonenumber is required",
+                  required: "Phone number is required",
                   pattern: {
                     value: /^[0-9]{10}$/,
-                    message: "Please enter a valid 10-digit phone number"
-                  }
+                    message: "Please enter a valid 10-digit phone number",
+                  },
                 })}
                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
-              placeholder={profile.user.phoneNumber}
               />
               {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
             </div>
           </div>
           <div className="flex justify-center">
-            <button 
+            <button
               type="submit"
               className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
             >
@@ -161,6 +147,9 @@ export const EditProfile = () => {
           </div>
         </form>
       </Card>
-    </div>
-  );
+    )}
+  </div>
+);
+
+  
 };

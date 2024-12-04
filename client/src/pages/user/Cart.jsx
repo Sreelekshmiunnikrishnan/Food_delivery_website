@@ -117,7 +117,7 @@ export const Cart = () => {
 
     return (
         <div className="flex justify-between">
-            <div className="w-6/12">
+            <div className="w-6/12 flex overflow-x-auto gap-6 p-4 ">
                 {cartData?.menus?.length ? (
                     cartData.menus.map((item) => (
                         <CartCards
