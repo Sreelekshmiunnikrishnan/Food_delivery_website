@@ -19,10 +19,10 @@ app.use(cors({
    
 }));
  
-app.options('*', cors({
+ app.options('*', cors({
   origin: ["http://localhost:5173", "https://foodorderwebsitedelicazy.netlify.app"],
   credentials: true
-}));
+})); 
 
 
 
@@ -32,13 +32,17 @@ app.get('/', (req, res,next) => {
  })
 
 app.use('/api',apiRouter);
-app.use((err, req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin',  "https://foodorderwebsitedelicazy.netlify.app");
+
+
+
+ app.use((err, req, res, next) => {
+ res.setHeader("Access-Control-Allow-Origin", "https://foodorderwebsitedelicazy.netlify.app");
+
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.status(err.status || 500).json({
     message: err.message || 'Internal Server Error'
   });
-});
+}); 
 
 
 app.listen(port, () => {
