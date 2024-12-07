@@ -78,7 +78,7 @@ export const AdminProfile = () => {
        });
        setUsers((prevUsers) =>
         prevUsers.map((user) =>
-          user._id === userId ? { ...user, isBlocked: true, status: "Inactive" } : user
+          user._id === userId ? { ...user, isBlocked: true, status: "Blocked" } : user
         )
       );
       //setUsers(users.filter((user) => user.id !== userId));
@@ -94,7 +94,7 @@ export const AdminProfile = () => {
        });
        setOwners((prevOwners) =>
         prevOwners.map((owner) =>
-          owner._id === ownerId ? { ...owner, isBlocked: true, status: "Inactive" } : owner
+          owner._id === ownerId ? { ...owner, isBlocked: true, status: "Blocked" } : owner
         )
       );
       //setUsers(users.filter((user) => user.id !== userId));

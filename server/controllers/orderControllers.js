@@ -10,6 +10,7 @@ const router = express.Router();
 export const createOrder = async (req, res, next) => {
   try {
     const userId = req.user.id;
+
     const { orderData } = req.body;
 
     const items = orderData.items;
@@ -22,11 +23,11 @@ export const createOrder = async (req, res, next) => {
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: 'Order must include items' });
     }
+    const email=userDetails.email;
     
 
     const orderItems = items.map(item => ({
       menuName: item.menuName,
-    
       price: item.price,
     }));
    
@@ -36,6 +37,7 @@ export const createOrder = async (req, res, next) => {
       userId,
       items: orderItems,
       orderId,
+      userEmail:email,
       status: 'completed',
       quantity: totalQuantity,
     });

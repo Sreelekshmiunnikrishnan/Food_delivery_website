@@ -196,7 +196,7 @@ export const checkAdmin =  async (req, res,next) => {
 
   // Update the user's status to blocked
   user.isBlocked = true;
- // user.status = "Inactive";
+  user.status = "Blocked";
   await user.save();
   
       return res.status(200).json({ message: 'User blocked successfully.', user });
@@ -271,7 +271,7 @@ export const checkAdmin =  async (req, res,next) => {
       const user = await Owner.findByIdAndUpdate(
         ownerId,
         { isBlocked: true }, 
-        {status:"Inactive"},
+        {status:"Blocked"},
         { new: true }  // Returns the updated user document
       );
   

@@ -78,7 +78,7 @@ export const login = async (req, res,next) => {
       if (user.isBlocked && user.status === "Inactive") {
         // Update the user to unblock and activate their account
         await User.findByIdAndUpdate(user._id, { isBlocked: false, status: "Active" });
-      } else if (user.isBlocked) {
+      } else if (user.isBlocked && user.status === "Blocked") {
         // If the user is blocked but not inactive, prevent login
         return res.status(403).json({ message: "Your account is blocked. Please contact support." });
       }

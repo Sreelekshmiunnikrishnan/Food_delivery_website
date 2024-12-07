@@ -114,6 +114,8 @@ export const EditMenu = () => {
         onSubmit={(e) => { e.preventDefault(); handleUpdate(); }}
         className="flex flex-col gap-4"
       >
+       <div className="w-full max-w-sm min-w-[200px]">
+       <label className="block mb-2 text-sm text-slate-600">Menu Name</label>
         <input 
           name="name" 
           value={formData.name} 
@@ -121,6 +123,9 @@ export const EditMenu = () => {
           placeholder="Name" 
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        </div>
+        <div className="w-full max-w-sm min-w-[200px]">
+       <label className="block mb-2 text-sm text-slate-600">Restaurant Name</label>
         <input 
           name="restaurantName" 
           value={formData.restaurantName} 
@@ -128,6 +133,9 @@ export const EditMenu = () => {
           placeholder="Restaurant name" 
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        </div>
+        <div className="w-full max-w-sm min-w-[200px]">
+       <label className="block mb-2 text-sm text-slate-600">Description</label>
         <input 
           name="description" 
           value={formData.description} 
@@ -135,6 +143,9 @@ export const EditMenu = () => {
           placeholder="Description" 
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        </div>
+        <div className="w-full max-w-sm min-w-[200px]">
+       <label className="block mb-2 text-sm text-slate-600">Price</label>
         <input 
           name="price" 
           value={formData.price} 
@@ -142,13 +153,16 @@ export const EditMenu = () => {
           placeholder="Price" 
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        </div>
+        <div className="w-full max-w-sm min-w-[200px]">
+       <label className="block mb-2 text-sm text-slate-600">Restaurant Id</label>
         <input 
           name="restaurantId" 
           value={formData.restaurantId} 
           onChange={handleFormChange} 
           placeholder="Restaurant Id" 
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
+        /></div>
        {/*  <input
           type="file"
          name="image"
@@ -192,7 +206,7 @@ export const EditMenu = () => {
           <button 
             type="button" 
             className="text-gray-600 hover:text-gray-800 underline ml-4" 
-            onClick={() => setEditMenu(null)}
+            onClick={() =>navigate("/owner/owner-profile")}
           >
             Cancel
           </button>

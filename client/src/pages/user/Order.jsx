@@ -39,7 +39,7 @@ export const Order = () => {
               Order ID: {order.orderId}
             </Typography>
             <Typography color="light-green" className="mb-1">
-              <strong>User ID:</strong> {order.userId}
+              <strong>User Email:</strong> {order.userEmail}
             </Typography>
             <Typography color="light-green" className="mb-1">
               <strong>Status:</strong> {order.status}
