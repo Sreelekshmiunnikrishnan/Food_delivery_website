@@ -90,7 +90,12 @@ export const deleteRestaurant = async (req, res,next) => {
     if (!deletedRestaurant) {
       return res.status(404).json({ message: 'Restaurant not found' });
     }
-    res.status(200).json({ message: 'Restaurant deleted successfully' });
+    const deleteMenus = await MenuItem.deleteMany({ restaurantId: req.params.id });
+
+    res.status(200).json({
+      message: 'Restaurant and its menu items deleted successfully',
+      deletedMenusCount: deleteMenus.deletedCount, // Number of deleted menu items
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

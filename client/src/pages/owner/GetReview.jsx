@@ -51,7 +51,7 @@ export const GetReview = () => {
                 <h3 className="text-amber-500 font-semi-bold">Menu Item: {review.menuName}</h3>
                 <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
                 <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
-                  <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
+                  <p  className="text-amber-500 font-semi-bold"><strong>User Email:</strong> {review.email}</p>
                   <button 
                             onClick={() => handleDelete(review._id)}  // Pass the review ID to the delete handler
                             className="bg-red-500 text-white px-4 py-2 rounded mt-4"

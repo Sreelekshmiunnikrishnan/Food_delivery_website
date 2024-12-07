@@ -2,12 +2,14 @@
 import { Review } from "../models/reviewModel.js";
 import { MenuItem} from "../models/menuModel.js";
 import { Order} from "../models/orderModel.js";
+import { User } from "../models/userModel.js";
 
 export const addReview = async (req, res, next) => {
     try {
       const { menuName, orderId, itemId, rating, comment } = req.body;
       const userId = req.user.id;
-  
+      const userdetails=await User.findById(userId);
+      const email=userdetails.email;
       // Check if the user ordered the item
       const order = await Order.findOne({
         _id: orderId,  // Ensure you use `_id` if `orderId` refers to MongoDB's default ID field
@@ -26,7 +28,7 @@ export const addReview = async (req, res, next) => {
       // Create or update the review
       const review = await Review.findOneAndUpdate(
         { userId, itemId },  // Assuming each user reviews a unique item
-        { rating, comment, menuName },
+        { rating, comment, menuName,email },
         { new: true, upsert: true }  // Create a new review if none exists
       );
   
@@ -61,6 +63,7 @@ export const getReviews = async (req, res,next) => {
     try {
      
         const userId = req.user.id;
+        
         const reviews = await Review.find({ userId })
            
             .sort({ createdAt: -1 });

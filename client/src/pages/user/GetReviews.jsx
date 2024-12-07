@@ -55,7 +55,7 @@ export const GetReviews = () => {
                         <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
                         <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
-                        <p  className="text-amber-500 font-semi-bold"><strong>UserId:</strong> {review.userId}</p>
+                        <p  className="text-amber-500 font-semi-bold"><strong>Email:</strong> {review.email}</p>
 
                         <button 
 

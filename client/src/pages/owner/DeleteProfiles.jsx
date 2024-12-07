@@ -21,7 +21,7 @@ export const DeleteProfiles = () => {
 
             // Redirect to login page
             setTimeout(() => {
-                navigate('/login');
+                navigate('/owner/login');
             }, 2000); // Wait for 2 seconds to let the toast display
          }
            

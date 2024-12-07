@@ -62,6 +62,13 @@ export const ownerLogin = async (req, res,next) => {
       if (!ownerExists) {
         return res.status(404).json({message: 'User not found' });
       }
+      if (ownerExists.isBlocked && ownerExists.status === "Inactive") {
+        // Update the user to unblock and activate their account
+        await Owner.findByIdAndUpdate(ownerExists._id, { isBlocked: false, status: "Active" });
+      } else if (ownerExists.isBlocked) {
+        // If the user is blocked but not inactive, prevent login
+        return res.status(403).json({ message: "Your account is blocked. Please contact support." });
+      }
   
       const isMatch = await bcrypt.compare(password, ownerExists.password);
       if (!isMatch) {
@@ -96,10 +103,14 @@ export const ownerLogin = async (req, res,next) => {
 
   export const updateOwnerProfile = async (req, res,next) => {
     try {
-      const { name, address, phoneNumber } = req.body;
+      const { name, address, phoneNumber,email } = req.body;
+      const existingUser = await Owner.findOne({ email });
+      if (existingUser && existingUser.id !== req.user.id) {
+        return res.status(400).json({ message: 'Email already exists' });
+      }
       const user = await Owner.findByIdAndUpdate(
         req.user.id,
-        { name, address, phoneNumber },
+        { name, address, phoneNumber,email },
         { new: true, runValidators: true }
       ).select('-password');
   
@@ -132,7 +143,7 @@ export const ownerLogin = async (req, res,next) => {
       // Find and delete the user by ID
       //const user = await User.findByIdAndDelete(req.user.id);
       // Temporarily freezing User
-      const user = await Owner.updateOne({_id:req.user.id}, { $set: {status:'Inactive'} });
+      const user = await Owner.updateOne({_id:req.user.id}, { $set: {status:'Inactive',isBlocked : true} });
      
       if (!user) {
         return res.status(404).json({ message: 'User not found' });

@@ -196,7 +196,7 @@ export const checkAdmin =  async (req, res,next) => {
 
   // Update the user's status to blocked
   user.isBlocked = true;
-  user.status = "Inactive";
+ // user.status = "Inactive";
   await user.save();
   
       return res.status(200).json({ message: 'User blocked successfully.', user });

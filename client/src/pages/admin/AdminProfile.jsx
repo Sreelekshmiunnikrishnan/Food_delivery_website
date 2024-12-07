@@ -408,7 +408,7 @@ if(response){
                                     Review ID: {review._id}
                                 </Typography>
                                 <Typography color="amber" className="mb-1">
-                                    <strong>User ID:</strong> {review.userId}
+                                    <strong>User Email:</strong> {review.email}
                                 </Typography>
                                 <Typography color="amber" className="mb-1">
                                     <strong>MenuItem Name:</strong> {review.menuName}
