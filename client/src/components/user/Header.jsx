@@ -52,7 +52,7 @@ export const Header = () => {
 
   return (
     <div className="max-w-full">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-yellow-600">
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-amber-300">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Avatar
             variant="circular"
@@ -79,19 +79,19 @@ export const Header = () => {
                 </MenuHandler>
                 <MenuList>
                   <MenuItem
-                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
                     onClick={() => navigate("/login")}
                   >
                     User Login
                   </MenuItem>
                   <MenuItem
-                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
                     onClick={() => navigate("/admin/login")}
                   >
                     Admin Login
                   </MenuItem>
                   <MenuItem
-                    className="text-lg text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
                     onClick={() => navigate("/owner/login")}
                   >
                     Restaurant Owner Login

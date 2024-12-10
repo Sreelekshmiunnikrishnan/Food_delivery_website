@@ -22,36 +22,39 @@ export const Contact = () => {
     <div className="flex justify-center items-center pt-10  bg-gray-100">
     <Card className="w-300 p-6">
       <Typography variant="h4" color="indigo" className="mb-4 text-center">
-       Login
+      Contact Us
       </Typography>
-    <p className="text-slate-500 font-light">
-      We are here to help you
+    <p className="text-yellow font-bold">
+      <marquee>
+      We are here to help you!!
+      </marquee>
+     
     </p>
     <form className="mt-8 mb-2  max-w-screen-lg sm:w-96"  onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-1 flex flex-col gap-6">
       <div className="w-full max-w-sm min-w-[100px]">
-              <label className="block mb-2 text-sm text-slate-600">
+              <label className="block mb-2 text-lg text-gray">
                 Your Name
               </label>
-              <input type="text"{...register("name")} className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Name" />
+              <input type="text"{...register("name")} className="w-full bg-transparent placeholder:text-gray text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Name" />
             </div>
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">
+          <label className="block mb-2 text-lg text-gray">
             Email
           </label>
-          <input type="email" {...register("email")} required  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Email" />
+          <input type="email" {...register("email")} required  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Email" />
         </div>
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">
+          <label className="block mb-2 text-lg text-gray">
            Phone Number
           </label>
-          <input type="textl" {...register("phoneNumber")} required  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Phone Number" />
+          <input type="textl" {...register("phoneNumber")} required  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Your Phone Number" />
         </div>
         <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm text-slate-600">
+              <label className="block mb-2 text-lg text-gray">
                 Your Concern
               </label>
-              <textarea  {...register("messages")} className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Type here.." />
+              <textarea  {...register("messages")} className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Type here.." />
             </div>
       </div>
       <div className="flex justify-center">

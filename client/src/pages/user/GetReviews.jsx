@@ -49,13 +49,13 @@ export const GetReviews = () => {
             
             {reviews.length > 0 ? (
                 reviews.map((review, index) => (
-                    <div key={index} className="card card-compact  w-96 shadow-xl m-4 p-8">
-                          <h2 className="text-indigo-500 font-bold">Reviews</h2>
-                        <h3 className="text-amber-500 font-semi-bold">Menu Item: {review.menuName}</h3>
-                        <p  className="text-amber-500 font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
-                        <p  className="text-amber-500 font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
+                    <div key={index} className="card card-compact  w-96 shadow-xl m-4 p-8 bg-white">
+                          <h2 className="text-yellow font-bold">Reviews</h2>
+                        <h3 className="text-yellow font-semi-bold">Menu Item: {review.menuName}</h3>
+                        <p  className="text-yellow font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
+                        <p  className="text-yellow font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
-                        <p  className="text-amber-500 font-semi-bold"><strong>Email:</strong> {review.email}</p>
+                        <p  className="text-yellow font-semi-bold"><strong>Email:</strong> {review.email}</p>
 
                         <button 
 

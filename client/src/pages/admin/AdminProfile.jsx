@@ -251,7 +251,7 @@ export const AdminProfile = () => {
     <div className="flex flex-col md:flex-row ">
 
       {/* Sidebar */}
-      <Card className="md:h-[calc(100vh-2rem)] w-full md:w-80 p-4 shadow-xl bg-gray shadow-blue-gray-900/5">
+      <Card className="md:h-[calc(100vh-2rem)] w-full md:w-80 p-4 shadow-xl bg-amber-200 shadow-blue-gray-900/5">
         <div className="mb-2 p-4 text-center md:text-left">
           <Typography variant="h5" color="blue-gray">
             Admin Dashboard
@@ -363,43 +363,33 @@ export const AdminProfile = () => {
           </>
         )}
         {activeSection === 'Orders' && (
-          <div className="orders-section">
-            <h2>Orders</h2>
-            {orders.length > 0 ? (
-              orders.map((order, index) => (
-                <div key={index} className="order-card bg-white p-5 shadow-md rounded-lg mb-4">
-                  <p><strong>Order ID:</strong> {order.orderId}</p>
-                  <p><strong>Customer Id:</strong> {order.userId}</p>
-                  <p><strong>Status:</strong> {order.status}</p>
-                  <p><strong>Total Quantity:</strong> {order.quantity}</p>
+  <div className="orders-section">
+    <h2>Orders</h2>
+    {orders.length > 0 ? (
+      orders.map((order, index) => (
+        <div key={index} className="order-card bg-white p-5 shadow-md rounded-lg mb-4">
+          <p><strong>Order ID:</strong> {order.orderId}</p>
+          <p><strong>Customer ID:</strong> {order.userId}</p>
+          <p><strong>Status:</strong> {order.status}</p>
+          <p><strong>Total Quantity:</strong> {order.quantity}</p>
 
-                  <p><strong>Items:</strong></p>
-                  {/* Table for displaying items */}
-                  <table className="w-full table-auto border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="border-b p-2 text-left">Item Name</th>
-                        <th className="border-b p-2 text-left">Price</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.items.map((item, idx) => (
-                        <tr key={idx} className="border-b">
-                          <td className="p-2">{item.menuName}</td>
-                          <td className="p-2">₹{item.price.toFixed(2)}</td>
-
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))
-            ) : (
-              <p>No orders found.</p>
-            )}
+          <p><strong>Items:</strong></p>
+          <div className="items-list">
+            {order.items.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-4 mb-2">
+                <span>{item.menuName}</span>
+                <span className="text-gray-600">₹{item.price.toFixed(2)}</span>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      ))
+    ) : (
+      <p>No orders found.</p>
+    )}
+  </div>
+)}
+
 
         {activeSection === 'Reviews' && (
           <div className="w-2/3 h-auto ml-20">

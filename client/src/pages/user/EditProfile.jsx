@@ -76,11 +76,11 @@ export const EditProfile = () => {
         <form className="mt-8 mb-2 w-120 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4 flex flex-col gap-2">
             <div className="w-full max-w-sm min-w-[200px]">
-              <label className="block mb-2 text-sm text-slate-600">Your Name</label>
+              <label className="block mb-2 text-md text-slate-600">Your Name</label>
               <input
                 type="text"
                 {...register("name", { required: "Name is required" })}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
+                className="w-full bg-transparent placeholder:text-slate-400 text-red-500 text-sm border border-blue rounded-md px-3 py-2"
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
@@ -95,7 +95,7 @@ export const EditProfile = () => {
                     message: "Please enter a valid email",
                   },
                 })}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
+                className="w-full bg-transparent placeholder:text-slate-400 text-red-500 text-sm border border-blue rounded-md px-3 py-2"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
@@ -117,7 +117,7 @@ export const EditProfile = () => {
               <label className="block mb-2 text-sm text-slate-600">Address</label>
               <textarea
                 {...register("address", { required: "Address is required" })}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
+                className="w-full bg-transparent placeholder:text-slate-400 text-red-500 text-sm border border-blue rounded-md px-3 py-2"
               />
               {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
             </div>
@@ -132,7 +132,7 @@ export const EditProfile = () => {
                     message: "Please enter a valid 10-digit phone number",
                   },
                 })}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2"
+                className="w-full bg-transparent placeholder:text-slate-400 text-red-500 text-sm border border-blue rounded-md px-3 py-2"
               />
               {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
             </div>

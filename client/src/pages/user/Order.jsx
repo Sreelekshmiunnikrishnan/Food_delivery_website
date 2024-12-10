@@ -33,7 +33,7 @@ export const Order = () => {
 
     {products.length > 0 ? (
       products.map((order, orderIndex) => (
-        <Card key={orderIndex} className="mb-6 p-4 shadow-lg bg-gray">
+        <Card key={orderIndex} className="mb-6 p-4 shadow-lg bg-white">
           <div className="mb-4">
             <Typography variant="h5" color="light-green" className="font-semibold">
               Order ID: {order.orderId}
@@ -49,7 +49,7 @@ export const Order = () => {
             </Typography>
           </div>
 
-          <Typography variant="h6" color="deep-orange" className="mt-2 mb-3">
+          <Typography variant="h6" color="white" className="mt-2 mb-3">
             Items:
           </Typography>
 

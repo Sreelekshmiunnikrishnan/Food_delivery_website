@@ -152,8 +152,8 @@ export const UserHeader = () => {
         </Collapse>
       </Navbar>
 
-      <div className="mx-auto max-w-screen-lg py-12">
-        <h1>User profile</h1>
+      <div className="mx-auto max-w-screen-lg py-12 flex justify-center">
+        <h1 className="font-bold text-orange">User profile!!</h1>
       </div>
     </div>
   );

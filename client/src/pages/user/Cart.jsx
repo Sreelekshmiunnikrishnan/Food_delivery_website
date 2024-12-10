@@ -117,7 +117,7 @@ export const Cart = () => {
 
     return (
         <div className="flex justify-between">
-            <div className="w-6/12 flex overflow-x-auto gap-6 p-4 ">
+            <div className="w-6/12 h-1/3 flex overflow-x-auto gap-6 p-4">
                 {cartData?.menus?.length ? (
                     cartData.menus.map((item) => (
                         <CartCards
@@ -132,11 +132,13 @@ export const Cart = () => {
                     <p>Your cart is empty.</p>
                 )}
             </div>
-            <div className="w-128 h-128 flex bg-gray flex-col items-center gap-5">
-                <h2 className="text-red-500">Limited Offer!!!</h2>
-                <p className="text-yellow">Apply Coupon code "DISCOUNT10" to avail discount on items..</p>
-                <h2 className="text-yellow">Price summary...</h2>
-                <h2 className="text-green">
+            <div className="w-128 h-[400px]  flex  flex-col items-center bg-indigo-300 gap-5 " >
+                <h2 className="text-white font-bold">Limited Offer!!!</h2>
+               
+                    <marquee className="text-yellow lg">
+                    Apply Coupon code "DISCOUNT10" to avail discount on items..</marquee>
+                <h2 className="text-white">Price summary...</h2>
+                <h2 className="text-white">
                     Total Price: {getTotalPrice().toLocaleString('en-US', { style: 'currency', currency: 'INR' })}
                 </h2>
 
@@ -150,7 +152,7 @@ export const Cart = () => {
                     />
                     <button
                         onClick={handleCouponApply}
-                        className="p-2 text-white bg-blue-500 rounded"
+                        className="p-2 text-white bg-yellow rounded"
                         disabled={isCouponLoading}
                     >
                         {isCouponLoading ? "Applying..." : "Apply Coupon"}

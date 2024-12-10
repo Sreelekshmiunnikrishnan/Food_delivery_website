@@ -38,7 +38,7 @@ export const Review = () => {
       toast.success("Review added successfully");
       navigate("/user/profile");
     } catch (error) {
-      toast.error("Failed to add review. Buy item to add review");
+      toast.error("You have already added review for this Item",error.message);
       console.error("Error submitting review:", error);
     }
   };

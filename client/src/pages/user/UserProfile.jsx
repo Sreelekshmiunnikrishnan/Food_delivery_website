@@ -32,27 +32,33 @@ export const UserProfile = () => {
 
   return (
   
-      <div className="flex items-center justify-center bg-gray-100">
+      <div className="flex items-center justify-center p-10 bg-gray-100">
         {profile && profile.user && (
-          <Card className="w-full max-w-md sm:w-96 mt-4 bg-white shadow-lg rounded-lg">
+          <Card className="w-full max-w-lg sm:w-96 mt-4 bg-white shadow-lg rounded-lg">
             <CardBody className="relative h-48 sm:h-80 p-4">
-              <h2 className="text-xl font-bold text-blue mb-2">
+              <h2 className="text-xl font-bold text-yellow mb-2">
                 Welcome {profile.user.name}!!
               </h2>
-              <p className="text-md text-pink mb-1">
+              <p className="text-lg text-gray mb-1">
                 <span className="font-semibold">Email Address:</span> {profile.user.email}
               </p>
-              <p className="text-md text-pink mb-1">
+              <p className="text-lg text-gray mb-1">
                 <span className="font-semibold">Address:</span> {profile.user.address}
               </p>
-              <p className="text-md text-pink">
+              <p className="text-lg text-gray">
                 <span className="font-semibold">Phone Number:</span> {profile.user.phoneNumber}
+              </p>
+              <p className="text-lg text-gray mb-1">
+                <span className="font-semibold">Status:</span> {profile.user.status}
+              </p>
+              <p className="text-lg text-gray mb-1">
+                <span className="font-semibold">UserId:</span> {profile.user._id}
               </p>
             </CardBody>
           </Card>
         )}
         {/* Additional Cards */}
-        <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
+       {/*  <Card className="w-full max-w-sm sm:w-96 mt-4 flex flex-col">
           <CardHeader color="blue-gray" className="relative h-48 sm:h-60">
             <img
               src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1728489530/samples/dessert-on-a-plate.jpg"
@@ -102,7 +108,7 @@ export const UserProfile = () => {
             "Food is our common ground, a universal experience." - James Beard
             </Typography>
           </CardBody>
-        </Card>
+        </Card> */}
       </div>
     );
   };

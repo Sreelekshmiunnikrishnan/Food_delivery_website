@@ -49,9 +49,9 @@ export const MenuItems = () => {
           <div className="card-body">
             <h2 className="card-title">Item name :{menu.name}</h2>
             <p> Item Price :{menu.price}</p>
-            <div className="card-actions justify-end">
+            <div className="card-actions justify-center">
               <Link to={`/menudetails/${menu._id}`}>
-                <button className="btn btn-primary" >More Details</button>
+                <button className="btn btn-primary " >More Details</button>
               </Link>
             </div>
           </div>

@@ -19,18 +19,34 @@ export const addReview = async (req, res, next) => {
       if (!order) {
         return res.status(403).json({ message: "You can only review items you have ordered, or check if the menu name is correct." });
       }
+      const existingReview = await Review.findOne({ userId, itemId });
+      if (existingReview) {
+        return res
+          .status(403)
+          .json({ message: "You have already reviewed this item." });
+      }
+  
   
       // Validate rating range
       if (rating < 1 || rating > 5) {
         return res.status(400).json({ message: "Please provide a rating between 1 and 5." });
       }
+      const review = await Review.create({
+        userId,
+        itemId,
+        rating,
+        comment,
+        menuName,
+        email,
+      });
+  
   
       // Create or update the review
-      const review = await Review.findOneAndUpdate(
+      /* const review = await Review.findOneAndUpdate(
         { userId, itemId },  // Assuming each user reviews a unique item
         { rating, comment, menuName,email },
         { new: true, upsert: true }  // Create a new review if none exists
-      );
+      ); */
   
       // Optionally update the average rating for the item if required
       res.status(201).json(review);
@@ -39,6 +55,7 @@ export const addReview = async (req, res, next) => {
       res.status(500).json({ message: "Internal server error", error });
     }
   };
+  
   
 
 export const getMenuReviews = async (req, res,next) => {

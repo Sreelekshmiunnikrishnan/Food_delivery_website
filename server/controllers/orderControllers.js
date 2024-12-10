@@ -38,7 +38,7 @@ export const createOrder = async (req, res, next) => {
       items: orderItems,
       orderId,
       userEmail:email,
-      status: 'completed',
+      
       quantity: totalQuantity,
     });
 
@@ -54,6 +54,30 @@ export const createOrder = async (req, res, next) => {
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ message: 'Failed to create order', error: error.message });
+  }
+};
+export const updateStatus = async (req, res,next) => {
+  try {
+    const { orderId, status } = req.params; 
+    console.log('Received orderId:', orderId);
+    console.log('Received status:', status);
+    // Validate status
+    const validStatuses = ['Preparing', 'Delivered', 'Cancelled','Completed'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value.' });
+    } 
+
+    // Update the order in the database
+    const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found.' });
+    }
+
+    res.status(200).json({ message: 'Order status updated successfully.', order });
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 };
 

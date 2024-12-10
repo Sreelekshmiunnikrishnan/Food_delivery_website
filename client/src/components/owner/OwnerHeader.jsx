@@ -201,7 +201,7 @@ const navListItems = [
     path:"/owner/owner-profile"
   },
   {
-    label: " create Restaurant",
+    label: " Create Restaurant",
     icon: CubeTransparentIcon,
      path: "/owner/createrestaurant" 
   },
@@ -242,7 +242,7 @@ function NavList() {
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
      {/*  <NavListMenu /> */}
-      {navListItems.map(({ label, icon,path }, key) => (
+      {navListItems.map(({ label,icon, path }, key) => (
         <Typography
         key={label}
         as={Link} // Use Link component from react-router-dom
@@ -306,10 +306,9 @@ export const OwnerHeader = () => {
       </Collapse>
     </Navbar>
     {/* Content Section */}
-    <div className="mx-auto max-w-screen-lg py-12">
-        
-        <h1>owner profile</h1>
-    </div>
+    <div className="mx-auto max-w-screen-lg py-12 flex justify-center">
+        <h1 className="font-bold text-orange">Owner profile!!</h1>
+      </div>
     </div>
   );
 }

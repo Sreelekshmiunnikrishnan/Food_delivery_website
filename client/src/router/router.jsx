@@ -39,6 +39,7 @@ import { Review } from "../pages/user/Review";
 import { GetReviews } from "../pages/user/GetReviews";
 import { UserOrder } from "../pages/owner/UserOrder";
 import { GetReview } from "../pages/owner/GetReview";
+import { Forgotpassword } from "../pages/shared/Forgotpassword";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "signup", element: <SignupPage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "forgotpassword", element: <Forgotpassword /> },
       { path: "", element: <Home /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },

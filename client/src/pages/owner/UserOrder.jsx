@@ -3,9 +3,40 @@ import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
 import { Card, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import toast from 'react-hot-toast';
 export const UserOrder = () => {
     const [products, setProducts] = useState([]);
-  
+    const handleStatusChange = async (orderId, status) => {
+      try {
+        // API call to update the order status in the backend
+        const response = await axiosInstance({
+          method: 'PATCH',
+          url:`/order/${orderId}/${status}`,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          
+        }
+      );
+    
+        if (response) {
+          // Update the local state or refetch orders to reflect the new status
+          setProducts((prevOrders) =>
+            prevOrders.map((order) =>
+              order._id === orderId ? { ...order, status } : order
+            )
+          );
+         toast.success('Order status updated successfully.');
+        } else {
+          const error = await response.json();
+          toast.error(`Failed to update status: ${error.message}`);
+        }
+      } catch (error) {
+        console.error('Error updating order status:', error);
+       toast.error('An error occurred. Please try again.');
+      }
+    };
+    
   // Fetch orders on page load
   const handleGetOrder = async () => {
     try {
@@ -33,7 +64,7 @@ export const UserOrder = () => {
 
     {products.length > 0 ? (
       products.map((order, orderIndex) => (
-        <Card key={orderIndex} className="mb-6 p-4 shadow-lg bg-gray">
+        <Card key={orderIndex} className="mb-6 p-4 shadow-lg bg-white">
           <div className="mb-4">
             <Typography variant="h5" color="amber" className="font-semibold">
               Order ID: {order.orderId}
@@ -43,6 +74,18 @@ export const UserOrder = () => {
             </Typography>
             <Typography color="amber" className="mb-1">
               <strong>Status:</strong> {order.status}
+            </Typography>
+            <Typography color="amber" className="mb-1">
+            <strong> Update Status:</strong>
+            <select
+            value={order.status}
+            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          >
+            <option value="Preparing">Preparing</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
             </Typography>
             <Typography color="amber" className="mb-1">
               <strong>Total Quantity:</strong> {order.quantity}
