@@ -42,14 +42,16 @@ export const OwnerLayout = () => {
 }  
   */
   return (
-    <div className="pt-3 ">
+    <div className="flex flex-col min-h-screen">
+    <div className="pt-3 flex-grow">
        {ownerAuthorized ?  <OwnerHeader /> : <Header />}
          
-            <div className="min-h-110">
+       <div className="min-h-110">
                 <Outlet />
 
             </div>
             <Footer />
+        </div>
         </div>
   )
 }

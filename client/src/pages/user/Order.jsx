@@ -35,34 +35,34 @@ export const Order = () => {
       products.map((order, orderIndex) => (
         <Card key={orderIndex} className="mb-6 p-4 shadow-lg bg-white">
           <div className="mb-4">
-            <Typography variant="h5" color="light-green" className="font-semibold">
+            <Typography variant="h6" color="light-green" className="font-semibold">
               Order ID: {order.orderId}
             </Typography>
-            <Typography color="light-green" className="mb-1">
+            <Typography variant="h6" color="gray" className="mb-1">
               <strong>User Email:</strong> {order.userEmail}
             </Typography>
-            <Typography color="light-green" className="mb-1">
+            <Typography variant="h6" color="gray" className="mb-1">
               <strong>Status:</strong> {order.status}
             </Typography>
-            <Typography color="light-green" className="mb-1">
+            <Typography variant="h6" color="gray-200" className="mb-1">
               <strong>Total Quantity:</strong> {order.quantity}
             </Typography>
           </div>
 
-          <Typography variant="h6" color="white" className="mt-2 mb-3">
+          <Typography variant="h5" color="red" className="mt-2 mb-3">
             Items:
           </Typography>
 
           {order.items && order.items.length > 0 ? (
             order.items.map((item, itemIndex) => (
               <div key={itemIndex} className="mb-3 ml-6">
-                <Typography color="light-green">
+                <Typography variant="h6" color="gray">
                   <strong>Menu Name:</strong> {item.menuName}
                 </Typography>
                    {/*  <Typography color="light-green">
                   <strong>Menu Id:</strong> {item.menuId}
                 </Typography>     */}
-                <Typography color="light-green">
+                <Typography variant="h6" color="gray">
                   <strong>Price:</strong> ₹{item.price.toFixed(2)}
                 </Typography>
                  {/* Link to add a review for each specific order */}

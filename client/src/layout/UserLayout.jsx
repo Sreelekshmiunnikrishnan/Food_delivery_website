@@ -29,12 +29,14 @@ export const UserLayout = () => {
         checkUser();
     }, [location.pathname]);
     return (
-        <div className="pt-3">
-            {userAuthorized ? <UserHeader /> : <Header />}
-            <div className="min-h-110">
-                <Outlet />
-            </div>
-            <Footer />
+        <div className="flex flex-col min-h-screen">
+    <div className="pt-3 flex-grow">
+        {userAuthorized ? <UserHeader /> : <Header />}
+        <div className="min-h-110">
+            <Outlet />
         </div>
+    </div>
+    <Footer />
+</div>
     );
 };

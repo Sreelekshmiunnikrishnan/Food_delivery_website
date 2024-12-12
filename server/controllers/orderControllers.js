@@ -3,7 +3,7 @@ import { Cart } from '../models/cartModel.js';
 import { Order } from '../models/orderModel.js';
 import { sendDynamicEmail } from '../utilities/nodemailer.js';
 import { User } from '../models/userModel.js';
-
+import { MenuItem } from "../models/menuModel.js";
 const router = express.Router();
 
 // Create a new order
@@ -26,10 +26,28 @@ export const createOrder = async (req, res, next) => {
     const email=userDetails.email;
     
 
-    const orderItems = items.map(item => ({
-      menuName: item.menuName,
-      price: item.price,
-    }));
+   /*  const orderItems = items.map(item => ({
+     menuName: item.menuName,
+     price: item.price,
+     
+    })); */
+    const orderItems = await Promise.all(
+      items.map(async (item) => {
+        // Find the menu item by menuName
+        const menuItem = await MenuItem.findOne({ name: item.menuName });
+
+        if (!menuItem) {
+          throw new Error(`Menu item with name ${item.menuName} not found`);
+        }
+
+        // Create order item with additional ownerId
+        return {
+          menuName: item.menuName,
+          price: item.price,
+          ownerId: menuItem.ownerId, // Use the ownerId from MenuItem
+        };
+      })
+    );
    
     const totalQuantity = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
@@ -38,7 +56,6 @@ export const createOrder = async (req, res, next) => {
       items: orderItems,
       orderId,
       userEmail:email,
-      
       quantity: totalQuantity,
     });
 
@@ -59,8 +76,7 @@ export const createOrder = async (req, res, next) => {
 export const updateStatus = async (req, res,next) => {
   try {
     const { orderId, status } = req.params; 
-    console.log('Received orderId:', orderId);
-    console.log('Received status:', status);
+    
     // Validate status
     const validStatuses = ['Preparing', 'Delivered', 'Cancelled','Completed'];
     if (!validStatuses.includes(status)) {
@@ -93,13 +109,39 @@ export const getOrders = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Orders of menu created by owner
+export const getOwnerOrders = async (req, res, next) => {
+  try {
+    const ownerId = req.user.id;
+    
+     const orders = await Order.find({ "items.ownerId": ownerId }).populate('items'); 
+       res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const getOrderbyId = async (req, res, next) => {
   try {
-    const { orderId } = req.params;  // Get orderId from route params
-    const orders = await Order.findById(orderId);  // Use orderId directly without wrapping in an object
+    const { orderId, itemId } = req.params;// Get orderId from route params
+    const order = await Order.findById(orderId);  // Use orderId directly without wrapping in an object
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
 
-    res.status(200).json(orders);
+    /* // Ensure the order has items
+    if (!order.items || order.items.length === 0) {
+      return res.status(404).json({ message: 'No items found in this order' });
+    } */
+
+    // Find the specific item in the items array using its _id
+    const item = order.items.find((i) => i._id.toString() === itemId);
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found in this order' });
+    }
+    res.json(item);
+    //res.status(200).json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
     res.status(500).json({ message: error.message });

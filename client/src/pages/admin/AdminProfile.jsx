@@ -369,7 +369,7 @@ export const AdminProfile = () => {
       orders.map((order, index) => (
         <div key={index} className="order-card bg-white p-5 shadow-md rounded-lg mb-4">
           <p><strong>Order ID:</strong> {order.orderId}</p>
-          <p><strong>Customer ID:</strong> {order.userId}</p>
+          <p><strong>User Email:</strong> {order.userEmail}</p>
           <p><strong>Status:</strong> {order.status}</p>
           <p><strong>Total Quantity:</strong> {order.quantity}</p>
 

@@ -12,12 +12,7 @@ const orderSchema = new Schema({
     },
     
     items: [{
-     /*   menuId:{
-        type: Schema.Types.ObjectId,
-        ref: 'MenuItem',
-        required: true
-        },    */
-     menuName:{
+         menuName:{
         type:String,
         required:true,
       },
@@ -25,6 +20,11 @@ const orderSchema = new Schema({
       price:{
         type:Number,
         required: true,
+    },
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Owner', // Assuming you have an Owner model to reference
+      required: true,
     },
    }],
    /*  totalAmount: {

@@ -8,7 +8,7 @@ export const Home = () => {
       <div className="w-full bg-white py-2 overflow-hidden">
         <p className="animate-marquee whitespace-nowrap text-xl font-bold text-orange">
           <marquee>
-            Order your favourite food here! 🍔🍕🍣🍜
+            Order your favourite food here!
           </marquee>
 
         </p>

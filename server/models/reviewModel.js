@@ -11,6 +11,11 @@ const reviewSchema = new Schema({
       ref: 'Order',
       required: true
     },
+    ownerId:{
+      type: Schema.Types.ObjectId,
+      ref: 'Owner',
+      required: true
+    },
     itemId:{
       type: Schema.Types.ObjectId,
      

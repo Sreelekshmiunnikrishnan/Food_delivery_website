@@ -66,9 +66,7 @@ export const removeFromCart = async(req,res,next) =>{
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
-       // console.log("Removing menuId:", menuId);
-        //console.log("Cart before removal:", cart.menus);
-
+      
         // Remove item explicitly without filter or splice
         cart.menus = cart.menus.reduce((acc, item) => {
             console.log("Checking item menuId:", item.menuId);

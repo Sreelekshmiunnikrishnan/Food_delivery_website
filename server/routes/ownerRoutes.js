@@ -2,10 +2,10 @@ import e from "express";
 import { checkOwner, createowner, deleteownerProfile, getOwnerProfile,ownerLogin,ownerlogout,updateOwnerProfile } from "../controllers/ownerController.js";
 import { getAllRestaurants, getRestaurant, ownerRestaurant } from "../controllers/restaurantController.js";
 import { authRestOwner } from "../middlewares/authRestOwner.js";
-import { getAllOrders, updateStatus, } from "../controllers/orderControllers.js";
+import { getAllOrders, getOwnerOrders, updateStatus, } from "../controllers/orderControllers.js";
 
 
-import {  deleteReviewsOwner,getAllReviews } from "../controllers/reviewControllers.js";
+import {  deleteReviewsOwner,getAllReviews, getOwnerReviews } from "../controllers/reviewControllers.js";
 
 const router = e.Router();
 
@@ -18,8 +18,8 @@ router.delete("/profile-delete",authRestOwner,deleteownerProfile)
 router.delete("/deletereview/:id",authRestOwner,deleteReviewsOwner)
 router.post("/logout",authRestOwner,ownerlogout)
 router.get("/check-owner",authRestOwner,checkOwner)
-router.get("/getorders",authRestOwner,getAllOrders)
-router.get("/getreviews",authRestOwner,getAllReviews)
+router.get("/getorders",authRestOwner,getOwnerOrders)
+router.get("/getreviews",authRestOwner,getOwnerReviews)
 router.get("getAllRestaurants",authRestOwner,getAllRestaurants)
 router.get('/getRestaurant/:id',authRestOwner,getRestaurant);
 

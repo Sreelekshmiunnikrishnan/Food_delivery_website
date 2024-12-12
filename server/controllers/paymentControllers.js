@@ -22,15 +22,14 @@ export const createPayment = async (req, res, next) => {
                 product_data: {
                     name: product?.menuId?.name || "Unknown Product",
                   images: product?.menuId?.image ? [product.menuId.image] : [],
-              /*   metadata:{
-                     id:product?.menuId?._id,
-                }, */
-                },
+                 
+                  },
                 unit_amount: Math.round(product?.menuId?.price * 100 || 0),
             },
             quantity: product.quantity || 1,
             
         }));
+        console.log("line items",line_items);
 
         const discountedLineItems = line_items.map(item => {
 
@@ -68,7 +67,7 @@ export const createPayment = async (req, res, next) => {
     }
 };
 
- export const sessionstatus = async (req, res) => {
+ /* export const sessionstatus = async (req, res) => {
     try {
         const sessionId = req.query.session_id;
 
@@ -91,9 +90,7 @@ export const createPayment = async (req, res, next) => {
                 product_data: {
                     name: item.description || "Unknown Product",
                      images: item.price.product?.images || [],
-                    /*  metadata:{
-                        id:item.price.product?.id,
-                     } */
+                     menuId: item.price.product.metadata.menuId, 
                  
                 },
                 unit_amount: item.price.unit_amount,
@@ -115,4 +112,50 @@ export const createPayment = async (req, res, next) => {
     }
 };
  
+
+ */
+export const sessionstatus = async (req, res) => {
+    try {
+        const sessionId = req.query.session_id;
+
+        if (!sessionId) {
+            return res.status(400).json({ error: "Session ID is required" });
+        }
+
+        const session = await stripe.checkout.sessions.retrieve(sessionId, {
+            expand: ['line_items.data.price.product'], // Expand to include product metadata
+        });
+
+        if (!session) {
+            return res.status(404).json({ error: "Session not found" });
+        }
+        const products = session.line_items.data.map(item => ({
+          
+            price_data: {
+                currency: item.price.currency,
+                product_data: {
+                    name: item.description || "Unknown Product",
+                    images: item.price.product?.images || [],
+                     
+                },
+                unit_amount: item.price.unit_amount,
+              },
+            quantity: item.quantity,
+           
+        })); 
+
+        
+
+        res.status(200).json({
+            status: session.status,
+            customer_email: session.customer_details?.email,
+            products,
+        });
+    } catch (error) {
+        console.error("Error retrieving session status:", error);
+        res.status(error?.statusCode || 500).json({
+            error: error.message || "Internal server error",
+        });
+    }
+};
 

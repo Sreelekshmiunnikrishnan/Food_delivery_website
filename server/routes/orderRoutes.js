@@ -8,6 +8,6 @@ router.get("/getorders",authUser,getOrders)
 router.put("/updateorder/:id",authUser,updateOrder)
 router.get("/getorder",authUser,getOrder)
 router.delete("/deleteorder",authUser,deleteOrder)
-router.get("/getorderbyid/:orderId",authUser,getOrderbyId);
+router.get("/getorderbyid/:orderId/:itemId",authUser,getOrderbyId);
 router.patch('/:orderId/:status',authUser,updateStatus);
 export { router as orderRouter}

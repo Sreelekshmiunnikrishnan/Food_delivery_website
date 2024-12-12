@@ -43,11 +43,13 @@ export const PaymentSuccess = () => {
                 quantity: product.quantity,
                 menuName: product.price_data.product_data.name,
                 price: (product.price_data.unit_amount / 100) * product.quantity,
+                
             })),
             orderId: sessionId,
         };
         console.log("Order Data:", orderData);
-
+       
+       
         try {
             const response = await axiosInstance.post("/order/createorder", { orderData });
             console.log("Order created successfully:", response.data);
@@ -77,26 +79,29 @@ export const PaymentSuccess = () => {
     }
 
     return (
-        <div className="ml-100">
-            <Card className="w-1/3 h-6/12 ml-80 items-center bg-gray">
-                <h1 className="text-white font-bold">Payment successful!</h1>
-                <h1 className="text-yellow font-semibold">Products</h1>
-                {products.length > 0 ? (
-                    products.map((product, index) => (
-                        <div key={index}>
-                            <p className="text-white font-bold">Name: {product.price_data.product_data.name}</p>
-                            <p className="text-white font-bold">Currency: {product.price_data.currency.toUpperCase()}</p>
-                            <p className="text-white font-bold">Price: ₹{product.price_data.unit_amount / 100}</p>
-                            <p className="text-white font-bold">Quantity: {product.quantity}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p className="text-white">No products found.</p>
-                )}
-                <Link to="/user/order">
-                    <button className="btn btn-primary mt-4">View Order Details</button>
-                </Link>
-            </Card>
-        </div>
+        <div className="flex justify-center items-center pb-10 px-4">
+        <Card className="w-full max-w-lg h-auto p-6 bg-white rounded-lg shadow-md">
+          <h1 className="text-green font-bold text-xl text-center">Payment Successful!</h1>
+          <h1 className="text-yellow font-semibold text-lg text-center mt-4">Products</h1>
+          {products.length > 0 ? (
+            <div className="mt-4 space-y-4">
+              {products.map((product, index) => (
+                <div key={index} className="text-gray space-y-2">
+                  <p className="font-bold">Name: {product.price_data.product_data.name}</p>
+                  
+                  <p className="font-bold">Price: ₹{product.price_data.unit_amount / 100}</p>
+                  <p className="font-bold">Quantity: {product.quantity}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-white mt-4 text-center">No products found.</p>
+          )}
+          <Link to="/user/order">
+            <button className="btn btn-primary mt-6 w-full">View Order Details</button>
+          </Link>
+        </Card>
+      </div>
+      
     );
 };

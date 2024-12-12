@@ -71,7 +71,7 @@ export const Cart = () => {
                 data: {
                     products: cartData.menus.map(item => ({
                        ...item,
-                      quantity: quantities[item._id]
+                       quantity: quantities[item._id]
                     })),
                     discount,
                     

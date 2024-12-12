@@ -10,7 +10,7 @@ export const GetReviews = () => {
         try {
             const response = await axiosInstance({
                 method: "GET",
-                url: "/review/getreviews",  // API endpoint for fetching reviews
+                url: "/user/getreviews",  // API endpoint for fetching reviews
             });
             setReviews(response.data);  // Store the fetched reviews in state
             console.log("Reviews fetched:", response.data);
@@ -51,11 +51,11 @@ export const GetReviews = () => {
                 reviews.map((review, index) => (
                     <div key={index} className="card card-compact  w-96 shadow-xl m-4 p-8 bg-white">
                           <h2 className="text-yellow font-bold">Reviews</h2>
-                        <h3 className="text-yellow font-semi-bold">Menu Item: {review.menuName}</h3>
-                        <p  className="text-yellow font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
-                        <p  className="text-yellow font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
+                        <h3 className="text-gray font-bold">Menu Item: {review.menuName}</h3>
+                        <p  className="text-gray font-semi-bold"><strong>Rating:</strong> {review.rating} / 5</p>
+                        <p  className="text-gray font-semi-bold"><strong>Comment:</strong> {review.comment}</p>
 
-                        <p  className="text-yellow font-semi-bold"><strong>Email:</strong> {review.email}</p>
+                        <p  className="text-gray font-semi-bold"><strong>Email:</strong> {review.email}</p>
 
                         <button 
 

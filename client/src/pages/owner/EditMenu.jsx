@@ -108,13 +108,13 @@ export const EditMenu = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-300 mt-15">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-300 pb-10">
       <h2 className="text-2xl font-semibold text-center mb-6">Edit Menu</h2>
       <form 
         onSubmit={(e) => { e.preventDefault(); handleUpdate(); }}
-        className="flex flex-col gap-4"
+        className="flex flex-col"
       >
-       <div className="w-full max-w-sm min-w-[200px]">
+       <div className="w-full max-w-sm min-w-[400px]">
        <label className="block mb-2 text-sm text-slate-600">Menu Name</label>
         <input 
           name="name" 

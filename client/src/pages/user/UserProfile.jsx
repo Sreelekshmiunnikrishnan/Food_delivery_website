@@ -16,10 +16,8 @@ export const UserProfile = () => {
       setProfile(response.data);
     
        console.log("response===",response);
-       
-      setIsLoading(false);
-   
-      
+         setIsLoading(false);
+     
     } catch (error) {
       console.error(error);
       setIsLoading(false);

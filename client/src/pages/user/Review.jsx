@@ -9,6 +9,7 @@ export const Review = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { orderId, itemId } = useParams();
   const [order, setOrder] = useState([]);
+  const [item, setItem] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -16,9 +17,9 @@ export const Review = () => {
   const fetchOrder = async () => {
     if (!orderId) return;  // Ensure orderId is defined
     try {
-      const response = await axiosInstance.get(`/order/getorderbyid/${orderId}`);
-      setOrder(response.data);
-      console.log("response ===", response.data);
+      const response = await axiosInstance.get(`/order/getorderbyid/${orderId}/${itemId}`);
+      setItem(response.data);
+      
     } catch (error) {
       console.error('Error fetching order:', error);
       setError('Could not fetch order details');
@@ -32,9 +33,10 @@ export const Review = () => {
       const response = await axiosInstance.post("/review/addreview", {
         itemId,
         orderId,
+        name: item?.menuName, 
         ...data
       });
-      console.log("Response ===", response);
+      
       toast.success("Review added successfully");
       navigate("/user/profile");
     } catch (error) {
@@ -45,60 +47,72 @@ export const Review = () => {
 
   useEffect(() => {
     fetchOrder();
-  }, [orderId]);  // Run fetchOrder when orderId changes
+  }, [orderId,itemId]);  // Run fetchOrder when orderId changes
 
   return (
-    <div className="flex justify-center items-center pt-2 bg-gray-100">
-      <Card className="w-400">
-        <Typography variant="h4" color="indigo" className="mb-4 text-center">
-          Review
-        </Typography>
-        <p className="text-slate-500 font-light">Your reviews make us better.</p>
-        
-        <form className="mt-8 mb-2 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
-          {order.items && order.items.length > 0 ? (
-            order.items.map((item, index) => (
-              <div key={index} className="mb-1 flex flex-col gap-6">
-                <div className="w-full max-w-sm min-w-[200px]">
-                  <label className="block mb-2 text-sm text-slate-600">OrderId</label>
-                  <input type="text" {...register("orderId", { required: "OrderId is required" })}
-                    className="w-full bg-transparent text-slate-700 border rounded-md px-3 py-2"
-                    value={orderId} readOnly />
-                  {errors.orderId && <p className="text-red-500 text-sm">{errors.orderId.message}</p>}
-                </div>
-                
-                <div className="w-full max-w-sm min-w-[200px]">
-                  <label className="block mb-2 text-sm text-slate-600">Menu Name</label>
-                  <input type="text" {...register("menuName", { required: "MenuName is required" })}
-                    className="w-full bg-transparent text-slate-700 border rounded-md px-3 py-2"
-                    value={item.menuName} readOnly />
-                  {errors.menuName && <p className="text-red-500 text-sm">{errors.menuName.message}</p>}
-                </div>
+    <div className="flex justify-center items-center pt-8 bg-gray-100 min-h-screen">
+  <Card className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
+    <Typography variant="h4" color="indigo" className="mb-6 text-center">
+      Review
+    </Typography>
+    <p className="text-slate-500 font-light text-center mb-4">Your reviews make us better.</p>
 
-                <div className="w-full max-w-sm min-w-[200px]">
-                  <label className="block mb-2 text-sm text-slate-600">Rating</label>
-                  <input type="number" {...register("rating", {
-                    required: "Rating is required",
-                    min: 1, max: 5
-                  })} className="w-full bg-transparent text-slate-700 border rounded-md px-3 py-2" placeholder="Rating" />
-                  {errors.rating && <p className="text-red-500 text-sm">{errors.rating.message}</p>}
-                </div>
+    <form className="mt-6 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col gap-6">
+        {/* Order ID */}
+        <div className="w-full">
+          <label className="block mb-2 text-md font-bold text-gray">Order ID</label>
+          <input
+            type="text"
+            className="w-full bg-gray-50 text-slate-700 border border-gray-300 rounded-md px-4 py-2"
+            value={orderId}
+            readOnly
+          />
+        </div>
 
-                <div className="w-full max-w-sm min-w-[200px]">
-                  <label className="block mb-2 text-sm text-slate-600">Comments</label>
-                  <textarea {...register("comment", { required: "Comment is required" })}
-                    className="w-full bg-transparent text-slate-700 border rounded-md px-3 py-2" placeholder="Enter comment" />
-                  {errors.comment && <p className="text-red-500 text-sm">{errors.comment.message}</p>}
-                </div>
+        {/* Menu Name */}
+        <div className="w-full">
+          <label className="block mb-2 text-md font-bold text-gray">Menu Name</label>
+          <input
+            type="text"
+            className="w-full bg-gray-50 text-slate-700 border border-gray-300 rounded-md px-4 py-2"
+            value={item?.menuName}
+            readOnly
+          />
+          {errors.menuName && <p className="text-red-500 text-sm">{errors.menuName.message}</p>}
+        </div>
 
-                <button className="btn btn-primary">Submit</button>
-              </div>
-            ))
-          ) : (
-            <Typography color="red">No items found for this order.</Typography>
-          )}
-        </form>
-      </Card>
-    </div>
+        {/* Rating */}
+        <div className="w-full">
+          <label className="block mb-2 text-md font-bold text-gray">Rating</label>
+          <input
+            type="number"
+            {...register("rating", { required: "Rating is required", min: 1, max: 5 })}
+            className="w-full bg-gray-50 text-slate-700 border border-gray-300 rounded-md px-4 py-2"
+            placeholder="Rating"
+          />
+          {errors.rating && <p className="text-red-500 text-sm">{errors.rating.message}</p>}
+        </div>
+
+        {/* Comments */}
+        <div className="w-full">
+          <label className="block mb-2 text-md font-bold text-gray">Comments</label>
+          <textarea
+            {...register("comment", { required: "Comment is required" })}
+            className="w-full bg-gray-50 text-slate-700 border border-gray-300 rounded-md px-4 py-2"
+            placeholder="Enter comment"
+          />
+          {errors.comment && <p className="text-red-500 text-sm">{errors.comment.message}</p>}
+        </div>
+
+        {/* Submit Button */}
+        <button className="w-full bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition duration-300">
+          Submit
+        </button>
+      </div>
+    </form>
+  </Card>
+</div>
+
   );
 };
