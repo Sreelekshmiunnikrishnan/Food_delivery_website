@@ -66,7 +66,7 @@ export const EditMenu = () => {
       });
       fetchMenu();
     
-      navigate("/owner/myMenu");
+      navigate("/owner/mymenu");
     } catch (error) {
       console.error("Failed to update menu:", error);
     }

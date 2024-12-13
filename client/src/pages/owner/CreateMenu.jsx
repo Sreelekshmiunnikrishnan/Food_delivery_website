@@ -46,9 +46,9 @@ export const CreateMenu = () => {
         }
       });
       console.log(response, '======response');
-      alert("Menu created");
+     
       toast.success("Menu created succesfully..")
-      navigate("/owner/owner-profile");
+      navigate("/owner/mymenu");
     } catch (error) {
       toast.error("Failed to create menu. Please try again.");
 

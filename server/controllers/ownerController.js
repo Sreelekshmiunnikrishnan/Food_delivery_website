@@ -148,6 +148,11 @@ export const ownerLogin = async (req, res,next) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
+      res.clearCookie('token',{
+        sameSite:"None",
+        secure:true,
+        httpOnly:true,
+       });
   
       res.status(200).json({ message: 'User profile deleted successfully' });
     } catch (error) {

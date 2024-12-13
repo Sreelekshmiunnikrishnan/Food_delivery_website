@@ -19,9 +19,8 @@ export const DeleteProfiles = () => {
             // Show a success toast message
             toast.success("Profile deactivated..");
 
-            // Redirect to login page
-            setTimeout(() => {
-                navigate('/owner/login');
+             setTimeout(() => {
+                navigate('/');
             }, 2000); // Wait for 2 seconds to let the toast display
          }
            

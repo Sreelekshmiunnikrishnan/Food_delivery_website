@@ -20,7 +20,7 @@ export const CreateRestaurant = () => {
       console.log(response, '======response');
      toast.success("Restaurant created");
    
-      navigate("/owner/owner-profile");
+      navigate("/owner/myrestaurants");
     } catch (error) {
       toast.error("Signup failed. Please try again.");
       
