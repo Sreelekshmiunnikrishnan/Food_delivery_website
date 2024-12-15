@@ -62,9 +62,9 @@ export const ownerLogin = async (req, res,next) => {
       if (!ownerExists) {
         return res.status(404).json({message: 'User not found' });
       }
-      if (ownerExists.isBlocked && ownerExists.status === "Inactive") {
+      if ( ownerExists.status === "Inactive") {
         // Update the user to unblock and activate their account
-        await Owner.findByIdAndUpdate(ownerExists._id, { isBlocked: false, status: "Active" });
+        await Owner.findByIdAndUpdate(ownerExists._id, { status: "Active" });
       } else if (ownerExists.isBlocked && ownerExists.status === "Blocked") {
         // If the user is blocked but not inactive, prevent login
         return res.status(403).json({ message: "Your account is blocked. Please contact support." });
@@ -143,7 +143,7 @@ export const ownerLogin = async (req, res,next) => {
       // Find and delete the user by ID
       //const user = await User.findByIdAndDelete(req.user.id);
       // Temporarily freezing User
-      const user = await Owner.updateOne({_id:req.user.id}, { $set: {status:'Inactive',isBlocked : true} });
+      const user = await Owner.updateOne({_id:req.user.id}, { $set: {status:'Inactive'} });
      
       if (!user) {
         return res.status(404).json({ message: 'User not found' });

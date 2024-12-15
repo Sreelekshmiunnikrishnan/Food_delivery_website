@@ -77,9 +77,9 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'User not found' });
     }
-    if (user.isBlocked && user.status === "Inactive") {
+    if ( user.status === "Inactive") {
       // Update the user to unblock and activate their account
-      await User.findByIdAndUpdate(user._id, { isBlocked: false, status: "Active" });
+      await User.findByIdAndUpdate(user._id, { status: "Active" });
     } else if (user.isBlocked && user.status === "Blocked") {
       // If the user is blocked but not inactive, prevent login
       return res.status(403).json({ message: "Your account is blocked. Please contact support." });
@@ -214,7 +214,7 @@ export const deleteProfile = async (req, res, next) => {
     // Find and delete the user by ID
     //const user = await User.findByIdAndDelete(req.user.id);
     // Temporarily freezing User
-    const user = await User.updateOne({ _id: req.user.id }, { $set: { status: 'Inactive', isBlocked: true } });
+    const user = await User.updateOne({ _id: req.user.id }, { $set: { status: 'Inactive' } });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
