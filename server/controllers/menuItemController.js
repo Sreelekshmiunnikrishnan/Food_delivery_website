@@ -56,9 +56,22 @@ export const createMenu = async (req, res,next) => {
 
     // Save the new menu item to the database
     const savedMenuItem = await newMenuItem.save();
-
+    res.status(201).json({
+      message: 'Menu item created successfully',
+     savedMenuItem,
+      
+    });
+   /* const updatedRestaurant = await Restaurant.findByIdAndUpdate(
+      restaurantId,
+      { $push: { menuItems: savedMenuItem._id} },
+      { new: true }
+    ).populate("menuItems");
     // Respond with the created menu item
-    res.status(201).json(savedMenuItem);
+    res.status(201).json({
+      message: 'Menu item created successfully',
+      menuItem: savedMenuItem,
+      restaurant: updatedRestaurant,
+    });*/
   } catch (error) {
     console.error('Error creating menu item:', error); // Log error for debugging
     res.status(500).json({ message: error.message });
@@ -74,6 +87,31 @@ export const getMenuItems = async (req, res,next) => {
     res.status(500).json({ message: err.message });
   }
 };
+//Get menus from a particular restaurant
+export const getMenus = async (req, res, next) => {
+  try {
+    const restaurantId = req.params.id;
+
+    // Validate that restaurantId is provided
+    if (!restaurantId) {
+      return res.status(400).json({ error: 'Restaurant ID is required' });
+    }
+
+    // Fetch menu items for the specific restaurant
+    const menuItems = await MenuItem.find({ restaurantId });
+
+    // If no menu items found, return a meaningful message
+    if (!menuItems.length) {
+      return res.status(404).json({ message: 'No menu items found for this restaurant.' });
+    }
+
+    res.status(200).json(menuItems);
+  } catch (err) {
+    console.error('Error fetching menu items:', err); // Log for debugging
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
 export const ownerMenu= async (req, res,next) => {
   const ownerId = new  mongoose.Types.ObjectId(req.user.id); // Get ownerId from authenticated token
   try {

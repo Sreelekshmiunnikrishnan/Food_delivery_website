@@ -61,7 +61,7 @@ export const EditRestaurant = () => {
   }, [id]);
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-300 mt-20">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-300 pb-10">
       <h2 className="text-2xl font-semibold text-center mb-6">Edit Restaurant</h2>
       {restaurant ? (
         <form onSubmit={handleUpdate} className="flex flex-col gap-4">

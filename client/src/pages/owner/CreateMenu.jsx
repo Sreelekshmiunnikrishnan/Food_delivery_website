@@ -190,12 +190,7 @@ export const CreateMenu = () => {
             <button className="btn btn-primary">Create</button>
           </div>
 
-          <p className="flex justify-center mt-6 text-sm text-slate-600">
-            Already have an account?
-            <Link to="/login">
-              Login
-            </Link>
-          </p>
+         
         </form>
       </Card>
     </div>

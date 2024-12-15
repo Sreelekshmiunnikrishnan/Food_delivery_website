@@ -3,7 +3,7 @@ import { axiosInstance } from "../../config/axiosInstance";
 import { RestaurantCard } from '../../components/user/Card';
 import { Card, Typography } from "@material-tailwind/react";
 //import { CardPlacehoderSkeleton } from '../../components/shared/Skeleton';
-import { Spinner } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 export const Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -40,56 +40,33 @@ export const Restaurants = () => {
     }else{
    */
     return (
-      <div className='pt-15'> 
-    <Card className = "h-full w-full p-8 overflow-scroll">
-      <table className="w-full min-w-max table-auto text-left bg-white">
-        <thead>
-          <tr>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">  <Typography
-              variant="large"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            >Name </Typography></th>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">  <Typography
-              variant="large"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            >Address </Typography></th>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">   <Typography
-              variant="large"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            >Cuisine Type</Typography> </th>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">   <Typography
-              variant="large"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            >Phone Number</Typography></th>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">  <Typography
-              variant="small"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            > Rating </Typography></th>
-            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">   <Typography
-              variant="large"
-              color="gray"
-              className="font-normal leading-none opacity-70"
-            >Owner email</Typography></th>
-          </tr>
-        </thead>
-        <tbody>
-        {restaurants.map((restaurant) => (
-            <tr key={restaurant._id} className="even:bg-blue-gray-50/50">
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.name}</Typography></td>
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.address}</Typography></td>
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.cuisineType}</Typography></td>
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.phoneNumber}</Typography></td>
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.rating}</Typography></td>
-              <td className="p-4"> <Typography variant="large" color="gray" className="font-normal">{restaurant.ownerEmail}</Typography></td>
-            </tr>
-          ))}
-       </tbody></table></Card>
-    </div>
+      <div className="pt-15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+     {restaurants.map((restaurant) => (
+      <Card key={restaurant._id} className="p-6 shadow-lg">
+      <Typography variant="h5" color="blue-gray" className="font-bold mb-2">
+       <Link to={`/restaurants/${restaurant._id}`} className="hover:underline">
+              {restaurant.name}
+            </Link>
+            </Typography>
+      <Typography variant="small" color="gray" className="mb-4">
+        Address: {restaurant.address}
+      </Typography>
+      <Typography variant="small" color="gray" className="mb-4">
+        Cuisine Type: {restaurant.cuisineType}
+      </Typography>
+      <Typography variant="small" color="gray" className="mb-4">
+        Phone Number: {restaurant.phoneNumber}
+      </Typography>
+      <Typography variant="small" color="gray" className="mb-4">
+        Rating: {restaurant.rating}
+      </Typography>
+      <Typography variant="small" color="gray" className="mb-4">
+        Owner Email: {restaurant.ownerEmail}
+      </Typography>
+    </Card>
+  ))}
+</div>
+
   );
 }
 

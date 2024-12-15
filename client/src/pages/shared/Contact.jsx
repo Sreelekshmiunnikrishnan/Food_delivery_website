@@ -19,11 +19,17 @@ export const Contact = () => {
     }
 }
   return (
-    <div className="flex justify-center items-center pt-10  bg-gray-100">
-    <Card className="w-300 p-6">
+    <div className="flex  justify-center items-center pt-10  bg-gray-100">
+       <Card className="w-300 p-6">
       <Typography variant="h4" color="indigo" className="mb-4 text-center">
       Contact Us
       </Typography>
+      <p className="text-indigo-600 font-medium text-sm">
+          Toll-Free: <span className="font-bold">1800-123-456</span>
+        </p>
+        <p className="text-indigo-600 font-medium text-sm">
+          Email: <a href="mailto:support@example.com" className="underline">support@delicacy.com</a>
+        </p>
     <p className="text-yellow font-bold">
       <marquee>
       We are here to help you!!
@@ -54,7 +60,7 @@ export const Contact = () => {
               <label className="block mb-2 text-lg text-gray">
                 Your Concern
               </label>
-              <textarea  {...register("messages")} className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Type here.." />
+              <textarea  {...register("messages")} required  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-blue rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Type here.." />
             </div>
       </div>
       <div className="flex justify-center">

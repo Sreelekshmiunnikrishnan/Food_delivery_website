@@ -19,11 +19,10 @@ export const SignupPage = () => {
       setLoading(true);
     try {
       let signupRoute = '/user/signup'; // Default
-     
-      /* if (data.role === "admin") {
-        signupRoute = '/admin/signup';
-        } else */ if (data.role === "restaurantOwner") {
+     let  profile_route = "/user/profile";
+       if (data.role === "restaurantOwner") {
         signupRoute = '/owner/signup';
+        profile_route = "/owner/owner-profile";
         }
       const response = await axiosInstance({
         method: "POST",
@@ -31,10 +30,10 @@ export const SignupPage = () => {
         data
       });
       console.log(response, '======response');
-      toast.success('Signup Successfully!');
-     
-      navigate("/");
-    } catch (error) {
+      toast.success("Signed Up successfully");
+ 
+      navigate(profile_route,{ replace: true });
+      } catch (error) {
       toast.error('Signup failed. Please try again.!');
      
       console.error(error);

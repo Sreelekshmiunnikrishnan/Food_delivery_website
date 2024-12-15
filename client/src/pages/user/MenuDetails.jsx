@@ -81,11 +81,11 @@ export const MenuDetails = () => {
           <img src={menu.image} alt={menu.name} />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">Item name: {menu.name}</h2>
-          <p>Item Price: {menu.price}</p>
-          <p>Restaurant Name: {menu.restaurantName}</p>
-          <p>Description: {menu.description}</p>
-          <p>Available: {menu.available ? "Yes" : "No"}</p>
+          <h2 className="card-title"> {menu.name}</h2>
+          <p className='font-bold'> {menu.price}/-</p>
+          <p className='font-bold'> {menu.restaurantName}</p>
+          <p className='font-bold'> {menu.description}</p>
+          
         </div>
         
                 <button className="btn btn-primary" onClick={addToCart} >ADD TO CART</button>

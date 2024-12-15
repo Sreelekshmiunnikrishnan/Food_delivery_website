@@ -44,8 +44,8 @@ export const MyRestaurants = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <div className="p-4 flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-4">My Restaurants</h2>
+        <div className="p-4 flex flex-row items-center">
+       
         {restaurants.map((restaurant) => (
             <Card key={restaurant._id} className="mb-4 p-4 w-full max-w-md">
                 <h3 className="text-xl font-semibold text-center">{restaurant.name}</h3>

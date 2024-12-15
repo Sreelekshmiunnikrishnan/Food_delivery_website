@@ -48,10 +48,10 @@ export const OwnerLayout = () => {
          
        <div className="min-h-110">
                 <Outlet />
-
+                </div>
             </div>
             <Footer />
-        </div>
+       
         </div>
   )
 }

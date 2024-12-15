@@ -43,7 +43,7 @@ export const Mymenu = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <div className="p-4 flex flex-col items-center">
+        <div className="p-4 flex flex-col items-center ">
         <h2 className="text-2xl font-bold mb-4">My Menu</h2>
         {menus.map((menu) => (
             <Card key={menu._id} className="mb-4 p-4 w-full max-w-md">

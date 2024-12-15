@@ -38,13 +38,13 @@ export const Order = () => {
             <Typography variant="h6" color="light-green" className="font-semibold">
               Order ID: {order.orderId}
             </Typography>
-            <Typography variant="h6" color="gray" className="mb-1">
+            <Typography variant="small" color="gray" className="mb-1">
               <strong>User Email:</strong> {order.userEmail}
             </Typography>
-            <Typography variant="h6" color="gray" className="mb-1">
+            <Typography variant="small" color="gray" className="mb-1">
               <strong>Status:</strong> {order.status}
             </Typography>
-            <Typography variant="h6" color="gray-200" className="mb-1">
+            <Typography variant="small" color="gray-200" className="mb-1">
               <strong>Total Quantity:</strong> {order.quantity}
             </Typography>
           </div>
@@ -56,13 +56,13 @@ export const Order = () => {
           {order.items && order.items.length > 0 ? (
             order.items.map((item, itemIndex) => (
               <div key={itemIndex} className="mb-3 ml-6">
-                <Typography variant="h6" color="gray">
+                <Typography variant="small" color="gray">
                   <strong>Menu Name:</strong> {item.menuName}
                 </Typography>
                    {/*  <Typography color="light-green">
                   <strong>Menu Id:</strong> {item.menuId}
                 </Typography>     */}
-                <Typography variant="h6" color="gray">
+                <Typography variant="small" color="gray">
                   <strong>Price:</strong> ₹{item.price.toFixed(2)}
                 </Typography>
                  {/* Link to add a review for each specific order */}

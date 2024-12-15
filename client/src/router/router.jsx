@@ -40,6 +40,7 @@ import { GetReviews } from "../pages/user/GetReviews";
 import { UserOrder } from "../pages/owner/UserOrder";
 import { GetReview } from "../pages/owner/GetReview";
 import { Forgotpassword } from "../pages/shared/Forgotpassword";
+import { RestaurantDetails } from "../pages/user/RestaurantDetails";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,7 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "restaurant", element: <Restaurants /> },
+      { path:"/restaurants/:id" ,element: <RestaurantDetails />},
       { path: "menu", element: <MenuItems /> },
       { path: "menudetails/:id", element: <MenuDetails /> },
       {
@@ -65,6 +67,7 @@ export const router = createBrowserRouter([
           { path: "profile-delete", element: <DeleteProfile /> },
           { path: "cart", element: <Cart /> },
           { path: "restaurant", element: <Restaurants /> },
+          { path:"restaurants/:id" ,element: <RestaurantDetails />},
           { path: "menu", element: <MenuItems /> },
           { path: "menudetails/:id", element: <MenuDetails /> },
           {path:"logout",element:<Logout />},

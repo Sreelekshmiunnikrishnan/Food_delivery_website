@@ -47,8 +47,8 @@ export const MenuItems = () => {
             <img src={menu.image} alt="menu" />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Item name :{menu.name}</h2>
-            <p> Item Price :{menu.price}</p>
+            <h2 className="card-title">{menu.name}</h2>
+            <p> {menu.price}/-</p>
             <div className="card-actions justify-center">
               <Link to={`/menudetails/${menu._id}`}>
                 <button className="btn btn-primary " >More Details</button>

@@ -248,82 +248,117 @@ export const AdminProfile = () => {
   }, [activeSection]);
 
   return (
-    <div className="flex flex-col md:flex-row ">
-
-      {/* Sidebar */}
-      <Card className="md:h-[calc(100vh-2rem)] w-full md:w-80 p-4 shadow-xl bg-amber-200 shadow-blue-gray-900/5">
-        <div className="mb-2 p-4 text-center md:text-left">
-          <Typography variant="h5" color="blue-gray">
-            Admin Dashboard
-          </Typography>
-        </div>
-        <List>
-          {/* Dashboard Section */}
-          <Accordion
-            open={open === 1}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open === 1}>
-              <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
-                <ListItemPrefix>
-                  <PresentationChartBarIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  Dashboard
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <ListItem onClick={() => setActiveSection('GetUsers')}>
-                  Get Users
-                </ListItem>
-                <ListItem onClick={() => setActiveSection('GetRestaurantOwners')}>
-                  Get Restaurant Owners
-                </ListItem>
-                <ListItem onClick={() => setActiveSection('Restaurants')}>
-                  Get Restaurants
-                </ListItem>
-                <ListItem onClick={() => setActiveSection('Menu')}>
-                  Get Menu
-                </ListItem>
-                <ListItem onClick={() => setActiveSection('Orders')}>
-                  Orders
-                </ListItem>
-                <ListItem onClick={() => setActiveSection('Reviews')}>
-                  Reviews
-                </ListItem>
-              </List>
-            </AccordionBody>
-          </Accordion>
-
-          <hr className="my-2 border-blue-gray-50" />
-
-          {/* Profile Section */}
-          <ListItem onClick={() => setActiveSection('Profile')}>
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Profile
+    <div className="flex flex-col md:flex-row min-h-screen">
+    {/* Sidebar */}
+    <Card
+      className="flex-shrink-0 h-auto md:h-auto md:w-80 p-4 shadow-xl bg-gradient-to-b from-amber-200 to-amber-300 text-gray-900"
+      style={{ minHeight: "100%" }}
+    >
+      {/* Sidebar Header */}
+      <div className="mb-4 p-4 text-center md:text-left border-b border-gray-300">
+        <Typography variant="h5" color="blue-gray">
+          Admin Dashboard
+        </Typography>
+      </div>
+  
+      {/* Sidebar Navigation */}
+      <List>
+        {/* Dashboard Section */}
+        <Accordion
+          open={open === 1}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 1}>
+            <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3 hover:bg-amber-400">
+              <ListItemPrefix>
+                <PresentationChartBarIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Dashboard
+              </Typography>
+            </AccordionHeader>
           </ListItem>
-
-          {/* Log Out Section */}
-          <ListItem onClick={() => setActiveSection('LogOut')}>
-            <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Log Out
-          </ListItem>
-        </List>
-      </Card>
-
+          <AccordionBody className="py-1">
+            <List className="p-0">
+              <ListItem
+                onClick={() => setActiveSection("GetUsers")}
+                className="hover:bg-amber-400"
+              >
+                Get Users
+              </ListItem>
+              <ListItem
+                onClick={() => setActiveSection("GetRestaurantOwners")}
+                className="hover:bg-amber-400"
+              >
+                Get Restaurant Owners
+              </ListItem>
+              <ListItem
+                onClick={() => setActiveSection("Restaurants")}
+                className="hover:bg-amber-400"
+              >
+                Get Restaurants
+              </ListItem>
+              <ListItem
+                onClick={() => setActiveSection("Menu")}
+                className="hover:bg-amber-400"
+              >
+                Get Menu
+              </ListItem>
+              <ListItem
+                onClick={() => setActiveSection("Orders")}
+                className="hover:bg-amber-400"
+              >
+                Orders
+              </ListItem>
+              <ListItem
+                onClick={() => setActiveSection("Reviews")}
+                className="hover:bg-amber-400"
+              >
+                Reviews
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+  
+        {/* Divider */}
+        <hr className="my-2 border-gray-300" />
+  
+        {/* Profile Section */}
+        <ListItem
+          onClick={() => setActiveSection("Profile")}
+          className="hover:bg-amber-400"
+        >
+          <ListItemPrefix>
+            <UserCircleIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Profile
+        </ListItem>
+  
+        {/* Log Out Section */}
+        <ListItem
+          onClick={() => setActiveSection("LogOut")}
+          className="hover:bg-amber-400"
+        >
+          <ListItemPrefix>
+            <PowerIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Log Out
+        </ListItem>
+      </List>
+    </Card>
+  
+   
+  
+  
       {/* Main Body Section */}
-      <div className="flex-1 p-4 md:p-8">
+      <div className="flex-grow p-6 bg-gray-100">
         {activeSection === 'Dashboard' && (
           <>
             <Typography variant="h4" className="text-center md:text-left mb-6">
@@ -364,7 +399,9 @@ export const AdminProfile = () => {
         )}
         {activeSection === 'Orders' && (
   <div className="orders-section">
-    <h2>Orders</h2>
+    <Typography variant="h4" color="deep-orange" className="mb-4 text-center">
+           Orders
+            </Typography>
     {orders.length > 0 ? (
       orders.map((order, index) => (
         <div key={index} className="order-card bg-white p-5 shadow-md rounded-lg mb-4">
@@ -394,25 +431,25 @@ export const AdminProfile = () => {
         {activeSection === 'Reviews' && (
           <div className="w-2/3 h-auto ml-20">
             <Typography variant="h4" color="deep-orange" className="mb-4 text-center">
-              Admin Reviews
+             User Reviews
             </Typography>
 
             {reviews.length > 0 ? (
               reviews.map((review, index) => (
-                <Card key={index} className="mb-6 p-4 shadow-lg bg-gray">
-                  <Typography variant="h5" color="amber" className="font-semibold">
+                <Card key={index} className="mb-6 p-4 shadow-lg bg-white">
+                  <Typography variant="h5" color="gray" className="font-semibold">
                     Review ID: {review._id}
                   </Typography>
-                  <Typography color="amber" className="mb-1">
+                  <Typography color="gray" className="mb-1">
                     <strong>User Email:</strong> {review.email}
                   </Typography>
-                  <Typography color="amber" className="mb-1">
+                  <Typography color="gray" className="mb-1">
                     <strong>MenuItem Name:</strong> {review.menuName}
                   </Typography>
-                  <Typography color="amber" className="mb-1">
+                  <Typography color="gray" className="mb-1">
                     <strong>Rating:</strong> {review.rating} / 5
                   </Typography>
-                  <Typography color="amber" className="mb-1">
+                  <Typography color="gray" className="mb-1">
                     <strong>Comment:</strong> {review.comment}
                   </Typography>
                 </Card>
@@ -423,122 +460,131 @@ export const AdminProfile = () => {
           </div>
         )}
 
-        {activeSection === 'GetUsers' && (
-          <div className="overflow-x-auto">
-            <Typography variant="h4" className="text-center md:text-left mb-4">User List</Typography>
-            <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
-              <thead className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-                <tr>
-                  <th className="w-24 px-2 py-2 text-gray ">Name</th>
-                  <th className="w-32 px-2 py-2 text-gray ">Email</th>
-                  <th className="w-24 px-2 py-2 text-gray ">Address</th>
-                  <th className="w-28 px-2 py-2 text-gray ">Phone</th>
-                  <th className="w-16 px-2 py-2 text-gray ">Role</th>
-                  <th className="w-16 px-2 py-2 text-gray ">Status</th>
-                  <th className="w-16 px-2 py-2 text-gray ">Blocked</th>
-                  <th className="w-24 px-2 py-2 text-gray ">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr
-                    key={user.id}
-                    className="border-b border-gray-200 hover:bg-gray-100 transition duration-200"
-                  >
-                    <td className="px-4 py-3 text-center">{user.name}</td>
-                    <td className="px-4 py-3 text-center">{user.email}</td>
-                    <td className="px-4 py-3 text-center">{user.address}</td>
-                    <td className="px-4 py-3 text-center">{user.phoneNumber}</td>
-                    <td className="px-4 py-3 text-center">{user.role}</td>
-                    <td className="px-4 py-3 text-center">{user.status}</td>
-                    <td className="px-4 py-3 text-center">{user.isBlocked ? "true" : "false"}</td>
-                    <td className="px-4 py-3 flex justify-around items-center">
-                      {user.isBlocked ? (
-                        <Button
-                          onClick={() => handleUnBlockUser(user._id)}
-                          className="bg-yellow text-white rounded-full px-4 py-2 hover:bg-yellow-600 transition duration-200"
-                          size="sm"
-                        >
-                          Unblock
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() => handleBlockUser(user._id)}
-                          className="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600 transition duration-200"
-                          size="sm"
-                        >
-                          Block
-                        </Button>
-                      )}
-                    </td>
-
-                  </tr>
-                ))}
-              </tbody>
-
-            </table>
+{activeSection === 'GetUsers' && (
+  <div className="overflow-x-auto">
+    <Typography variant="h4" className="text-center md:text-left mb-4">
+      User List
+    </Typography>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {users.map((user) => (
+        <div
+          key={user.id}
+          className="bg-white shadow-lg rounded-lg border border-gray-300 p-6 flex flex-col justify-between"
+        >
+          <div className="mb-4">
+            <Typography variant="h6" color="blue-gray" className="mb-2">
+              {user.name}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Email:</strong> {user.email}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Address:</strong> {user.address}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Phone:</strong> {user.phoneNumber}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Role:</strong> {user.role}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Status:</strong> {user.status}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-4">
+              <strong>Blocked:</strong> {user.isBlocked ? 'Yes' : 'No'}
+            </Typography>
           </div>
-        )}
+          <div className="flex justify-around">
+            {user.isBlocked ? (
+              <Button
+                onClick={() => handleUnBlockUser(user._id)}
+                className="bg-yellow text-white rounded-full px-4 py-2 hover:bg-yellow-600 transition duration-200"
+                size="sm"
+              >
+                Unblock
+              </Button>
+            ) : (
+              <Button
+                onClick={() => handleBlockUser(user._id)}
+                className="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600 transition duration-200"
+                size="sm"
+              >
+                Block
+              </Button>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
         {activeSection === 'GetRestaurantOwners' && (
-          <div className="overflow-x-auto">
-            <Typography variant="h4" className="text-center md:text-left mb-4">Restaurant owners List</Typography>
-            <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-500  overflow-hidden">
-              <thead className="bg-gray-800 text-white">
-                <tr>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Name</th>
-                  <th className="w-32 px-2 py-2 text-gray border-2 border-gray-500">Email</th>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Address</th>
-                  <th className="w-28 px-2 py-2 text-gray border-2 border-gray-500">Phone</th>
-                  <th className="w-16 px-2 py-2 text-gray border-2 border-gray-500">Role</th>
-                  <th className="w-16 px-2 py-2 text-gray border-2 border-gray-500">Status</th>
-                  <th className="w-16 px-2 py-2 text-gray border-2 border-gray-500">Blocked</th>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {owners.map((owner) => (
-                  <tr key={owner.id} className="border-t border-gray-300">
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{owner.name}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">{owner.email}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">{owner.address}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">{owner.phoneNumber}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">{owner.role}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">{owner.status}</td>
-                    <td className="px-2 py-2 text-center text-center border-2 border-gray-500">
-                      {owner.isBlocked ? "true" : "false"}
-                    </td>
-                    <td className="px-4 py-3 flex justify-around items-center">
-                      {owner.isBlocked ? (
-                        <Button
-                          onClick={() => handleUnBlockOwner(owner._id)}
-                          className="bg-yellow text-white rounded-full px-4 py-2 hover:bg-yellow-600 transition duration-200"
-                          size="sm"
-                        >
-                          Unblock
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() => handleBlockOwner(owner._id)}
-                          className="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600 transition duration-200"
-                          size="sm"
-                        >
-                          Block
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+  <div className="overflow-x-auto">
+    <Typography variant="h4" color="deep-orange" className="mb-4 text-center">
+      Restaurant Owners List
+    </Typography>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {owners.map((owner) => (
+        <div
+          key={owner.id}
+          className="bg-white shadow-md rounded-lg border border-gray-300 p-4 flex flex-col justify-between"
+        >
+          <div className="mb-4">
+            <Typography variant="h6" color="blue-gray" className="mb-2">
+              {owner.name}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Email:</strong> {owner.email}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Address:</strong> {owner.address}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Phone:</strong> {owner.phoneNumber}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Role:</strong> {owner.role}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-2">
+              <strong>Status:</strong> {owner.status}
+            </Typography>
+            <Typography variant="small" color="gray" className="mb-4">
+              <strong>Blocked:</strong> {owner.isBlocked ? 'Yes' : 'No'}
+            </Typography>
           </div>
-        )}
+          <div className="flex justify-around">
+            {owner.isBlocked ? (
+              <Button
+                onClick={() => handleUnBlockOwner(owner._id)}
+                className="bg-yellow text-white rounded-full px-4 py-2 hover:bg-yellow-600 transition duration-200"
+                size="sm"
+              >
+                Unblock
+              </Button>
+            ) : (
+              <Button
+                onClick={() => handleBlockOwner(owner._id)}
+                className="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600 transition duration-200"
+                size="sm"
+              >
+                Block
+              </Button>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
         {activeSection === 'Profile' && (
           <div>
-            <Typography variant="h4" className="text-center md:text-left">Admin Profile</Typography>
-            <div className="flex flex-wrap justify-center md:justify-start  mt-4">
-              <div className="card card-compact bg-purple w-full lg:w-96 shadow-xl p-4 m-4  rounded-lg">
+            <Typography variant="h4" color='deep-orange' className="mb-4 text-center">Admin Profile</Typography>
+            <div className="flex flex-wrap justify-center md:justify-center  mt-4">
+              <div className="card card-compact bg-gray w-full lg:w-96 shadow-xl p-4 m-4  rounded-lg">
                 <h2 className="text-lg font-bold text-white mb-2 flex justify-center">Details</h2>
-                <div className="card-body text-left  h-80 w-50">
+                <div className="card-body flex justify-center  h-80 w-50">
                   <p className="font-bold text-white"><span className="font-bold text-white">Name:</span> {profile.name}</p>
                   <p className="font-bold text-white"><span className="font-bold text-white">Email:</span> {profile.email}</p>
                   <p className="font-bold text-white"><span className="font-bold text-white">Role:</span> {profile.role}</p>
@@ -551,37 +597,40 @@ export const AdminProfile = () => {
           </div>
         )}
         {activeSection === 'Restaurants' && (
-          <div className="overflow-x-auto">
-            <Typography variant="h4" className="text-center md:text-left mb-4">Restaurant List</Typography>
-            <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-500 overflow-hidden">
-              <thead className="bg-gray-800 text-white">
-                <tr>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Name</th>
-                  <th className="w-32 px-2 py-2 text-gray border-2 border-gray-500">Address</th>
-                  <th className="w-32 px-2 py-2 text-gray border-2 border-gray-500">Phone number</th>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Rating</th>
-                  <th className="w-24 px-2 py-2 text-gray border-2 border-gray-500">Cuisine Type</th>
-                  <th className="w-32 px-2 py-2 text-gray border-2 border-gray-500">Owner email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {restaurants.map((restaurant) => (
-                  <tr key={restaurant.id} className="border-t border-gray-300">
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.name}</td>
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.address}</td>
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.phoneNumber}</td>
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.rating}</td>
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.cuisineType}</td>
-                    <td className="px-2 py-2 text-center border-2 border-gray-500">{restaurant.ownerEmail}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+           <div className="overflow-x-auto">
+            <Typography variant="h4" color="deep-orange" className="mb-4 text-center">Restaurant List</Typography>
+          <div className="pt-15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+            {restaurants.map((restaurant) => (
+                 <Card key={restaurant._id} className="p-6 shadow-lg">
+                 <Typography variant="h5" color="blue-gray" className="font-bold mb-2">
+                 
+                         {restaurant.name}
+                     
+                       </Typography>
+                 <Typography variant="small" color="gray" className="mb-4">
+                   Address: {restaurant.address}
+                 </Typography>
+                 <Typography variant="small" color="gray" className="mb-4">
+                   Cuisine Type: {restaurant.cuisineType}
+                 </Typography>
+                 <Typography variant="small" color="gray" className="mb-4">
+                   Phone Number: {restaurant.phoneNumber}
+                 </Typography>
+                 <Typography variant="small" color="gray" className="mb-4">
+                   Rating: {restaurant.rating}
+                 </Typography>
+                 <Typography variant="small" color="gray" className="mb-4">
+                   Owner Email: {restaurant.ownerEmail}
+                 </Typography>
+               </Card>
+             ))}
+           </div>
+           </div>
         )}
         {activeSection === 'Menu' && (
           <div className="overflow-x-auto">
-            <Typography variant="h4" className="text-center md:text-left mb-4">Menu List</Typography>
+            <Typography variant="h4" color="deep-orange" className="mb-4 text-center">Menu List</Typography>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
               {menus.map((menu) => (
                 <div key={menu.id} className="bg-white shadow-md rounded-lg border border-gray-300 overflow-hidden">

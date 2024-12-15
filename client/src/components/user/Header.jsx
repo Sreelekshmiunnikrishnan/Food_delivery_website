@@ -52,7 +52,7 @@ export const Header = () => {
 
   return (
     <div className="max-w-full">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-amber-300">
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded px-4 py-2 lg:px-8 lg:py-4 bg-amber-300">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Avatar
             variant="circular"
@@ -106,7 +106,7 @@ export const Header = () => {
                 color="deep-orange"
                 onClick={() => navigate("/signup")}
               >
-                <span>Sign Up</span>
+                <span>Join Us</span>
               </Button>
             </div>
           
@@ -129,7 +129,7 @@ export const Header = () => {
               size="sm"
               onClick={() => navigate('/signup')}
             >
-              <span>Sign Up</span>
+              <span>Join Us</span>
             </Button>
           </div>
         </Collapse>

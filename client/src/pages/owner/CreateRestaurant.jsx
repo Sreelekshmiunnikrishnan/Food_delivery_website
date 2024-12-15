@@ -112,12 +112,7 @@ export const CreateRestaurant = () => {
 
         </div>
 
-        <p className="flex justify-center mt-6 text-sm text-slate-600">
-          Already have an account?
-          <Link to="/login">
-            Login
-          </Link>
-        </p>
+        
       </form>
     </Card>
   </div>

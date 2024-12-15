@@ -4,6 +4,7 @@ import { create, deleteRestaurant, getAllRestaurants, getRestaurant, ownerRestau
 import { authRestOwner } from "../middlewares/authRestOwner.js";
 import { authUser } from "../middlewares/authUser.js";
 import { upload } from "../middlewares/multer.js";
+import { getMenus } from "../controllers/menuItemController.js";
 const router = e.Router();
 
 
@@ -13,6 +14,8 @@ router.post('/create',authRestOwner,create);
 
 // Get all restaurants
 router.get('/getAllRestaurants', getAllRestaurants);
+//Get menus of a restaurant
+router.get('/getmenu/:id', getMenus);
 
 // Get a restaurant by ID
 router.get('/getRestaurant/:id',authUser, getRestaurant);

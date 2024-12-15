@@ -36,12 +36,12 @@ export const createowner = async(req, res,next) => {
       
        if(savedOwner){
 
-      /*  const token = generateToken(savedOwner._id)
+        const token = generateToken(savedOwner._id,'restaurantOwner')
        res.cookie("token",token,{
         sameSite:"None",
         secure:true,
         httpOnly:true,
-       }); */
+       }); 
       
      return res.status(201).json({ message: 'User created successfully' ,savedOwner});
      
