@@ -57,8 +57,8 @@ export const EditProfiles = () => {
   }
 
   return (
-    <div className="flex justify-center items-center bg-gray-100">
-      <Card className="w-300 p-4 bg-slate-200">
+    <div className="flex justify-center items-center bg-gray-100 min-h-screen">
+      <Card className="w-300 p-4 mb-10 bg-slate-200">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
           Edit Profile
         </Typography>

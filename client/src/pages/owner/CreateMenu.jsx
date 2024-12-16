@@ -82,8 +82,8 @@ export const CreateMenu = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center pt-10 bg-gray-100">
-      <Card className="w-300 p-6">
+    <div className="flex justify-center items-center  bg-gray-100 min-h-screen">
+      <Card className="w-300 p-6 mb-10">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
           Food Menu
         </Typography>

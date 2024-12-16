@@ -52,96 +52,86 @@ export const Header = () => {
 
   return (
     <div className="max-w-full">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded px-4 py-2 lg:px-8 lg:py-4 bg-amber-300">
-        <div className="flex items-center justify-between text-blue-gray-900">
-          <Avatar
-            variant="circular"
-            size="lg"
-            alt="Logo"
-            className="border border-gray-900 p-1.0 mr-4"
-            src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
-          />
-           <div className="flex-1 flex justify-center">{navList}</div>
-
-            <div className="flex items-center gap-x-1">
-              <DarkMode />
-              <Menu>
-                <MenuHandler>
-                  <Button
-                    color="deep-orange"
-                    variant="text"
-                    size="lg"
-                    className="hidden lg:inline-block"
-                    ripple={true}
-                  >
-                    Login Options
-                  </Button>
-                </MenuHandler>
-                <MenuList>
-                  <MenuItem
-                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
-                    onClick={() => navigate("/login")}
-                  >
-                    User Login
-                  </MenuItem>
-                  <MenuItem
-                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
-                    onClick={() => navigate("/admin/login")}
-                  >
-                    Admin Login
-                  </MenuItem>
-                  <MenuItem
-                    className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
-                    onClick={() => navigate("/owner/login")}
-                  >
-                    Restaurant Owner Login
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-
+    <Navbar className="sticky top-0 z-50 h-max max-w-full rounded px-4 py-2 lg:px-8 lg:py-4 bg-amber-300">
+      <div className="flex items-center justify-between text-blue-gray-900">
+        <Avatar
+          variant="circular"
+          size="lg"
+          alt="Logo"
+          className="border border-gray-900 p-1.0 mr-4"
+          src="https://res.cloudinary.com/dmv3ax1yt/image/upload/v1729088573/Logo_wodfig.png"
+        />
+        <div className="flex-1 flex justify-center">{navList}</div>
+  
+        <div className="flex items-center gap-x-1">
+          <DarkMode />
+          <Menu>
+            <MenuHandler>
               <Button
-                variant="gradient"
+                color="deep-orange"
+                variant="text"
                 size="lg"
                 className="hidden lg:inline-block"
-                color="deep-orange"
-                onClick={() => navigate("/signup")}
+                ripple={true}
               >
-                <span>Join Us</span>
+                Login Options
               </Button>
-            </div>
-          
+            </MenuHandler>
+            <MenuList>
+              <MenuItem
+                className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                onClick={() => navigate("/login")}
+              >
+                User Login
+              </MenuItem>
+              <MenuItem
+                className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                onClick={() => navigate("/admin/login")}
+              >
+                Admin Login
+              </MenuItem>
+              <MenuItem
+                className="text-lg text-yellow px-4 py-2 hover:bg-gray-200 hover:text-blue-600"
+                onClick={() => navigate("/owner/login")}
+              >
+                Restaurant Owner Login
+              </MenuItem>
+            </MenuList>
+          </Menu>
+  
+          <Button
+            variant="gradient"
+            size="lg"
+            className="hidden lg:inline-block"
+            color="deep-orange"
+            onClick={() => navigate("/signup")}
+          >
+            <span>Join Us</span>
+          </Button>
         </div>
-
-        <Collapse open={openNav} className="lg:hidden">
-          {navList}
-          <div className="flex items-center gap-x-1">
-            <Button
-              fullWidth
-              variant="text"
-              size="sm"
-              onClick={() => navigate('/login')}
-            >
-              <span>Log In</span>
-            </Button>
-            <Button
-              fullWidth
-              variant="gradient"
-              size="sm"
-              onClick={() => navigate('/signup')}
-            >
-              <span>Join Us</span>
-            </Button>
-          </div>
-        </Collapse>
-
-        <IconButton
-          variant="text"
-          className="ml-auto lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? "Close" : "Menu"}
-        </IconButton>
-      </Navbar>
-    </div>
+      </div>
+  
+      <Collapse open={openNav} className="lg:hidden">
+        {navList}
+        <div className="flex items-center gap-x-1">
+          <Button fullWidth variant="text" size="sm" onClick={() => navigate('/login')}>
+            <span>Log In</span>
+          </Button>
+          <Button fullWidth variant="gradient" size="sm" onClick={() => navigate('/signup')}>
+            <span>Join Us</span>
+          </Button>
+        </div>
+      </Collapse>
+  
+      <IconButton
+        variant="text"
+        className="ml-auto lg:hidden"
+        onClick={() => setOpenNav(!openNav)}
+      >
+        {openNav ? "Close" : "Menu"}
+      </IconButton>
+    </Navbar>
+  </div>
+  
   );
 }; 

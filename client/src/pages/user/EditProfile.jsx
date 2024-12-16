@@ -63,13 +63,13 @@ export const EditProfile = () => {
   } 
   
   return (
-  <div className="flex justify-center items-center bg-gray-100">
+  <div className="flex justify-center items-center bg-gray-100 min-h-screen">
     {isLoading ? (
-      <div className="flex justify-center items-center pt-10">
+      <div className="flex justify-center items-center">
         <Spinner />
       </div>
     ) : (
-      <Card className="w-300 p-4">
+      <Card className="w-300 p-4 mb-15">
         <Typography variant="h4" color="indigo" className="mb-4 text-center">
           Edit Profile
         </Typography>

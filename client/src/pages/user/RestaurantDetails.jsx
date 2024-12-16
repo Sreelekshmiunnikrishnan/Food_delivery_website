@@ -45,7 +45,7 @@ export const RestaurantDetails = () => {
              </figure>
              <div className="card-body">
                <h2 className="card-title">{menu.name}</h2>
-               <p>{menu.price}</p>
+               <p>{menu.price}/-</p>
                <div className="card-actions justify-center">
                  <Link to={`/menudetails/${menu._id}`}>
                    <button className="btn btn-primary " >More Details</button>
